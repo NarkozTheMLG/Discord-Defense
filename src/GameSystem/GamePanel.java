@@ -1,14 +1,16 @@
+package GameSystem;
 import javax.swing.JPanel;
 import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
-    // --- 1. SCREEN SETTINGS ---
+    private static final long serialVersionUID = 1L;
+	// --- 1. SCREEN SETTINGS ---
     final int originalTileSize = 16; // 16x16 tile
     final int scale = 3;
     public final int tileSize = originalTileSize * scale; // 48x48 tile
-    public final int maxScreenCol = 16;
-    public final int maxScreenRow = 12;
+    public final int maxScreenCol = 24;
+    public final int maxScreenRow = 16;
     public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
     public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
@@ -18,14 +20,21 @@ public class GamePanel extends JPanel implements Runnable {
     Thread gameThread;
     int time =0;
 
+    //--- Hotbar ---
 
     // --- CONSTRUCTOR ---
     public GamePanel() {
+        Hotbar hotbar = new Hotbar();
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.white);
         this.setDoubleBuffered(true); // Improves rendering performance
         this.addKeyListener(keyH);
         this.setFocusable(true);
+        this.setLayout(null);
+        
+        hotbar.setBounds(screenWidth/2, screenHeight-hotbar.height, hotbar.width, hotbar.height);;   
+    	add(hotbar);
+    	this.setVisible(true);
     }
 
     // --- START METHOD ---
@@ -78,6 +87,5 @@ public class GamePanel extends JPanel implements Runnable {
         g2.setColor(Color.yellow);
         g2.fillRect(time*20,0, 50, 50);
 
-        g2.dispose();
     }
 }

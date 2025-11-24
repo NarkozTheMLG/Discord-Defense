@@ -1,3 +1,4 @@
+package GameSystem;
 import java.awt.Color;
 import java.awt.Dimension;
 
@@ -15,31 +16,40 @@ public class MainMenu extends JPanel {
 	int w = 200;
 	int h = 70;
 	
+	int x = (Main.WIDTH-w)/2;
+	int y = (Main.HEIGHT-h)/2;
+	
+	float minFontSize = 20;
+	float maxFontSize = 30;
+	
 	public MainMenu() {
 		this.setPreferredSize(new Dimension(1024,768));
 		this.setBackground(Color.black);
 		this.setDoubleBuffered(true);
-		setLayout(null);
 		
-		JButton btnNewButton = new JButton("PLAY");
-		btnNewButton.addMouseListener(new MouseAdapter() {
+		JButton playButton = new JButton("PLAY");
+		playButton.setBounds(x, y, w, h);
+		playButton.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				btnNewButton.setBounds(400-10, 197-10, w+20, h+20);
+				playButton.setBounds(x-10, y-10, w+20, h+20);
+				playButton.setFont(playButton.getFont().deriveFont(maxFontSize));
 			}
 			@Override
 			public void mouseExited(MouseEvent e) {
-				btnNewButton.setBounds(400, 197, w, h);
-
+				playButton.setBounds(x, y, w, h);
+				playButton.setFont(playButton.getFont().deriveFont(minFontSize));
 			}
 		});
-		btnNewButton.setBackground(SystemColor.menuText);
-		btnNewButton.setForeground(new Color(255, 21, 21));
-		btnNewButton.addActionListener(new ActionListener() {
+		playButton.setBackground(SystemColor.menuText);
+		playButton.setForeground(new Color(255, 21, 21));
+		playButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				Main.startGame();
+				
 			}
 		});
-		btnNewButton.setBounds(400, 197, w, h);
-		add(btnNewButton);
+		setLayout(null);
+		add(playButton);
 	}
 }
