@@ -1,55 +1,41 @@
 package GameSystem;
+
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JPanel;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.SystemColor;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.ImageIcon;
 
 public class MainMenu extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	int w = 200;
-	int h = 70;
-	
-	int x = (Main.WIDTH-w)/2;
-	int y = (Main.HEIGHT-h)/2;
-	
+	final static int buttonWidth = 228;
+	final static int buttonHeight = 70;
+	final static int posScale = 4;
+	final static int sizeScale = 8;
+
+	int difference = -75;
+
+	int x = (Main.WIDTH - buttonWidth) / 2;
+	int y = (Main.HEIGHT - buttonHeight) / 2;
+
 	float minFontSize = 20;
 	float maxFontSize = 30;
-	
+
 	public MainMenu() {
-		this.setPreferredSize(new Dimension(1024,768));
-		this.setBackground(Color.black);
-		this.setDoubleBuffered(true);
-		
-		JButton playButton = new JButton("PLAY");
-		playButton.setBounds(x, y, w, h);
-		playButton.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseEntered(MouseEvent e) {
-				playButton.setBounds(x-10, y-10, w+20, h+20);
-				playButton.setFont(playButton.getFont().deriveFont(maxFontSize));
-			}
-			@Override
-			public void mouseExited(MouseEvent e) {
-				playButton.setBounds(x, y, w, h);
-				playButton.setFont(playButton.getFont().deriveFont(minFontSize));
-			}
-		});
-		playButton.setBackground(SystemColor.menuText);
-		playButton.setForeground(new Color(255, 21, 21));
-		playButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Main.startGame();
-				
-			}
-		});
+		setPreferredSize(new Dimension(1024, 768));
+		setBackground(Color.white);
+		setDoubleBuffered(true);
+
+		// Image Icons initialization
+		ImageIcon startImg = new ImageIcon("StartButton.png");
+		ImageIcon quitImg = new ImageIcon("QuitButton.png");
+		// Button creation
+		Button startButton = new Button(x, y + difference, startImg, "Start");
+		Button quitButton = new Button(x, y, quitImg, "Quit");
+
+		/////////////////////////////////////
 		setLayout(null);
-		add(playButton);
+		add(startButton);
+		add(quitButton);
 	}
 }
