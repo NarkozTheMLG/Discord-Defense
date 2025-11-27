@@ -39,6 +39,9 @@ public class Button extends JButton {
 			public void mouseExited(MouseEvent e) {
 				setIcon(img);
 				setBounds(x, y, width, height);
+				setContentAreaFilled(false);// this removes buttons paint
+				setBorder(null); // this removes the border around button
+				setFocusPainted(false); // this removes the border around the text
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 			}
 		});

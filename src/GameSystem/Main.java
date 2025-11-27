@@ -1,44 +1,46 @@
 package GameSystem;
 
 import javax.swing.JFrame;
+import java.awt.BorderLayout; // Import this
 
 public class Main {
 
 	static JFrame window = new JFrame();
 	static MainMenu mainMenu = new MainMenu();
 	static GamePanel gamePanel = new GamePanel();
-	final static int WIDTH = 1470;
-	final static int HEIGHT = 920;
+
+	// 1. THIS IS THE SCREEN SIZE (What the user sees)
+	final static int WIDTH = 1920;
+	final static int HEIGHT = 1080;
+	// final static int WIDTH = 1280;
+	// final static int HEIGHT = 720;
+	final static float scalerX = WIDTH / 1920f;
+	final static float scalerY = HEIGHT / 1080f;
 
 	public static void main(String[] args) {
-		// frame properties
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Discord Defense");
+		window.setLayout(new BorderLayout());
+
+		// Set the window size
 		window.setSize(WIDTH, HEIGHT);
 		window.setLocationRelativeTo(null);
-		window.setLayout(null);
 
-		// we will need to adjust this
-
+		// Add MainMenu
 		window.add(mainMenu);
-		mainMenu.setBounds(0, 0, WIDTH, HEIGHT);
 
-		// Adjusting game panel
-		gamePanel.setBounds((WIDTH - gamePanel.screenWidth) / 2, (HEIGHT - gamePanel.screenHeight) / 2,
-				gamePanel.screenWidth, gamePanel.screenHeight);
-		// Start the game loop
-		gamePanel.startGameThread();
 		window.setVisible(true);
 	}
 
 	public static void startGame() {
-		// Remove main menu then add game panel
 		window.remove(mainMenu);
 		window.add(gamePanel);
+
 		window.revalidate();
 		window.repaint();
 		gamePanel.requestFocusInWindow();
+		gamePanel.startGameThread();
 	}
 
 	public static void quitGame() {

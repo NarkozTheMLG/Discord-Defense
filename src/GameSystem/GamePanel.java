@@ -9,12 +9,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private static final long serialVersionUID = 1L;
 	// --- 1. SCREEN SETTINGS ---
 	final int originalTileSize = 16; // 16x16 tile
-	final int scale = 3;
+	final int scale = 1;
 	public final int tileSize = originalTileSize * scale; // 48x48 tile
-	public final int maxScreenCol = 24;
-	public final int maxScreenRow = 16;
-	public final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-	public final int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
 	// --- 2. SYSTEM ---
 	int FPS = 60;
@@ -27,15 +23,13 @@ public class GamePanel extends JPanel implements Runnable {
 	// --- CONSTRUCTOR ---
 	public GamePanel() {
 		hotbar = new Hotbar();
-		this.setPreferredSize(new Dimension(screenWidth, screenHeight));
-		this.setBackground(Color.white);
+		this.setBackground(Color.red);
 		this.setDoubleBuffered(true); // Improves rendering performance
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		this.setLayout(null);
 
-		hotbar.setBounds(screenWidth / 2, screenHeight - hotbar.HEIGHT, hotbar.WIDTH, hotbar.HEIGHT);
-		;
+		hotbar.setBounds(Main.WIDTH / 2, Main.HEIGHT - hotbar.HEIGHT - 28, hotbar.WIDTH, hotbar.HEIGHT);
 		add(hotbar);
 		this.setVisible(true);
 	}
@@ -79,12 +73,24 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// --- UPDATE (Logic) ---
 	public void update() {
-		if(keyH.isPressedOnce(KeyEvent.VK_C)) {hotbar.useItem(0);}	
-		if(keyH.isPressedOnce(KeyEvent.VK_V)) {hotbar.useItem(1);}	
-		if(keyH.isPressedOnce(KeyEvent.VK_B)) {hotbar.useItem(2);}	
-		if(keyH.isPressedOnce(KeyEvent.VK_N)) {hotbar.useItem(3);}	
-		if(keyH.isPressedOnce(KeyEvent.VK_M)) {hotbar.useItem(4);}	
-		if(keyH.isPressedOnce(KeyEvent.VK_SPACE)) {hotbar.addItem(0);}	
+		if (keyH.isPressedOnce(KeyEvent.VK_C)) {
+			hotbar.useItem(0);
+		}
+		if (keyH.isPressedOnce(KeyEvent.VK_V)) {
+			hotbar.useItem(1);
+		}
+		if (keyH.isPressedOnce(KeyEvent.VK_B)) {
+			hotbar.useItem(2);
+		}
+		if (keyH.isPressedOnce(KeyEvent.VK_N)) {
+			hotbar.useItem(3);
+		}
+		if (keyH.isPressedOnce(KeyEvent.VK_M)) {
+			hotbar.useItem(4);
+		}
+		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
+			hotbar.addItem(0);
+		}
 	}
 
 	// --- DRAW (Rendering) ---

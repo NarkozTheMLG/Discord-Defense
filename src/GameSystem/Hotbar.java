@@ -17,8 +17,8 @@ import javax.swing.SwingConstants;
 
 public class Hotbar extends JPanel {
 	private static final long serialVersionUID = 1L;
-	public final int WIDTH = 480;
-	public final int HEIGHT = 96;
+	public final int WIDTH = (int) (480 * (Main.WIDTH / 1920.0));
+	public final int HEIGHT = (int) (96 * (Main.HEIGHT / 1080.0));
 	public final int BOXSIZE = 96;
 
 	public Items[] inventory = new Items[5];
@@ -46,7 +46,6 @@ public class Hotbar extends JPanel {
 			}
 		}
 	}
-	
 
 	public void useItem(int slot) {
 		if (inventory[slot] == null)
@@ -58,13 +57,15 @@ public class Hotbar extends JPanel {
 
 	public Hotbar() {
 		try {
-			BufferedImage backgroundImg = ImageIO.read(new File("hotbar.png"));
+			System.out.print(WIDTH);
+			BufferedImage backgroundImg = ImageIO.read(new File("img/hotbar.png"));
 			setBounds(0, 0, WIDTH, HEIGHT);
 			setLayout(new GridLayout(1, 5, 0, 0));
 			for (int i = 0; i < myLabels.length; i++) {
 				BufferedImage subImage = backgroundImg.getSubimage(i * BOXSIZE, 0, BOXSIZE, BOXSIZE);
+				Image scaledSub = subImage.getScaledInstance(WIDTH / myLabels.length, HEIGHT, Image.SCALE_REPLICATE);
 				myLabels[i] = new JLabel();
-				myLabels[i].setIcon(new ImageIcon(subImage));
+				myLabels[i].setIcon(new ImageIcon(scaledSub));
 				myLabels[i].setOpaque(true);
 				myLabels[i].setBackground(Color.GRAY);
 				myLabels[i].setHorizontalAlignment(SwingConstants.CENTER);
