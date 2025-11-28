@@ -1,6 +1,11 @@
 package GameSystem;
 
 import javax.swing.JPanel;
+
+import ui_items.EnergyBar;
+import ui_items.Hotbar;
+import ui_items.Lanes;
+
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
@@ -15,8 +20,10 @@ public class GamePanel extends JPanel implements Runnable {
 	// --- 2. SYSTEM ---
 	int FPS = 60;
 	KeyInput keyH = new KeyInput();
+	
 	Hotbar hotbar;
 	EnergyBar energyBar;
+	Lanes lanes;
 	Thread gameThread;
 	int time = 0;
 
@@ -25,15 +32,18 @@ public class GamePanel extends JPanel implements Runnable {
 	public GamePanel() {
 		hotbar = new Hotbar();
 		energyBar = new EnergyBar();
-		this.setBackground(Color.red);
+		lanes = new Lanes();
+		this.setBackground(Color.gray);
+		this.setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
 		this.setDoubleBuffered(true); // Improves rendering performance
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		this.setLayout(null);
 
-		hotbar.setBounds((Main.WIDTH - hotbar.WIDTH), Main.HEIGHT - hotbar.HEIGHT-28, hotbar.WIDTH, hotbar.HEIGHT);
+		hotbar.setBounds((Main.WIDTH - hotbar.WIDTH), Main.HEIGHT - hotbar.HEIGHT, hotbar.WIDTH, hotbar.HEIGHT);
 		add(hotbar);
 		add(energyBar);
+		add(lanes);
 		this.setVisible(true);
 	}
 
@@ -70,6 +80,8 @@ public class GamePanel extends JPanel implements Runnable {
 				timer = 0;
 				drawCount = 0;
 				time++;
+				energyBar.updateBars();
+				EnergyBar.curEnergy++;
 			}
 		}
 	}
@@ -94,15 +106,20 @@ public class GamePanel extends JPanel implements Runnable {
 		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
 			hotbar.addItem(0);
 		}
-	}
 
+	}
 	// --- DRAW (Rendering) ---
 	@Override
 	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-		Graphics2D g2 = (Graphics2D) g;
-		g2.setColor(Color.yellow);
-		g2.fillRect(time * 20, 0, 50, 50);
-
+	    super.paintComponent(g); 
+	}
+	@Override
+	public void paintChildren(Graphics g) { //This draws AFTER the labels dont forget 
+	    super.paintChildren(g); 
+	    
+	    Graphics2D g2 = (Graphics2D) g;
+	    
+	    g2.setColor(Color.yellow);
+	    g2.fillRect(Main.WIDTH-50-(time * 20), 0, 50, 50); 
 	}
 }

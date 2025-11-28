@@ -1,25 +1,26 @@
-package GameSystem;
+package ui_items;
 
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.swing.SwingConstants;
 
+import GameSystem.Items;
+import GameSystem.Main;
+
 public class Hotbar extends JPanel {
 	private static final long serialVersionUID = 1L;
-	private float scaler = 1.4f;
-	public final int WIDTH = (int) (scaler * 480 * (Main.WIDTH / 1920.0));
-	public final int HEIGHT = (int)(scaler * 96 * (Main.HEIGHT / 1080.0));
+	private float scaler = 1.33f;
+	public final int WIDTH = (int)Math.ceil(scaler * 480 * (Main.WIDTH / 1920.0));
+	public final int HEIGHT = (int)Math.ceil(scaler * 96 * (Main.HEIGHT / 1080.0));
 	public final int BOXSIZE = 96;
 
 	public Items[] inventory = new Items[5];
@@ -34,9 +35,9 @@ public class Hotbar extends JPanel {
 					int itemW = inventory[i].getWidth();
 					int itemH = inventory[i].getHeight();
 					ImageIcon iceImg = inventory[i].getImage();
-					Image scaledImg = iceImg.getImage().getScaledInstance(itemW * 3, itemH * 3, Image.SCALE_SMOOTH);
+					Image scaledImg = iceImg.getImage().getScaledInstance(itemW, itemH , Image.SCALE_SMOOTH);
 					JLabel itemLabel = new JLabel();
-					itemLabel.setBounds(((BOXSIZE - itemW * 3)) / 2, 8, itemW * 3, itemH * 3);
+					itemLabel.setBounds(((WIDTH/5 - itemW))/ 2, (HEIGHT-itemH)/2, itemW, itemH);
 					itemLabel.setIcon(new ImageIcon(scaledImg));
 					itemLabel.setOpaque(false);
 					itemLabel.setBackground(Color.GRAY);
@@ -51,8 +52,8 @@ public class Hotbar extends JPanel {
 	public void useItem(int slot) {
 		if (inventory[slot] == null)
 			return;
-
 		inventory[slot].use();
+		inventory[slot] = null;
 		myLabels[slot].removeAll();
 	}
 
@@ -67,10 +68,6 @@ public class Hotbar extends JPanel {
 				Image scaledSub = subImage.getScaledInstance(WIDTH / myLabels.length, HEIGHT, Image.SCALE_REPLICATE);
 				myLabels[i] = new JLabel();
 				myLabels[i].setIcon(new ImageIcon(scaledSub));
-				myLabels[i].setOpaque(true);
-				myLabels[i].setBackground(Color.GRAY);
-				myLabels[i].setHorizontalAlignment(SwingConstants.CENTER);
-				myLabels[i].setBorder(new EmptyBorder(0, 0, 0, 0));
 				add(myLabels[i]);
 				myLabels[i].setLayout(null);
 			}

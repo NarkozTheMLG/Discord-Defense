@@ -4,19 +4,19 @@ import javax.swing.ImageIcon;
 
 public class Items {
 	int id;
-	static int count = 0;
+	static public int count = 0;
 	private int width;
 	private int height;
 	ImageIcon img;
 
-	Items(int id, int order) {
+	public Items(int id, int order) {
 		count++;
 		this.id = id;
 		switch (id) {
 		case 0: {
-			img = new ImageIcon("ice.png");
-			width = 17;
-			height = 17;
+			img = new ImageIcon("img/ice.png");
+			width = (int)(68 * Main.scalerX);
+			height = (int)(68 * Main.scalerY);
 			break;
 		}
 		default:
@@ -29,7 +29,7 @@ public class Items {
 		count--;
 	}
 
-	ImageIcon getImage() {
+	public ImageIcon getImage() {
 		return img;
 	}
 

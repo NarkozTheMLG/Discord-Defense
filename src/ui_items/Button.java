@@ -1,6 +1,5 @@
-package GameSystem;
+package ui_items;
 
-import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -10,7 +9,10 @@ import java.awt.event.MouseEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
+import GameSystem.Main;
+
 public class Button extends JButton {
+	private static final long serialVersionUID = 1L;
 	private int posScale = 4;
 	private int sizeScale = 8;
 	private int width = (int)(456 * Main.scalerX);
@@ -27,6 +29,8 @@ public class Button extends JButton {
 		ImageIcon hoverImg = new ImageIcon(quitScaledImg);
 		//
 		this.setIcon(img);
+		this.setOpaque(false);
+		this.setContentAreaFilled(false);
 		this.setBounds(x, y, width, height);
 		this.setBorder(null); // this removes the border around button
 		// event handlers //
@@ -50,6 +54,8 @@ public class Button extends JButton {
 					Main.startGame();
 				else if (type.equalsIgnoreCase("Quit"))
 					Main.quitGame();
+				else if (type.equalsIgnoreCase("Settings"))
+					Main.settings();
 
 			}
 		});
