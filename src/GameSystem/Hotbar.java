@@ -17,8 +17,9 @@ import javax.swing.SwingConstants;
 
 public class Hotbar extends JPanel {
 	private static final long serialVersionUID = 1L;
-	public final int WIDTH = (int) (480 * (Main.WIDTH / 1920.0));
-	public final int HEIGHT = (int) (96 * (Main.HEIGHT / 1080.0));
+	private float scaler = 1.4f;
+	public final int WIDTH = (int) (scaler * 480 * (Main.WIDTH / 1920.0));
+	public final int HEIGHT = (int)(scaler * 96 * (Main.HEIGHT / 1080.0));
 	public final int BOXSIZE = 96;
 
 	public Items[] inventory = new Items[5];
@@ -57,7 +58,7 @@ public class Hotbar extends JPanel {
 
 	public Hotbar() {
 		try {
-			System.out.print(WIDTH);
+			this.setOpaque(false);
 			BufferedImage backgroundImg = ImageIO.read(new File("img/hotbar.png"));
 			setBounds(0, 0, WIDTH, HEIGHT);
 			setLayout(new GridLayout(1, 5, 0, 0));

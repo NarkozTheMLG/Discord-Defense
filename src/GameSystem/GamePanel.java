@@ -16,6 +16,7 @@ public class GamePanel extends JPanel implements Runnable {
 	int FPS = 60;
 	KeyInput keyH = new KeyInput();
 	Hotbar hotbar;
+	EnergyBar energyBar;
 	Thread gameThread;
 	int time = 0;
 
@@ -23,14 +24,16 @@ public class GamePanel extends JPanel implements Runnable {
 	// --- CONSTRUCTOR ---
 	public GamePanel() {
 		hotbar = new Hotbar();
+		energyBar = new EnergyBar();
 		this.setBackground(Color.red);
 		this.setDoubleBuffered(true); // Improves rendering performance
 		this.addKeyListener(keyH);
 		this.setFocusable(true);
 		this.setLayout(null);
 
-		hotbar.setBounds(Main.WIDTH / 2, Main.HEIGHT - hotbar.HEIGHT - 28, hotbar.WIDTH, hotbar.HEIGHT);
+		hotbar.setBounds((Main.WIDTH - hotbar.WIDTH), Main.HEIGHT - hotbar.HEIGHT-28, hotbar.WIDTH, hotbar.HEIGHT);
 		add(hotbar);
+		add(energyBar);
 		this.setVisible(true);
 	}
 

@@ -15,13 +15,11 @@ public class MainMenu extends JPanel {
 
 	final public static int buttonWidth = (int) (456 * Main.scalerX);
 	final public static int buttonHeight = (int) (140 * Main.scalerY);
-	final public static int posScale = 4;
-	final public static int sizeScale = 8;
+
 	private int difference = (int) (-150 * Main.scalerY);
 	private int buttonX = (int) ((float) (Main.WIDTH - buttonWidth) / 2);
 	private int buttonY = (int) (((float) (Main.HEIGHT - buttonHeight + TitlePanel.titleHeight - 20)) / 2);
-	float minFontSize = 20;
-	float maxFontSize = 30;
+
 
 	public MainMenu() {
 		//
