@@ -31,7 +31,7 @@ public class Hotbar extends JPanel {
 			System.out.println("Added item: " + id);
 			for (int i = 0; i < myLabels.length; i++) {
 				if (myLabels[i].getComponentCount() == 0) {
-					inventory[i] = new Items(id, i);
+					inventory[i] = new Items(id, i); //has a relationship
 					int itemW = inventory[i].getWidth();
 					int itemH = inventory[i].getHeight();
 					ImageIcon iceImg = inventory[i].getImage();
