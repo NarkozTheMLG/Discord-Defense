@@ -1,6 +1,8 @@
 package ui_items;
 
 import java.awt.GridLayout;
+import java.util.Arrays;
+import java.util.Collections;
 import java.awt.Image;
 
 import javax.swing.ImageIcon;
@@ -21,8 +23,10 @@ public class Lanes extends JPanel{
 		setLayout(new GridLayout(7,1,0,0));
 		setOpaque(false);
 		setBounds(x,0,width,height);
+		Integer[] randLanes = {0,1,2,3,4,5,6};
+		Collections.shuffle(Arrays.asList(randLanes));
 		for(int i = 0 ; i < 7; i++) {
-		ImageIcon laneRaw = new ImageIcon("img/redLane.png");
+		ImageIcon laneRaw = new ImageIcon("img/lanes/laneNo"+randLanes[i]+".png");
 		Image laneImg = laneRaw.getImage().getScaledInstance(width, laneHeight, Image.SCALE_SMOOTH);
 		JLabel laneLabel = new JLabel(new ImageIcon(laneImg));
 		add(laneLabel);}
