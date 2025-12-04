@@ -13,6 +13,9 @@ import javax.swing.JLabel;
 public class MainMenu extends JPanel {
 	private static final long serialVersionUID = 1L;
 
+	static SettingsMenu settingsMenu = new SettingsMenu();
+	static public boolean isSettingsMenuActive = false;
+	
 	final public static int buttonWidth = (int) (456 * Main.scalerX);
 	final public static int buttonHeight = (int) (140 * Main.scalerY);
 
@@ -35,18 +38,14 @@ public class MainMenu extends JPanel {
 		TitlePanel title = new TitlePanel();
 		//
 		setDoubleBuffered(true);
-		// Image Icons initialization
-		ImageIcon startImgRaw = new ImageIcon("img/buttons/StartButton.png");
-		Image startImg = startImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
-		ImageIcon settingsImgRaw = new ImageIcon("img/buttons/SettingsButton.png");
-		Image settingsImg= settingsImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
-		ImageIcon quitImgRaw = new ImageIcon("img/buttons/QuitButton.png");
-		Image quitImg = quitImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
+
 		
 		// Button creation
-		Button startButton = new Button(buttonX, buttonY + 3*difference, new ImageIcon(startImg), "Start");
-		Button settingsButton = new Button(buttonX, buttonY +2* difference, new ImageIcon(settingsImg), "Settings");
-		Button quitButton = new Button(buttonX, buttonY + difference, new ImageIcon(quitImg), "Quit");
+		int bw = buttonWidth;
+		int bh = buttonHeight;
+		Button startButton = new Button(buttonX, buttonY + 3*difference,bw,bh,"buttons/StartButton", "Start",false);
+		Button settingsButton = new Button(buttonX, buttonY +2* difference,bw,bh, "buttons/SettingsButton", "Settings",false);
+		Button quitButton = new Button(buttonX, buttonY + difference,bw,bh, "buttons/QuitButton", "Quit",false);
 
 		/////////////////////////////////////
 		setLayout(null);
@@ -56,5 +55,10 @@ public class MainMenu extends JPanel {
 		add(title);
 		add(splashScreen);
 	}
+	public void settingsMenu() {
+		isSettingsMenuActive = true;
+		add(settingsMenu);
+		setComponentZOrder(settingsMenu, 0);
 
+	}
 }

@@ -1,7 +1,6 @@
 package GameSystem;
 
 import javax.swing.JFrame;
-
 import ui_items.MainMenu;
 
 public class Main {
@@ -9,7 +8,6 @@ public class Main {
 	static JFrame window = new JFrame();
 	static MainMenu mainMenu = new MainMenu();
 	static GamePanel gamePanel = new GamePanel();
-
 	// 1. THIS IS THE SCREEN SIZE (What the user sees)
 	final static public int WIDTH = 1920;
 	final static public int HEIGHT = 1080;
@@ -46,6 +44,8 @@ public class Main {
 		System.exit(0);
 	}
 	public static void settings() {
-		
+		mainMenu.settingsMenu();
+		window.revalidate(); 
+	    window.repaint();
 	}
 }
