@@ -1,6 +1,7 @@
 package ui_items;
 
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.awt.Image;
@@ -19,6 +20,7 @@ public class Lanes extends JPanel{
 	final public int laneCount = 7; 
 	public int laneHeight = (int)((height / laneCount)*Main.scalerY) ;
 	public int x = (int)(400*Main.scalerX);
+	
 	public Lanes() {
 		setLayout(new GridLayout(7,1,0,0));
 		setOpaque(false);
@@ -26,10 +28,11 @@ public class Lanes extends JPanel{
 		Integer[] randLanes = {0,1,2,3,4,5,6};
 		Collections.shuffle(Arrays.asList(randLanes));
 		for(int i = 0 ; i < 7; i++) {
-		ImageIcon laneRaw = new ImageIcon("img/lanes/laneNo"+randLanes[i]+".png");
-		Image laneImg = laneRaw.getImage().getScaledInstance(width, laneHeight, Image.SCALE_SMOOTH);
-		JLabel laneLabel = new JLabel(new ImageIcon(laneImg));
-		add(laneLabel);}
+			ImageIcon laneRaw = new ImageIcon("img/lanes/laneNo"+randLanes[i]+".png");
+			Image laneImg = laneRaw.getImage().getScaledInstance(width, laneHeight, Image.SCALE_SMOOTH);
+			JLabel laneLabel = new JLabel(new ImageIcon(laneImg));
+			add(laneLabel);
+			}
 
 	}
 }

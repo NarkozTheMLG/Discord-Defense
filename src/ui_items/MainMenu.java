@@ -36,11 +36,11 @@ public class MainMenu extends JPanel {
 		//
 		setDoubleBuffered(true);
 		// Image Icons initialization
-		ImageIcon startImgRaw = new ImageIcon("img/StartButton.png");
+		ImageIcon startImgRaw = new ImageIcon("img/buttons/StartButton.png");
 		Image startImg = startImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
-		ImageIcon settingsImgRaw = new ImageIcon("img/SettingsButton.png");
+		ImageIcon settingsImgRaw = new ImageIcon("img/buttons/SettingsButton.png");
 		Image settingsImg= settingsImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
-		ImageIcon quitImgRaw = new ImageIcon("img/QuitButton.png");
+		ImageIcon quitImgRaw = new ImageIcon("img/buttons/QuitButton.png");
 		Image quitImg = quitImgRaw.getImage().getScaledInstance(buttonWidth, buttonHeight, Image.SCALE_REPLICATE);
 		
 		// Button creation

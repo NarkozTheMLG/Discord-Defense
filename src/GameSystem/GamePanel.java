@@ -1,5 +1,7 @@
 package GameSystem;
 
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import ui_items.EnergyBar;
@@ -24,15 +26,16 @@ public class GamePanel extends JPanel implements Runnable {
 	Hotbar hotbar;
 	EnergyBar energyBar;
 	Lanes lanes;
+	JLabel background;
 	Thread gameThread;
 	int time = 0;
 
-	// --- Hotbar ---
-	// --- CONSTRUCTOR ---
+		// --- CONSTRUCTOR ---
 	public GamePanel() {
 		hotbar = new Hotbar();
 		energyBar = new EnergyBar();
 		lanes = new Lanes();
+		background = setUpBackground();
 		this.setBackground(Color.gray);
 		this.setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
 		this.setDoubleBuffered(true); // Improves rendering performance
@@ -44,6 +47,7 @@ public class GamePanel extends JPanel implements Runnable {
 		add(hotbar);
 		add(energyBar);
 		add(lanes);
+		add(background);
 		this.setVisible(true);
 	}
 
@@ -53,6 +57,14 @@ public class GamePanel extends JPanel implements Runnable {
 		gameThread.start();
 	}
 
+	private JLabel setUpBackground() {
+		JLabel background = new JLabel();
+		ImageIcon backgroundImgRaw = new ImageIcon("img/background.png");
+		Image backgroundImg= backgroundImgRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT, Image.SCALE_REPLICATE);
+		background.setIcon(new ImageIcon(backgroundImg));
+		background.setBounds(0,0,Main.WIDTH,Main.HEIGHT);
+		return background;
+	}
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {

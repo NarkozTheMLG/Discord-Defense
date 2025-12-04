@@ -14,7 +14,7 @@ public class Items {
 		this.id = id;
 		switch (id) {
 		case 0: {
-			img = new ImageIcon("img/ice.png");
+			img = new ImageIcon("img/items/ice.png");
 			width = (int)(68 * Main.scalerX);
 			height = (int)(68 * Main.scalerY);
 			break;

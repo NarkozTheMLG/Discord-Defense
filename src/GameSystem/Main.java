@@ -11,8 +11,8 @@ public class Main {
 	static GamePanel gamePanel = new GamePanel();
 
 	// 1. THIS IS THE SCREEN SIZE (What the user sees)
-	final static public int WIDTH = 1280;
-	final static public int HEIGHT = 720;
+	final static public int WIDTH = 1920;
+	final static public int HEIGHT = 1080;
 	// final static int WIDTH = 1280;
 	// final static int HEIGHT = 720;
 	final static public float scalerX = WIDTH / 1920f;
