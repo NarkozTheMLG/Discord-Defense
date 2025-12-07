@@ -1,4 +1,5 @@
 /.DS_Store
 /GameSystem/
 /ui_items/
-/Enemy.class
+/Character.class
+/Piano.class
