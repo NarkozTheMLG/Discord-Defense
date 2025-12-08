@@ -29,4 +29,12 @@ public class ResolutionSettings extends JPanel{
 		this.add(res1280);
 
 	}
+	
+	public static void changeResolution(int w,int h) {
+		Main.WIDTH = w;
+		Main.HEIGHT = h;
+		Main.updateScreen();
+	}
+	
+	
 }

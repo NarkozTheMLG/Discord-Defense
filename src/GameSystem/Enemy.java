@@ -16,15 +16,6 @@ public abstract class Enemy extends Character implements EnemyInterface{
 		this.enemyList = new ArrayList<>();
 	}
 	
-	@Override
-	public void takeDamage() {
-		
-	}
-	
-	@Override
-    public void attack() {
-        System.out.println("Enemy is attacking!");
-    }
 	public void moveTo(double x, double y) {
         System.out.println("Moving to coordinates: " + x + ", " + y);
     }
@@ -50,5 +41,14 @@ public abstract class Enemy extends Character implements EnemyInterface{
 	public void respawn() {
         System.out.println("Enemy respawned.");
     }
+	@Override
+	public void takeDamage() {
+		
+	}
+	
+	@Override
+	public void attack() {
+		System.out.println("Enemy is attacking!");
+	}
 
 }

@@ -1,6 +1,6 @@
 package GameSystem;
 
-public class TypeB {
+public class TypeB extends Enemy{
 	private double distance;
 
     public double getDistance() {

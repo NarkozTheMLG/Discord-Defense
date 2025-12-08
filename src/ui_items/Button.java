@@ -12,6 +12,7 @@ import javax.swing.JButton;
 import GameSystem.Main;
 
 public class Button extends JButton {
+	
 	private static final long serialVersionUID = 1L;
 	private int posScale;
 	private int sizeScale;
@@ -73,6 +74,10 @@ public class Button extends JButton {
 					Main.quitGame();
 				else if (type.equalsIgnoreCase("Settings"))
 					Main.settings();
+				else if (type.equalsIgnoreCase("1920"))
+					ResolutionSettings.changeResolution(1920, 1080);
+				else if (type.equalsIgnoreCase("1280"))
+					ResolutionSettings.changeResolution(1280, 720);
 			}
 		});
 	}

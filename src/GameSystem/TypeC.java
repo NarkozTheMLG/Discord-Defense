@@ -1,6 +1,6 @@
 package GameSystem;
 
-public class TypeC {
+public class TypeC extends Enemy{
 	private double distance;
 
     public double getDistance() {

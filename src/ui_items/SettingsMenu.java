@@ -11,8 +11,8 @@ public class SettingsMenu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public static int width = (int)(Main.WIDTH * 0.8);
 	public int height = (int)(Main.HEIGHT * 0.8);
-	ResolutionSettings resSettings = new ResolutionSettings();
 	
+	ResolutionSettings resSettings = new ResolutionSettings();
 	ImageIcon settingsUIRaw = new ImageIcon("img/settingsUI2.png");
 	Image settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
 	

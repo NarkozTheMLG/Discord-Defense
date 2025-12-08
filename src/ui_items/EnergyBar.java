@@ -18,18 +18,28 @@ public class EnergyBar extends JPanel {
 	private float imageRatioH = 120 / 320f; // 320 Original Height of img
 
 	//
-	public static int width = (int) (1280 * Main.scalerX); 
-	public static int height = (int) (120 * Main.scalerY); 
+	public static int width;
+	public static int height;
 	//
-	private JLabel[] bars = new JLabel[maxEnergy];
-	private int barW = (int) (60 * imageRatioW * Main.scalerX);
-	private int barH = (int) (189 * imageRatioH * Main.scalerY);
-	private int barX = (int) (75 * imageRatioW * Main.scalerX);
-	private int barY = (int) (70 * imageRatioH * Main.scalerY);
-	private int barDifValue = (int) (24 * imageRatioW * Main.scalerX);
+	private JLabel[] bars;
+	private int barW;
+	private int barH;
+	private int barX;
+	private int barY;
+	private int barDifValue;
 	//
 
 	public EnergyBar() {
+		width = (int) (1280 * Main.scalerX);
+		height = (int) (120 * Main.scalerY);
+		//
+		bars = new JLabel[maxEnergy];
+		barW = (int) (60 * imageRatioW * Main.scalerX);
+		barH = (int) (189 * imageRatioH * Main.scalerY);
+		barX = (int) (75 * imageRatioW * Main.scalerX);
+		barY = (int) (70 * imageRatioH * Main.scalerY);
+		barDifValue = (int) (24 * imageRatioW * Main.scalerX);
+		//
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.setBounds(0, Main.HEIGHT - height, width, height); // 2175,365
@@ -48,22 +58,19 @@ public class EnergyBar extends JPanel {
 			add(bars[i]);
 		}
 		add(energyBarLabel);
-		
-
 	}
 
 	public void updateBars() {
-		System.out.println(curEnergy);
-		if(curEnergy >= maxEnergy-1)
-			curEnergy = maxEnergy-1;
-		for(int i = 0 ; i <= curEnergy;i++) {
+		if (curEnergy >= maxEnergy - 1)
+			curEnergy = maxEnergy - 1;
+		for (int i = 0; i <= curEnergy; i++) {
 			bars[i].setVisible(true);
 		}
-		for(int i = curEnergy+1;i<maxEnergy;i++) {
+		for (int i = curEnergy + 1; i < maxEnergy; i++) {
 			bars[i].setVisible(false);
 		}
 	}
-	
+
 	private Color getColor(int i) {
 		switch (i) {
 		case 0:

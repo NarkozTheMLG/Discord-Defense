@@ -9,27 +9,36 @@ import java.awt.*;
 public class TitlePanel extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	public static int titleWidth = (int) (1050 * Main.scalerX); // 700
-	public static int titleHeight = (int) (600 * Main.scalerY); // 400
+	public int titleWidth; // 700
+	public int titleHeight; // 400
 	//
-	final private float titleStartWidth = titleWidth;
-	final private float titleEndWidth = titleWidth + 70;;
-	final private float titleStartHeight = titleHeight;
-	final private float titleEndHeight = titleHeight + 40;;
+	private float titleStartWidth;
+	private float titleEndWidth;
+	private float titleStartHeight;
+	private float titleEndHeight;
 
+	private Timer timer;
 	private double time = 0;
 
 	ImageIcon titleRaw = new ImageIcon("img/title.png");
 
 	public TitlePanel() {
+		titleWidth = (int) (1050 * Main.scalerX);
+		titleHeight = (int) (600 * Main.scalerY);
+		titleStartWidth = titleWidth;
+		titleEndWidth = titleWidth + 70;;
+		titleStartHeight = titleHeight;
+		titleEndHeight = titleHeight + 40;;
 		setOpaque(false);
 		System.out.println("Size: " + titleEndWidth);
 
 		setBounds(0, -30, (int) titleEndWidth + 500, (int) titleEndHeight);
-		new javax.swing.Timer(25, e -> {
+		
+		timer = new javax.swing.Timer(25, e -> {
 			updateAnimation();
 			repaint();
-		}).start();
+		});
+		timer.start();
 	}
 
 	public void updateAnimation() {
@@ -67,5 +76,12 @@ public class TitlePanel extends JPanel {
 			System.out.print("error");
 		g2.drawImage(titleRaw.getImage(), x, y, titleWidth, titleHeight, null);
 	}
+	@Override
+    public void removeNotify() {
+        super.removeNotify();
+        if (timer != null && timer.isRunning()) {
+            timer.stop(); // Kills the "Zombie" timer
+        }
+    }
 
 }

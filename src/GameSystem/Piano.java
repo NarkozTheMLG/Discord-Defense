@@ -20,7 +20,6 @@ public class Piano extends Character{
 	
 	@Override
 	public void takeDamage() {
-		// TODO Auto-generated method stub
 		
 	}
 
