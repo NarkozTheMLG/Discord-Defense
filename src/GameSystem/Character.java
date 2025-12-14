@@ -1,14 +1,40 @@
 package GameSystem;
+import java.awt.Rectangle;
 
 public abstract class Character {
-
-	protected double damage;
+	
+	//declarations
+	protected double x;
+	protected double y;
 	protected double hp;
+	protected int width;
+	protected int height;
 	
-	Character(){
-		
+	//Constructor
+	public Character(double x, double y, int w, int h) {
+		this.x = x;
+		this.y = y;
+		this.width = w;
+		this.height = h;
 	}
+	//abstract methods
+	public abstract void update();
 	
-	public abstract void takeDamage();
+	//methods
+	public Rectangle getBound() {
+		return new Rectangle((int)x, (int)y, width, height); //Rectangle holds int 
+	}
+
+	public double getX(){
+		return x;
+		}
+    public double getY(){
+    	return y;
+    	}
+    public boolean isDead(){
+    	if(hp <= 0)
+    		return true;
+    	return false;
+    	}
 }
 
