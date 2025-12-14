@@ -12,7 +12,7 @@ import GameSystem.Main;
 public class EnergyBar extends JPanel {
 	private static final long serialVersionUID = 1L;
 	public static int maxEnergy = 22;
-	public static int curEnergy = 0;
+	public static int curEnergy = -1;
 	//
 	private float imageRatioW = 1280 / 1900f; // 1900 Original Width of img
 	private float imageRatioH = 120 / 320f; // 320 Original Height of img
@@ -63,6 +63,8 @@ public class EnergyBar extends JPanel {
 	public void updateBars() {
 		if (curEnergy >= maxEnergy - 1)
 			curEnergy = maxEnergy - 1;
+		else if(curEnergy < -1)
+			curEnergy = -1;
 		for (int i = 0; i <= curEnergy; i++) {
 			bars[i].setVisible(true);
 		}

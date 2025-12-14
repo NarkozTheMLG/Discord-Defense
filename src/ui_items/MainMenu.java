@@ -13,7 +13,7 @@ import javax.swing.JLabel;
 public class MainMenu extends JPanel {
 	private static final long serialVersionUID = 1L;
 
-	static SettingsMenu settingsMenu;
+	public static SettingsMenu settingsMenu;
 	static public boolean isSettingsMenuActive = false;
 	
 	public int buttonWidth;
@@ -69,5 +69,13 @@ public class MainMenu extends JPanel {
 		add(settingsMenu);
 		setComponentZOrder(settingsMenu, 0);
 
+	}
+	public void removeSettingsMenu() {
+		Main.window.removeMouseListener(Main.mouseListener); 
+		isSettingsMenuActive = false;
+		remove(settingsMenu);
+		Main.window.revalidate();
+	    Main.window.repaint();
+	    Main.window.requestFocus();
 	}
 }

@@ -20,6 +20,15 @@ public class Button extends JButton {
 	private int height;// 140 for main menu
 	private int scaledW;
 	private int scaledH;
+	
+	private boolean on = false;
+	
+	ImageIcon hoverImg;
+	
+	ImageIcon mainImgOnRaw;
+	Image mainOnImg;
+	ImageIcon mainOnImageIcon;
+	
 	Button(int x, int y,int w,int h, String img, String type,boolean settingsItem) {
 		this.width = w;
 		this.height = h;
@@ -39,15 +48,52 @@ public class Button extends JButton {
 		ImageIcon mainImgRaw = new ImageIcon("img/"+img+".png");
 		Image mainImg = mainImgRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
 		ImageIcon mainImageIcon = new ImageIcon(mainImg);
-		
-		Image scaledImg = mainImg.getScaledInstance(scaledW, scaledH, Image.SCALE_REPLICATE);
-		ImageIcon hoverImg = new ImageIcon(scaledImg);
+		//
+
 		//
 		this.setIcon(mainImageIcon);
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
 		this.setBounds(x, y, width, height);
 		this.setBorder(null); // this removes the border around button
+		
+		//
+		
+		if(settingsItem) {
+			 mainImgOnRaw = new ImageIcon("img/"+img+"on"+".png");
+			 mainOnImg = mainImgOnRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
+			 mainOnImageIcon = new ImageIcon(mainOnImg);
+			if(Main.WIDTH == 1920 && type.equals("1920")) {
+				setIcon(mainOnImageIcon);
+				on=true;
+				repaint();				
+			}
+			else if(Main.WIDTH == 1280 && type.equals("1280")) {
+				setIcon(mainOnImageIcon);
+				on=true;
+				repaint();				
+			}
+			else if(Main.isFullScreen == false && type.equals("windowed")) {
+				setIcon(mainOnImageIcon);
+				on=true;
+				repaint();				
+			}
+			else if(Main.isFullScreen == true && type.equals("fullscreen")) {
+				setIcon(mainOnImageIcon);
+				on=true;
+				repaint();				
+			}
+		}
+		//
+		if(on) {
+			
+			Image scaledImg = mainOnImg.getScaledInstance(scaledW, scaledH, Image.SCALE_REPLICATE);
+			hoverImg = new ImageIcon(scaledImg);
+		}
+		else {
+			Image scaledImg = mainImg.getScaledInstance(scaledW, scaledH, Image.SCALE_REPLICATE);
+			hoverImg = new ImageIcon(scaledImg);
+		}
 		// event handlers //
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
@@ -59,7 +105,10 @@ public class Button extends JButton {
 
 			public void mouseExited(MouseEvent e) {
 				if(MainMenu.isSettingsMenuActive && !settingsItem) return; 
-				setIcon(mainImageIcon);
+				if(on)
+					setIcon(mainOnImageIcon);
+				else
+					setIcon(mainImageIcon);
 				setBounds(x, y, width, height);
 				setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 				setBorder(null); // this removes the border around button
@@ -75,9 +124,13 @@ public class Button extends JButton {
 				else if (type.equalsIgnoreCase("Settings"))
 					Main.settings();
 				else if (type.equalsIgnoreCase("1920"))
-					ResolutionSettings.changeResolution(1920, 1080);
+					SettingsRow.changeResolution(1920, 1080);
 				else if (type.equalsIgnoreCase("1280"))
-					ResolutionSettings.changeResolution(1280, 720);
+					SettingsRow.changeResolution(1280, 720);
+				else if (type.equalsIgnoreCase("windowed"))
+					SettingsRow.setFullscreen(false);
+				else if (type.equalsIgnoreCase("fullscreen"))
+					SettingsRow.setFullscreen(true);
 			}
 		});
 	}

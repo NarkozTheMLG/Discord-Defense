@@ -1,5 +1,6 @@
 package ui_items;
 
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
 
@@ -11,33 +12,57 @@ public class SettingsMenu extends JPanel{
 	private static final long serialVersionUID = 1L;
 	public static int width = (int)(Main.WIDTH * 0.8);
 	public int height = (int)(Main.HEIGHT * 0.8);
-	
-	ResolutionSettings resSettings = new ResolutionSettings();
-	ImageIcon settingsUIRaw = new ImageIcon("img/settingsUI2.png");
-	Image settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
-	
-	JLabel settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
 
+	SettingsRow resSettings;
+	SettingsRow displaySettings;
+	//
+	ImageIcon settingsUIRaw = new ImageIcon("img/settingsUI.png");
+	Image settingsUIImg;
+	JLabel settingsUILabel;
+	//
 	public SettingsMenu(){
 		width = (int)(Main.WIDTH * 0.8);
 		this.height = (int)(Main.HEIGHT * 0.8);
-		//
-		this.resSettings = new ResolutionSettings();
-		//
-		this.settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
-		this.settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
-		//
 		this.setLayout(null);
 		this.setBounds((Main.WIDTH-width)/2,(Main.HEIGHT-height)/2,width,height);
-		this.add(settingsUILabel);
-		settingsUILabel.setBounds(0,0,width,height);
-		settingsUILabel.setVisible(true);
-		settingsUILabel.setOpaque(true);
+		this.setOpaque(false);
 		
+		// Resolution row start
+		ImageIcon resTextBar =  new ImageIcon("img/settings/resoulutionText.png");
+		String resOption1Path = "settings/1920";
+		String resOption2Path = "settings/1280";
+		String resType1 = "1920";
+		String resType2 = "1280";
+		int resOrder = 1;
+		this.resSettings = new SettingsRow(resTextBar,resOption1Path,resOption2Path,resType1,resType2,resOrder);
+		// Resolution row end
+		
+		// Display row start
+		ImageIcon displayTextBar =  new ImageIcon("img/settings/displayText.png");
+		String displayOption1Path = "settings/windowed";
+		String displayOption2Path = "settings/fullscreen";
+		String displayType1 = "windowed";
+		String displayType2 = "fullscreen";
+		int displayOrder = 2;
+		this.displaySettings = new SettingsRow(displayTextBar,displayOption1Path,displayOption2Path,displayType1,displayType2,displayOrder);
+		// Display row end
+		
+		
+		// this handles the backgorudn img
+		this.settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
+		this.settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
+		
+		this.settingsUILabel.setOpaque(false);
+		this.settingsUILabel.setBounds(0,0,width,height);
+		this.settingsUILabel.setVisible(true);
+		//
+		
+		this.add(settingsUILabel);
 		this.add(resSettings);
+		this.add(displaySettings);
 		this.setComponentZOrder(settingsUILabel, 1);
 		this.setComponentZOrder(resSettings, 0);
-
+		this.setComponentZOrder(displaySettings, 0);
 		this.setVisible(true);
 	}
 	

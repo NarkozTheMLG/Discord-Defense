@@ -92,14 +92,18 @@ public class GamePanel extends JPanel implements Runnable {
 				timer = 0;
 				drawCount = 0;
 				time++;
-				energyBar.updateBars();
 				EnergyBar.curEnergy++;
+
 			}
 		}
 	}
 
 	// --- UPDATE (Logic) ---
 	public void update() {
+		energyBar.updateBars();
+		if (keyH.isPressedOnce(KeyEvent.VK_Q)) {
+			EnergyBar.curEnergy--;
+		}
 		if (keyH.isPressedOnce(KeyEvent.VK_C)) {
 			hotbar.useItem(0);
 		}
@@ -116,7 +120,7 @@ public class GamePanel extends JPanel implements Runnable {
 			hotbar.useItem(4);
 		}
 		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
-			hotbar.addItem(0);
+			hotbar.addItem((int)(Math.random()*3));
 		}
 
 	}
