@@ -19,12 +19,21 @@ public class SettingsMenu extends JPanel{
 	JLabel settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
 
 	public SettingsMenu(){
+		width = (int)(Main.WIDTH * 0.8);
+		this.height = (int)(Main.HEIGHT * 0.8);
+		//
+		this.resSettings = new ResolutionSettings();
+		//
+		this.settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
+		this.settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
+		//
 		this.setLayout(null);
 		this.setBounds((Main.WIDTH-width)/2,(Main.HEIGHT-height)/2,width,height);
 		this.add(settingsUILabel);
 		settingsUILabel.setBounds(0,0,width,height);
 		settingsUILabel.setVisible(true);
 		settingsUILabel.setOpaque(true);
+		
 		this.add(resSettings);
 		this.setComponentZOrder(settingsUILabel, 1);
 		this.setComponentZOrder(resSettings, 0);
@@ -32,10 +41,8 @@ public class SettingsMenu extends JPanel{
 		this.setVisible(true);
 	}
 	
-	@Override
-	public void paintComponent(Graphics g) {
-	    super.paintComponent(g);
-	}
+	
+	
 	
 
 }
