@@ -35,13 +35,13 @@ public class PauseMenu extends JPanel{
 		
 	pauseScreen.setBounds(0, 0, Main.WIDTH, Main.HEIGHT);
 	
-	Button resumeButton = new Button(buttonX, buttonY + 3*difference,bw,bh,"buttons/StartButton", "Resume",false);
-	Button restartButton = new Button(buttonX, buttonY +2* difference,bw,bh, "buttons/SettingsButton", "Restart",false);
-	Button mainMenuButton = new Button(buttonX, buttonY + difference,bw,bh, "buttons/QuitButton", "MainMenu",false);
+	Button resumeButton = new Button(buttonX, buttonY + 3*difference,bw,bh,"buttons/ResumeButton", "Resume",false);
+	Button restartButton = new Button(buttonX, buttonY +2* difference,bw,bh, "buttons/RestartButton", "Restart",false);
+	Button menuButton = new Button(buttonX, buttonY + difference,bw,bh, "buttons/MenuButton", "Menu",false);
 
 	add(resumeButton);
 	add(restartButton);
-	add(mainMenuButton);
+	add(menuButton);
 	
 	add(pauseScreen);
 
