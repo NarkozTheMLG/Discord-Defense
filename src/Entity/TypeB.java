@@ -7,7 +7,7 @@ public class TypeB extends Enemy {
 	
 	//TYPE B: Medium speed, Medium lane change
 	public TypeB(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
-		super(x, y,  2.5, "medium", (int)(Math.random()* Lanes.laneCount), sprite);
+		super(x, y, speed, laneChangeRate, curLane, sprite);
 	}	
 	
 	@Override

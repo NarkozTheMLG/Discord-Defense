@@ -7,7 +7,7 @@ import ui_items.EnergyBar;
 public class Piano extends Character{
 
 	private static PianoKey[] keys;
-	public ArrayList<Bullet> shot = new ArrayList<>();
+	public static ArrayList<Bullet> shot = new ArrayList<>();
 	
 	public Piano(double x, double y) {
         super(x, y, 100, 300); //for now
