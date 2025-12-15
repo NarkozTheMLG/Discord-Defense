@@ -50,6 +50,12 @@ public class Piano extends Character{
 		}
 	}
 
+	public int getPianoHp() {
+		return this.hp;
+	}
+	public void setPianoHp(int value) {
+		this.hp = value;
+	}
 }
 
 

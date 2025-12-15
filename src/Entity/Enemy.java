@@ -13,7 +13,7 @@ public abstract class Enemy extends Character implements EnemyInterface{
     protected int curLane;
     protected int hp;
     protected BufferedImage sprite;
-    protected static ArrayList<Enemy> enemyList = new ArrayList<>();
+    public static ArrayList<Enemy> enemyList = new ArrayList<>(); //sor
     
     
     public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
@@ -59,5 +59,12 @@ public abstract class Enemy extends Character implements EnemyInterface{
     			System.out.println("moving 1 lane down, new lane: " + --curLane);
     		}
     	}
+    }
+    
+    public int getEnemyHp() {
+    	return this.hp;
+    }
+    public void setEnemyHp(int value) {
+    	this.hp = value;
     }
 }

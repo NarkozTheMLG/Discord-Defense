@@ -144,8 +144,33 @@ public class GamePanel extends JPanel implements Runnable {
 			EnergyBar.curEnergy++;
 			oneSecondPassed = false;
 		}
-		//Update Entities
-		piano.update();
+	//UPDATE ENTITIES:
+		
+		//Update piano
+			piano.update();
+		//Update Enemy
+			for (int i = 0; i < Enemy.enemyList.size(); i++) {
+		        Enemy e = Enemy.enemyList.get(i);
+		        e.update();
+		        
+	//COLLISON HANDLING:
+		//Piano hit by enemy
+			if (piano.checkCollision(e)) {
+	            System.out.println("Piano hit by enemy");
+	            piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
+	        }
+		//Enemy hit by bullet
+			for (int k = 0; k < Piano.shot.size(); k++) {
+	            Bullet b = Piano.shot.get(k);
+	            
+	            if (b.checkCollision(e)) {
+	                System.out.println("Enemy hit by bullet!");
+	                e.setEnemyHp(e.getEnemyHp() - 1); // Enemy takes damage (3 hits till death)
+	                b.setBulletHp(b.getBulletHp() - 1);  //Bullet lost its only hp (destroyed)
+	            }
+	        }
+		}
+	//ENEMY SPAWN:
 		spawnTick++; //continues until spawnTick is 120 (2s passed)
         if (spawnTick >= spawnRate) { //spawns enemy after 2s
             spawnEnemy();
