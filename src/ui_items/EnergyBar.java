@@ -30,6 +30,7 @@ public class EnergyBar extends JPanel {
 	//
 
 	public EnergyBar() {
+		curEnergy = -1;
 		width = (int) (1280 * Main.scalerX);
 		height = (int) (120 * Main.scalerY);
 		//
