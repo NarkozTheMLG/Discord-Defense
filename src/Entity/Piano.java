@@ -1,4 +1,4 @@
-package GameSystem;
+package Entity;
 import java.util.ArrayList;
 
 import ui_items.EnergyBar;
@@ -6,7 +6,6 @@ import ui_items.EnergyBar;
 public class Piano extends Character{
 
 	private static PianoKey[] keys;
-	
 	public ArrayList<Bullet> shot = new ArrayList<>();
 	
 	public Piano(double x, double y) {
@@ -15,9 +14,10 @@ public class Piano extends Character{
 	}
 	
 	public PianoKey getSpecificKey(int index) {
-        if (index >= 0 && index < keys.length) {
+        if (index >= 0 && index < keys.length) { //verify range
             return keys[index];
         } else {
+        	System.out.println("invalid index.");
             return null;
         }
     }

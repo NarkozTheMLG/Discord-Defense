@@ -1,4 +1,4 @@
-package GameSystem;
+package Entity;
 import java.awt.Rectangle;
 public class Bullet extends Character{
 

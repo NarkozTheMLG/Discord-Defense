@@ -15,10 +15,10 @@ import GameSystem.Main;
 public class Lanes extends JPanel{
 	private static final long serialVersionUID = 1L;
 
-	public int width = (int)(1536 * Main.scalerX);
-	public int height = (int)(896 * Main.scalerY);
-	final public int laneCount = 7; 
-	public int laneHeight = (int)((height / laneCount)*Main.scalerY) ;
+	public static int width = (int)(1536 * Main.scalerX);
+	public static int height = (int)(896 * Main.scalerY);
+	final public static int laneCount = 7; 
+	public static int laneHeight = (int)((height / laneCount)*Main.scalerY) ;
 	public int x = (int)(400*Main.scalerX);
 	
 	public Lanes() {

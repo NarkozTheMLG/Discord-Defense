@@ -1,4 +1,4 @@
-package GameSystem;
+package Entity;
 import java.awt.Rectangle;
 
 public abstract class Character {
@@ -23,6 +23,13 @@ public abstract class Character {
 	//methods
 	public Rectangle getBound() {
 		return new Rectangle((int)x, (int)y, width, height); //Rectangle holds int 
+	}
+	
+	public boolean checkCollision(Character other) {
+	    // getBound() returns => Rectangle for 'this' character
+	    // other.getBound() returns => Rectangle for the 'other' character
+	    // .intersects() returns => true if the two rectangles overlap
+	    return this.getBound().intersects(other.getBound());
 	}
 
 	public double getX(){
