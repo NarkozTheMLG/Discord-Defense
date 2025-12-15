@@ -28,7 +28,9 @@ public class GamePanel extends JPanel implements Runnable {
 	Lanes lanes;
 	JLabel background;
 	Thread gameThread;
+	public static boolean isPaused = false;
 	int time = 0;
+	boolean oneSecondPassed = false;
 
 		// --- CONSTRUCTOR ---
 	public GamePanel() {
@@ -76,14 +78,16 @@ public class GamePanel extends JPanel implements Runnable {
 		int drawCount = 0;
 
 		while (gameThread != null) {
+			pauseKey();
+			
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime) / drawInterval;
 			timer += (currentTime - lastTime);
 			lastTime = currentTime;
-
 			if (delta >= 1) {
-				drawCount++;
-				update();
+				drawCount++;	
+				if(!isPaused) 
+					update();
 				repaint();
 				delta--;
 			}
@@ -91,16 +95,32 @@ public class GamePanel extends JPanel implements Runnable {
 				System.out.println("FPS: " + drawCount);
 				timer = 0;
 				drawCount = 0;
-				time++;
-				EnergyBar.curEnergy++;
-
+				if (!isPaused) {
+			        time++;
+			        oneSecondPassed = true;
+			    }
 			}
+			
 		}
 	}
-
+	
 	// --- UPDATE (Logic) ---
 	public void update() {
 		energyBar.updateBars();
+		keyBinds();
+		if(oneSecondPassed) {
+			EnergyBar.curEnergy++;
+			oneSecondPassed = false;
+		}
+	}
+
+	
+	private void pauseKey() {
+		if (keyH.isPressedOnce(KeyEvent.VK_ESCAPE)) {
+			isPaused = !isPaused;
+		}
+	}
+	private void keyBinds() {
 		if (keyH.isPressedOnce(KeyEvent.VK_Q)) {
 			EnergyBar.curEnergy--;
 		}
