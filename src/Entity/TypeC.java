@@ -1,14 +1,13 @@
 package Entity;
+import java.awt.image.BufferedImage;
+
 import ui_items.Lanes;
 
 public class TypeC extends Enemy {
 	
-	double speed = 1.0; //slow
-	String laneChangeRate = "high"; //High
-	int curLane = (int)(Math.random()* Lanes.laneCount);
-	
-	public TypeC(double x, double y, double speed, String laneChangeRate, int curLane) {
-		super(x, y, speed, laneChangeRate, curLane);
+	//TYPE C: slow speed, high lane change
+	public TypeC(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
+		super(x, y, 1.0, "high", (int)(Math.random()* Lanes.laneCount), sprite);
 	}	
 	
 	@Override

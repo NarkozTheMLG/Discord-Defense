@@ -1,14 +1,13 @@
 package Entity;
+import java.awt.image.BufferedImage;
+
 import ui_items.Lanes;
 
 public class TypeB extends Enemy {
 	
-	double speed = 2.5; //Medium
-	String laneChangeRate = "medium"; //Medium
-	int curLane = (int)(Math.random()* Lanes.laneCount);
-	
-	public TypeB(double x, double y, double speed, String laneChangeRate, int curLane) {
-		super(x, y, speed, laneChangeRate, curLane);
+	//TYPE B: Medium speed, Medium lane change
+	public TypeB(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
+		super(x, y,  2.5, "medium", (int)(Math.random()* Lanes.laneCount), sprite);
 	}	
 	
 	@Override

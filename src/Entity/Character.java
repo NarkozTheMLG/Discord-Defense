@@ -6,7 +6,7 @@ public abstract class Character {
 	//declarations
 	protected double x;
 	protected double y;
-	protected double hp;
+	protected int hp;
 	protected int width;
 	protected int height;
 	

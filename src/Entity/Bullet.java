@@ -4,7 +4,7 @@ public class Bullet extends Character{
 
 	public Bullet(double x, double y) {
 	    super(x, y, 20, 20); 
-	    this.hp = 1; 
+	    this.hp = 1; //dies if touches sth immediately
 	}
 
 	@Override

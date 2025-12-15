@@ -11,15 +11,18 @@ public abstract class Enemy extends Character implements EnemyInterface{
 	protected double speed;
     protected String laneChangeRate; // Low, Medium, High
     protected int curLane;
+    protected int hp;
     protected BufferedImage sprite;
     protected static ArrayList<Enemy> enemyList = new ArrayList<>();
     
     
-    public Enemy(double x, double y, double speed, String laneChangeRate, int curLane) {
+    public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
 		super(x, y, 50, 50);
 		this.speed = speed;
 		this.laneChangeRate = laneChangeRate;
 		this.curLane = curLane;
+		this.hp = 3; //all enemies have 3 hp
+		this.sprite = sprite;
 		enemyList.add(this);
 	}
        
@@ -57,6 +60,5 @@ public abstract class Enemy extends Character implements EnemyInterface{
     		}
     	}
     }
-    
-    
+
 }

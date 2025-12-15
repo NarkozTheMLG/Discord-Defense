@@ -1,6 +1,7 @@
 package Entity;
 import java.util.ArrayList;
 
+import GameSystem.Main;
 import ui_items.EnergyBar;
 
 public class Piano extends Character{
@@ -23,8 +24,22 @@ public class Piano extends Character{
     }
 
 	@Override
-	public void update() {}
-	
+	public void update() {
+		for (int i = 0; i < shot.size(); i++) {
+	        Bullet b = shot.get(i);
+	        if(b.isDead()) {
+	        	shot.remove(i);
+	        	i--;
+	        }
+	        else {
+	        	  b.update();
+	  	        if (b.getX() > Main.WIDTH) //if one shot goes beyond screen it dies
+	  	            shot.remove(i);
+	  	      i--;
+	        }
+	        
+		}
+	}
 	public void fire(int laneIndex) {
 		if(EnergyBar.curEnergy > 0) {
 			double laneY = laneIndex * 100;
