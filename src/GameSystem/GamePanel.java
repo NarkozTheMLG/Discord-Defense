@@ -151,7 +151,11 @@ public class GamePanel extends JPanel implements Runnable {
 		//Update Enemy
 			for (int i = 0; i < Enemy.enemyList.size(); i++) {
 		        Enemy e = Enemy.enemyList.get(i);
-		        e.update();
+		        if (e.isDead()) {
+		            Enemy.enemyList.remove(i);
+		            i--;
+		        }else
+		        	e.update();
 		        
 	//COLLISON HANDLING:
 		//Piano hit by enemy
