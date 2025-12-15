@@ -7,7 +7,7 @@ public class TypeC extends Enemy {
 	
 	//TYPE C: slow speed, high lane change
 	public TypeC(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
-		super(x, y, 1.0, "high", (int)(Math.random()* Lanes.laneCount), sprite);
+		super(x, y, speed, laneChangeRate, curLane, sprite);
 	}	
 	
 	@Override

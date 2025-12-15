@@ -7,11 +7,12 @@ public class TypeA extends Enemy {
 	
 	//TYPE A: high speed, low lane change	
 	public TypeA(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
-		super(x, y, 5.0, "low", (int)(Math.random()* Lanes.laneCount), sprite);
+		super(x, y, speed, laneChangeRate, curLane, sprite);
 	}	
 
 	@Override
 	public void attack() {
+		
 	}
 
 	@Override

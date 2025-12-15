@@ -1,6 +1,8 @@
 package GameSystem;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
@@ -10,6 +12,12 @@ import ui_items.Lanes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.IOException;
+
+import Entity.*; 
+import ui_items.Lanes;
+import GameSystem.Main; // To access WIDTH
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -31,6 +39,11 @@ public class GamePanel extends JPanel implements Runnable {
 	public static boolean isPaused = false;
 	int time = 0;
 	boolean oneSecondPassed = false;
+	private Piano piano;
+	private BufferedImage imgA, imgB, imgC;
+	//to have delay when  spawning enemies:
+	private int spawnTick = 0;
+    private int spawnRate = 120;
 
 		// --- CONSTRUCTOR ---
 	public GamePanel() {
@@ -39,6 +52,8 @@ public class GamePanel extends JPanel implements Runnable {
 		energyBar = new EnergyBar();
 		lanes = new Lanes();
 		background = setUpBackground();
+		piano = new Piano(100, 1000); //for now
+		loadEnemyImages();
 		this.setBackground(Color.gray);
 		this.setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
 		this.setDoubleBuffered(true); // Improves rendering performance
@@ -107,6 +122,20 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	
+	private void loadEnemyImages() {
+		
+        try {
+            // Make sure these paths match your resource folder structure
+            imgA = ImageIO.read(getClass().getResourceAsStream("/enemies/typeA.png"));
+            imgB = ImageIO.read(getClass().getResourceAsStream("/enemies/typeB.png"));
+            imgC = ImageIO.read(getClass().getResourceAsStream("/enemies/typeC.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading enemy images!");
+        }
+    }
+	
+	
 	// --- UPDATE (Logic) ---
 	public void update() {
 		energyBar.updateBars();
@@ -115,9 +144,33 @@ public class GamePanel extends JPanel implements Runnable {
 			EnergyBar.curEnergy++;
 			oneSecondPassed = false;
 		}
+		//Update Entities
+		piano.update();
+		spawnTick++; //continues until spawnTick is 120 (2s passed)
+        if (spawnTick >= spawnRate) { //spawns enemy after 2s
+            spawnEnemy();
+            spawnTick = 0; //resets so that it can respawn enemy
+        }
 	}
 
-	
+	public void spawnEnemy() {
+		int laneIndex = (int)(Math.random() * Lanes.laneCount); //random lane
+		double startY = laneIndex * Lanes.laneHeight; //find starting y coordinate
+		double startX = Main.WIDTH + 50; // make sure the spawn is beyond screen by + 50
+		
+		//Find Enemy Type
+		int type = (int)(Math.random() * 3);
+		
+		switch(type) {
+		case 0: new TypeA(startX, startY, 5.0, "Low", laneIndex, imgA);
+			break;
+		case 1: new TypeB(startX, startY, 2.5, "Medium", laneIndex, imgB);
+			break;
+		case 2: new TypeC(startX, startY, 1.0, "High", laneIndex, imgC);
+			break;
+		}
+		
+	}
 
 	
 	private void pauseKey() {
