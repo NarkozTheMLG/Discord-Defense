@@ -1,4 +1,4 @@
-package GameSystem;
+package Entity;
 
 public class PianoKey {
    
