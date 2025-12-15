@@ -27,13 +27,14 @@ public class GamePanel extends JPanel implements Runnable {
 	EnergyBar energyBar;
 	Lanes lanes;
 	JLabel background;
-	Thread gameThread;
+	Thread gameThread=null;
 	public static boolean isPaused = false;
 	int time = 0;
 	boolean oneSecondPassed = false;
 
 		// --- CONSTRUCTOR ---
 	public GamePanel() {
+		this.gameThread=null;
 		hotbar = new Hotbar();
 		energyBar = new EnergyBar();
 		lanes = new Lanes();
@@ -55,10 +56,13 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// --- START METHOD ---
 	public void startGameThread() {
-		gameThread = new Thread(this);
-		gameThread.start();
-	}
-
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+	public void stopGameThread() {
+		if (gameThread!=null)
+        gameThread = null;
+    }
 	private JLabel setUpBackground() {
 		JLabel background = new JLabel();
 		ImageIcon backgroundImgRaw = new ImageIcon("img/background.png");
@@ -70,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {
+		Thread thisThread = Thread.currentThread();
 		double drawInterval = 1000000000 / FPS;
 		double delta = 0;
 		long lastTime = System.nanoTime();
@@ -79,7 +84,6 @@ public class GamePanel extends JPanel implements Runnable {
 
 		while (gameThread != null) {
 			pauseKey();
-			
 			currentTime = System.nanoTime();
 			delta += (currentTime - lastTime) / drawInterval;
 			timer += (currentTime - lastTime);
@@ -100,7 +104,6 @@ public class GamePanel extends JPanel implements Runnable {
 			        oneSecondPassed = true;
 			    }
 			}
-			
 		}
 	}
 	
@@ -115,9 +118,11 @@ public class GamePanel extends JPanel implements Runnable {
 	}
 
 	
+
+	
 	private void pauseKey() {
 		if (keyH.isPressedOnce(KeyEvent.VK_ESCAPE)) {
-			isPaused = !isPaused;
+			Main.openPauseMenu();
 		}
 	}
 	private void keyBinds() {

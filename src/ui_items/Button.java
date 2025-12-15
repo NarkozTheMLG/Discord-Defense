@@ -131,6 +131,12 @@ public class Button extends JButton {
 					SettingsRow.setFullscreen(false);
 				else if (type.equalsIgnoreCase("fullscreen"))
 					SettingsRow.setFullscreen(true);
+				else if (type.equalsIgnoreCase("Resume"))
+					Main.openPauseMenu();
+				else if (type.equalsIgnoreCase("Menu"))
+					Main.goBackToMainMenu();
+				else if (type.equalsIgnoreCase("Restart"))
+					Main.reStartGame();
 			}
 		});
 	}

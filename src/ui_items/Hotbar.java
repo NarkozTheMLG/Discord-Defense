@@ -57,8 +57,15 @@ public class Hotbar extends JPanel {
 		myLabels[slot].removeAll();
 	}
 
+	public void reset() {
+		for(int i = 0;i < inventory.length;i++ ) 
+			useItem(i);
+		Items.count = 0;
+	}
+	
 	public Hotbar() {
 		try {
+			reset();
 			this.setOpaque(false);
 			BufferedImage backgroundImg = ImageIO.read(new File("img/hotbar.png"));
 			setBounds(0, 0, WIDTH, HEIGHT);

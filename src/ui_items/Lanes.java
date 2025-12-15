@@ -18,10 +18,17 @@ public class Lanes extends JPanel{
 	public static int width = (int)(1536 * Main.scalerX);
 	public static int height = (int)(896 * Main.scalerY);
 	final public static int laneCount = 7; 
-	public static int laneHeight = (int)((height / laneCount)*Main.scalerY) ;
+	public static int laneHeight = (int)((height / laneCount)) ;
 	public int x = (int)(400*Main.scalerX);
 	
 	public Lanes() {
+		
+		width = (int)(1536 * Main.scalerX);
+		height = (int)(896 * Main.scalerY);
+		laneHeight = (int)((height / laneCount)) ;
+		this.x = (int)(400*Main.scalerX);
+		
+		
 		setLayout(new GridLayout(7,1,0,0));
 		setOpaque(false);
 		setBounds(x,0,width,height);

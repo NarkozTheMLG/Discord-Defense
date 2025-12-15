@@ -6,7 +6,10 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
+import javax.swing.JLayeredPane;
+
 import ui_items.MainMenu;
+import ui_items.PauseMenu;
 
 public class Main {
 	MainSys mainSys = new MainSys();
@@ -22,11 +25,14 @@ public class Main {
 	//
 	public static JFrame window = new JFrame();
 	public static MainMenu mainMenu = new MainMenu();
+	public static PauseMenu pauseMenu;
+	
+	
 	static GamePanel gamePanel;
 	public static MouseAdapter mouseListener;
 
-	
 	public static void main(String[] args) {
+		//
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		window.setResizable(false);
 		window.setTitle("Discord Defense");
@@ -41,6 +47,7 @@ public class Main {
 
 	public static void startGame() {
 		window.remove(mainMenu);
+		gamePanel = null;
 		gamePanel = new GamePanel();
 		window.add(gamePanel);
 
@@ -48,6 +55,29 @@ public class Main {
 		window.repaint();
 		gamePanel.requestFocusInWindow();
 		gamePanel.startGameThread();
+		
+		pauseMenu = new PauseMenu();
+		pauseMenu.setOpaque(false);
+		window.setGlassPane(pauseMenu);
+	}
+	
+	public static void reStartGame() {
+        gamePanel.stopGameThread();
+        window.remove(gamePanel); 
+        gamePanel = null;
+        gamePanel = new GamePanel();
+        window.add(gamePanel);
+
+		window.revalidate();
+		window.repaint();
+		gamePanel.requestFocusInWindow();
+		gamePanel.startGameThread();
+		
+		pauseMenu = new PauseMenu();
+		pauseMenu.setOpaque(false);
+		window.setGlassPane(pauseMenu);
+		
+		openPauseMenu();
 	}
 
 	public static void quitGame() {
@@ -70,6 +100,29 @@ public class Main {
 		mainMenu.settingsMenu();
 		window.revalidate(); 
 	    window.repaint();
+	}
+	public static void openPauseMenu() {
+		System.out.println("Pasue key evet");
+		GamePanel.isPaused = !GamePanel.isPaused;
+		window.getGlassPane().setVisible(GamePanel.isPaused); 
+		if (!GamePanel.isPaused) {
+            gamePanel.setFocusable(true); // Ensure component is focusable
+            gamePanel.requestFocusInWindow(); // Request focus back to this panel
+        }
+	    if (!GamePanel.isPaused) {
+	        gamePanel.requestFocusInWindow(); 
+	    }
+		window.revalidate(); 
+	    window.repaint();
+	}
+	public static void goBackToMainMenu() {
+		gamePanel.stopGameThread();
+		window.remove(gamePanel);
+		window.add(mainMenu);
+		window.pack();
+		window.setLocationRelativeTo(null);
+		window.setVisible(true);
+		openPauseMenu();
 	}
 
 	/*
@@ -117,4 +170,6 @@ public class Main {
 	    window.repaint();
 		window.setVisible(true);
 	}
+
+
 }
