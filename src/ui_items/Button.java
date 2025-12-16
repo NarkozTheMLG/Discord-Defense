@@ -32,14 +32,9 @@ public class Button extends JButton {
 	Button(int x, int y,int w,int h, String img, String type,boolean settingsItem) {
 		this.width = w;
 		this.height = h;
-		if(width<400) {
 			this.sizeScale = 4;			
 			this.posScale = 2;
-		}
-		else {
-			this.sizeScale = 8;
-			this.posScale = 4;
-		}
+
 		int scaledX = x - posScale;
 		int scaledY = y - posScale;
 		this.scaledW = width + sizeScale;
