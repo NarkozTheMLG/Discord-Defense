@@ -44,6 +44,7 @@ public class GamePanel extends JPanel implements Runnable {
 	//to have delay when  spawning enemies:
 	private int spawnTick = 0;
     private int spawnRate = 120;
+	double delta = 0;
 
 		// --- CONSTRUCTOR ---
 	public GamePanel() {
@@ -127,7 +128,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void run() {
 		Thread thisThread = Thread.currentThread();
 		double drawInterval = 1000000000 / FPS;
-		double delta = 0;
+		delta = 0;
 		long lastTime = System.nanoTime();
 		long currentTime;
 		long timer = 0;
@@ -160,6 +161,7 @@ public class GamePanel extends JPanel implements Runnable {
 		
 	// --- UPDATE (Logic) ---
 	public void update() {
+		hotbar.update();
 		energyBar.updateBars();
 		keyBinds();
 		if(oneSecondPassed) {
@@ -173,6 +175,8 @@ public class GamePanel extends JPanel implements Runnable {
 			for (int i = 0; i < Enemy.enemyList.size(); i++) {
 		        Enemy e = Enemy.enemyList.get(i);
 		        if (e.isDead()) {
+		        	if(Math.random()<0.3f)
+		        		hotbar.addItem((int)(Math.random()*3));
 		            Enemy.enemyList.remove(i);
 		            i--;
 		        }else {
@@ -190,8 +194,8 @@ public class GamePanel extends JPanel implements Runnable {
 	            Bullet b = Piano.shot.get(k);
 	            
 	            if (b.checkCollision(e)) {
-	                System.out.println("Enemy hit by bullet!");
-	                e.setEnemyHp(e.getEnemyHp() - 1); // Enemy takes damage (3 hits till death)
+	                System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage+" damage");
+	                e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
 	                b.setBulletHp(b.getBulletHp() - 1);  //Bullet lost its only hp (destroyed)
 	            }
 	        }
@@ -210,9 +214,6 @@ public class GamePanel extends JPanel implements Runnable {
 		}
 	}
 	private void keyBinds() {
-		if (keyH.isPressedOnce(KeyEvent.VK_Q)) {
-			EnergyBar.curEnergy--;
-		}
 		if (keyH.isPressedOnce(KeyEvent.VK_C)) {
 			hotbar.useItem(0);
 		}
@@ -231,13 +232,13 @@ public class GamePanel extends JPanel implements Runnable {
 		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
 			hotbar.addItem((int)(Math.random()*3));
 		}
-		if (keyH.isPressedOnce(KeyEvent.VK_1)) piano.fire(0);
-	    if (keyH.isPressedOnce(KeyEvent.VK_2)) piano.fire(1);
-	    if (keyH.isPressedOnce(KeyEvent.VK_3)) piano.fire(2);
-	    if (keyH.isPressedOnce(KeyEvent.VK_4)) piano.fire(3);
-	    if (keyH.isPressedOnce(KeyEvent.VK_5)) piano.fire(4);
-	    if (keyH.isPressedOnce(KeyEvent.VK_6)) piano.fire(5);
-	    if (keyH.isPressedOnce(KeyEvent.VK_7)) piano.fire(6);
+		if (keyH.isPressedOnce(KeyEvent.VK_Q)) piano.fire(0);
+	    if (keyH.isPressedOnce(KeyEvent.VK_W)) piano.fire(1);
+	    if (keyH.isPressedOnce(KeyEvent.VK_E)) piano.fire(2);
+	    if (keyH.isPressedOnce(KeyEvent.VK_U)) piano.fire(3);
+	    if (keyH.isPressedOnce(KeyEvent.VK_I)) piano.fire(4);
+	    if (keyH.isPressedOnce(KeyEvent.VK_O)) piano.fire(5);
+	    if (keyH.isPressedOnce(KeyEvent.VK_P)) piano.fire(6);
 
 		
 	}

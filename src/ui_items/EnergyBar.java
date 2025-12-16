@@ -68,6 +68,10 @@ public class EnergyBar extends JPanel implements ImageResizer{
 			bars[i].setVisible(false);
 		}
 	}
+	
+	public static void increaseEnergy(int num) {
+		curEnergy+= num;
+	}
 
 	private Color getColor(int i) {
 		switch (i) {

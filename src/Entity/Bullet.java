@@ -3,6 +3,7 @@ import java.awt.Rectangle;
 public class Bullet extends Character{
 	private final int bulletspeed = 10;
 	public static double bulletSpeedMultiplayer = 1;
+	public static int bulletDamage = 1;
 	public Bullet(double x, double y) {
 	    super(x, y, 20, 20); 
 	    this.hp = 1; //dies if touches sth immediately

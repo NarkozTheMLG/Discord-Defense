@@ -12,6 +12,9 @@ import java.io.IOException;
 
 import javax.swing.SwingConstants;
 
+import Entity.Bullet;
+import Entity.Enemy;
+import GameSystem.GamePanel;
 import GameSystem.Items;
 import GameSystem.Main;
 
@@ -24,7 +27,9 @@ public class Hotbar extends JPanel implements ImageResizer{
 
 	public Items[] inventory = new Items[5];
 	public JLabel[] myLabels = new JLabel[5];
-
+	public static float slowTimer = 0;
+	public static float damageTimer = 0;
+	
 	public void addItem(int id) {
 		if (Items.count < 5) {
 			System.out.println("Added item: " + id);
@@ -80,4 +85,33 @@ public class Hotbar extends JPanel implements ImageResizer{
 			e.printStackTrace();
 		}
 	}
+	
+	private void applySlow() {
+        if (slowTimer > 0) {
+        	if(GamePanel.oneSecondPassed)
+        		slowTimer -= 1; 
+            if (slowTimer <= 0) {
+                slowTimer = 0;
+            	Enemy.enemySpeedMultiplayer = 1;
+            }
+        }
+	}
+	private void increaseDamage() {
+        if (damageTimer > 0) {
+        	System.out.println("demegggg" + Bullet.bulletDamage);
+        	if(GamePanel.oneSecondPassed)
+        		damageTimer -= 1; 
+            if (damageTimer <= 0) {
+            	damageTimer = 0;
+            	Bullet.bulletDamage = 1;
+            }
+        }
+	}
+	
+	
+public void update() {
+        applySlow();
+        increaseDamage();
+        
+    }
 }

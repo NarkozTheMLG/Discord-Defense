@@ -2,6 +2,11 @@ package GameSystem;
 
 import javax.swing.ImageIcon;
 
+import Entity.Bullet;
+import Entity.Enemy;
+import ui_items.EnergyBar;
+import ui_items.Hotbar;
+
 public class Items {
 	int id;
 	static public int count = 0;
@@ -40,14 +45,17 @@ public class Items {
 	public void use() {
 		switch (id) {
 		case 0: {
-
+				Enemy.enemySpeedMultiplayer = 0.1;
+		        Hotbar.slowTimer = 5.0f; 
 			break;
 		}
 		case 1:{
-
+        	Bullet.bulletDamage = 3;
+	        Hotbar.damageTimer = 4.0f; 
 			break;
 		}
 		case 2:{
+			EnergyBar.increaseEnergy(4);
 
 			break;
 		}
