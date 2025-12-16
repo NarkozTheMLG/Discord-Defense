@@ -38,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable {
 	Thread gameThread=null;
 	public static boolean isPaused = false;
 	int time = 0;
-	boolean oneSecondPassed = false;
+	public static boolean oneSecondPassed = false;
 	private Piano piano;
 	private BufferedImage imgA, imgB, imgC;
 	//to have delay when  spawning enemies:
@@ -112,11 +112,11 @@ public class GamePanel extends JPanel implements Runnable {
 		int type = (int)(Math.random() * 3);
 		
 		switch(type) {
-		case 0: new TypeA(startX, startY, 5.0, "Low", laneIndex, imgA); //Enemy obj creation here
+		case 0: new TypeA(startX, startY, 2.0, "Low", laneIndex, imgA); //Enemy obj creation here
 			break;
-		case 1: new TypeB(startX, startY, 2.5, "Medium", laneIndex, imgB);
+		case 1: new TypeB(startX, startY, 1.0, "Medium", laneIndex, imgB);
 			break;
-		case 2: new TypeC(startX, startY, 1.0, "High", laneIndex, imgC);
+		case 2: new TypeC(startX, startY, 0.5, "High", laneIndex, imgC);
 			break;
 		}
 		
@@ -167,7 +167,6 @@ public class GamePanel extends JPanel implements Runnable {
 			oneSecondPassed = false;
 		}
 	//UPDATE ENTITIES:
-		
 		//Update piano
 			piano.update();
 		//Update Enemy
@@ -176,9 +175,10 @@ public class GamePanel extends JPanel implements Runnable {
 		        if (e.isDead()) {
 		            Enemy.enemyList.remove(i);
 		            i--;
-		        }else
+		        }else {
 		        	e.update();
-		        
+		        }
+		        	
 	//COLLISON HANDLING:
 		//Piano hit by enemy
 			if (piano.checkCollision(e)) {
@@ -231,7 +231,15 @@ public class GamePanel extends JPanel implements Runnable {
 		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
 			hotbar.addItem((int)(Math.random()*3));
 		}
+		if (keyH.isPressedOnce(KeyEvent.VK_1)) piano.fire(0);
+	    if (keyH.isPressedOnce(KeyEvent.VK_2)) piano.fire(1);
+	    if (keyH.isPressedOnce(KeyEvent.VK_3)) piano.fire(2);
+	    if (keyH.isPressedOnce(KeyEvent.VK_4)) piano.fire(3);
+	    if (keyH.isPressedOnce(KeyEvent.VK_5)) piano.fire(4);
+	    if (keyH.isPressedOnce(KeyEvent.VK_6)) piano.fire(5);
+	    if (keyH.isPressedOnce(KeyEvent.VK_7)) piano.fire(6);
 
+		
 	}
 	// --- DRAW (Rendering) ---
 	@Override
@@ -251,6 +259,14 @@ public class GamePanel extends JPanel implements Runnable {
 	    		g2.drawImage(e.getCurrentFrame(), (int)e.getX(), (int)e.getY(), null);
 	    		//null is observer updates for loads we already have it here so no need, it is null
 	    	}
+	    }
+	 // DRAW BULLETS 
+	    g2.setColor(Color.RED);
+	    for (int i = 0; i < Piano.shot.size(); i++) {
+	        Bullet b = Piano.shot.get(i);
+	        if (b != null) {
+	            g2.fillRect((int)b.getX(), (int)b.getY(), 20, 20);
+	        }
 	    }
 	    
 	    g2.setColor(Color.yellow);

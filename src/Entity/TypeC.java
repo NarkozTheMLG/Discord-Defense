@@ -10,10 +10,6 @@ public class TypeC extends Enemy {
 	public TypeC(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
 		super(x, y, speed, laneChangeRate, curLane, sprite, 5);
 	}	
-	
-	@Override
-	public void attack() {
-	}
 
 	@Override
     public void update() {
