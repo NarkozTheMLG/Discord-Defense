@@ -15,6 +15,7 @@ public class MainMenu extends JPanel {
 
 	public static SettingsMenu settingsMenu;
 	static public boolean isSettingsMenuActive = false;
+	TitlePanel title;
 	
 	public int buttonWidth;
 	public int buttonHeight;
@@ -44,10 +45,9 @@ public class MainMenu extends JPanel {
 		// ImageIcon titleImgIcon = new ImageIcon(titleImg);
 		// JLabel title = new JLabel(titleImgIcon);
 		// title.setBounds((Main.WIDTH-titleWidth)/2, -20, titleWidth, titleHeight);
-		TitlePanel title = new TitlePanel();
 		//
 		setDoubleBuffered(true);
-
+		title = new TitlePanel();
 		
 		// Button creation
 		int bw = buttonWidth;
