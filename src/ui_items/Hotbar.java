@@ -67,7 +67,7 @@ public class Hotbar extends JPanel {
 		try {
 			reset();
 			this.setOpaque(false);
-			BufferedImage backgroundImg = ImageIO.read(new File("img/hotbar.png"));
+			BufferedImage backgroundImg = ImageIO.read(getClass().getResourceAsStream("/img/hotbar.png"));
 			setBounds(0, 0, WIDTH, HEIGHT);
 			setLayout(new GridLayout(1, 5, 0, 0));
 			for (int i = 0; i < myLabels.length; i++) {

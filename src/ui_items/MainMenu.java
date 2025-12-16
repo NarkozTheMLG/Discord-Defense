@@ -36,7 +36,7 @@ public class MainMenu extends JPanel {
 		settingsMenu = new SettingsMenu();
 		//
 		setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
-		ImageIcon splashScreenRaw = new ImageIcon("img/splashscreen.png");
+		ImageIcon splashScreenRaw = new ImageIcon(getClass().getResource("/img/splashscreen.png"));
 		Image splashScreenImg = splashScreenRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT,Image.SCALE_SMOOTH);
 		JLabel splashScreen = new JLabel(new ImageIcon(splashScreenImg));
 		splashScreen.setBounds(0, 0, Main.WIDTH, Main.HEIGHT);

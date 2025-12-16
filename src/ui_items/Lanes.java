@@ -35,7 +35,7 @@ public class Lanes extends JPanel{
 		Integer[] randLanes = {0,1,2,3,4,5,6};
 		Collections.shuffle(Arrays.asList(randLanes));
 		for(int i = 0 ; i < 7; i++) {
-			ImageIcon laneRaw = new ImageIcon("img/lanes/laneNo"+randLanes[i]+".png");
+			ImageIcon laneRaw = new ImageIcon(getClass().getResource("/img/lanes/laneNo"+randLanes[i]+".png"));
 			Image laneImg = laneRaw.getImage().getScaledInstance(width, laneHeight, Image.SCALE_SMOOTH);
 			JLabel laneLabel = new JLabel(new ImageIcon(laneImg));
 			add(laneLabel);

@@ -16,7 +16,7 @@ public class SettingsMenu extends JPanel{
 	SettingsRow resSettings;
 	SettingsRow displaySettings;
 	//
-	ImageIcon settingsUIRaw = new ImageIcon("img/settingsUI.png");
+	ImageIcon settingsUIRaw = new ImageIcon(getClass().getResource("/img/settingsUI.png"));
 	Image settingsUIImg;
 	JLabel settingsUILabel;
 	//
@@ -28,7 +28,7 @@ public class SettingsMenu extends JPanel{
 		this.setOpaque(false);
 		
 		// Resolution row start
-		ImageIcon resTextBar =  new ImageIcon("img/settings/resoulutionText.png");
+		ImageIcon resTextBar =  new ImageIcon(getClass().getResource("/img/settings/resoulutionText.png"));
 		String resOption1Path = "settings/1920";
 		String resOption2Path = "settings/1280";
 		String resType1 = "1920";
@@ -38,7 +38,7 @@ public class SettingsMenu extends JPanel{
 		// Resolution row end
 		
 		// Display row start
-		ImageIcon displayTextBar =  new ImageIcon("img/settings/displayText.png");
+		ImageIcon displayTextBar =  new ImageIcon(getClass().getResource("/img/settings/displayText.png"));
 		String displayOption1Path = "settings/windowed";
 		String displayOption2Path = "settings/fullscreen";
 		String displayType1 = "windowed";

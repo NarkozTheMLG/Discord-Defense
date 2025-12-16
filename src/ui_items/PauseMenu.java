@@ -21,7 +21,7 @@ public class PauseMenu extends JPanel{
 	private int buttonY;
 	
 	public PauseMenu() {
-		ImageIcon pauseScreenRaw = new ImageIcon("img/pauseScreen.png");
+		ImageIcon pauseScreenRaw = new ImageIcon(getClass().getResource("/img/pauseScreen.png"));
 		Image pauseScreenImg = pauseScreenRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT,Image.SCALE_SMOOTH);
 		JLabel pauseScreen = new JLabel(new ImageIcon(pauseScreenImg));
 		setLayout(null);
