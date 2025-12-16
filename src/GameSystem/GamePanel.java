@@ -78,7 +78,7 @@ public class GamePanel extends JPanel implements Runnable {
 		if (gameThread!=null)
         gameThread = null;
     }
-	private JLabel setUpBackground() { //ImageIcon backgroundImgRaw = new ImageIcon(getClass().getResource("/img/background.png"));
+	private JLabel setUpBackground() { 
 		JLabel background = new JLabel();
 		ImageIcon backgroundImgRaw = new ImageIcon(getClass().getResource("/img/background.png"));
 		Image backgroundImg= backgroundImgRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT, Image.SCALE_REPLICATE);
