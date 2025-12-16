@@ -18,18 +18,18 @@ import GameSystem.GamePanel;
 import GameSystem.Items;
 import GameSystem.Main;
 
-public class Hotbar extends JPanel implements ImageResizer{
+public class Hotbar extends JPanel implements ImageResizer {
 	private static final long serialVersionUID = 1L;
 	private float scaler = 1.33f;
-	public final int WIDTH = (int)Math.ceil(scaler * 480 * (Main.WIDTH / 1920.0));
-	public final int HEIGHT = (int)Math.ceil(scaler * 96 * (Main.HEIGHT / 1080.0));
+	public final int WIDTH = (int) Math.ceil(scaler * 480 * (Main.WIDTH / 1920.0));
+	public final int HEIGHT = (int) Math.ceil(scaler * 96 * (Main.HEIGHT / 1080.0));
 	public final int BOXSIZE = 96;
 
 	public Items[] inventory = new Items[5];
 	public JLabel[] myLabels = new JLabel[5];
 	public static float slowTimer = 0;
 	public static float damageTimer = 0;
-	
+
 	public void addItem(int id) {
 		if (Items.count < 5) {
 			System.out.println("Added item: " + id);
@@ -39,9 +39,9 @@ public class Hotbar extends JPanel implements ImageResizer{
 					int itemW = inventory[i].getWidth();
 					int itemH = inventory[i].getHeight();
 					//
-					JLabel itemLabel = new JLabel(ImageResizer.imageResize(inventory[i].getImage(),itemW,itemH));
+					JLabel itemLabel = new JLabel(ImageResizer.imageResize(inventory[i].getImage(), itemW, itemH));
 					//
-					itemLabel.setBounds(((WIDTH/5 - itemW))/ 2, (HEIGHT-itemH)/2, itemW, itemH);
+					itemLabel.setBounds(((WIDTH / 5 - itemW)) / 2, (HEIGHT - itemH) / 2, itemW, itemH);
 					itemLabel.setOpaque(false);
 					itemLabel.setBackground(Color.GRAY);
 					itemLabel.setHorizontalAlignment(SwingConstants.CENTER);
@@ -61,11 +61,11 @@ public class Hotbar extends JPanel implements ImageResizer{
 	}
 
 	public void reset() {
-		for(int i = 0;i < inventory.length;i++ ) 
+		for (int i = 0; i < inventory.length; i++)
 			useItem(i);
 		Items.count = 0;
 	}
-	
+
 	public Hotbar() {
 		try {
 			reset();
@@ -85,33 +85,32 @@ public class Hotbar extends JPanel implements ImageResizer{
 			e.printStackTrace();
 		}
 	}
-	
+
 	private void applySlow() {
-        if (slowTimer > 0) {
-        	if(GamePanel.oneSecondPassed)
-        		slowTimer -= 1; 
-            if (slowTimer <= 0) {
-                slowTimer = 0;
-            	Enemy.enemySpeedMultiplayer = 1;
-            }
-        }
+		if (slowTimer > 0) {
+			if (GamePanel.oneSecondPassed)
+				slowTimer -= 1;
+			if (slowTimer <= 0) {
+				slowTimer = 0;
+				Enemy.enemySpeedMultiplayer = 1;
+			}
+		}
 	}
+
 	private void increaseDamage() {
-        if (damageTimer > 0) {
-        	System.out.println("demegggg" + Bullet.bulletDamage);
-        	if(GamePanel.oneSecondPassed)
-        		damageTimer -= 1; 
-            if (damageTimer <= 0) {
-            	damageTimer = 0;
-            	Bullet.bulletDamage = 1;
-            }
-        }
+		if (damageTimer > 0) {
+			if (GamePanel.oneSecondPassed)
+				damageTimer -= 1;
+			if (damageTimer <= 0) {
+				damageTimer = 0;
+				Bullet.bulletDamage = 1;
+			}
+		}
 	}
-	
-	
-public void update() {
-        applySlow();
-        increaseDamage();
-        
-    }
+
+	public void update() {
+		applySlow();
+		increaseDamage();
+
+	}
 }

@@ -1,7 +1,6 @@
 package Entity;
 import java.awt.image.BufferedImage;
 
-import ui_items.Lanes;
 
 public class TypeC extends Enemy {
 	

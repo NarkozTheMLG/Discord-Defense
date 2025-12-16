@@ -6,13 +6,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
-import javax.swing.JLayeredPane;
 
 import ui_items.MainMenu;
 import ui_items.PauseMenu;
 
 public class Main {
-	MainSys mainSys = new MainSys();
 	// 1. THIS IS THE SCREEN SIZE (What the user sees)
 	static public int WIDTH = 1280;
 	static public int HEIGHT = 720;

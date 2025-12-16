@@ -15,9 +15,7 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 
-import Entity.*; 
-import ui_items.Lanes;
-import GameSystem.Main; // To access WIDTH
+import Entity.*;
 
 public class GamePanel extends JPanel implements Runnable {
 
@@ -30,35 +28,36 @@ public class GamePanel extends JPanel implements Runnable {
 	// --- 2. SYSTEM ---
 	int FPS = 60;
 	KeyInput keyH = new KeyInput();
-	
+
 	Hotbar hotbar;
 	EnergyBar energyBar;
 	Lanes lanes;
 	JLabel background;
-	Thread gameThread=null;
+	Thread gameThread = null;
 	public static boolean isPaused = false;
 	int time = 0;
 	public static boolean oneSecondPassed = false;
 	private Piano piano;
 	private BufferedImage imgA, imgB, imgC;
-	//to have delay when  spawning enemies:
+	// to have delay when spawning enemies:
 	private int spawnTick = 0;
-    private int spawnRate = 120;
-    private KillCounter killCounter;
-    
+	private int spawnRate = 120;
+	private KillCounter killCounter;
+
 	double delta = 0;
 
-		// --- CONSTRUCTOR ---
+	// --- CONSTRUCTOR ---
 	public GamePanel() {
-		this.gameThread=null;
+		resetLists();
+		this.gameThread = null;
 		hotbar = new Hotbar();
 		energyBar = new EnergyBar();
 		lanes = new Lanes();
 		background = setUpBackground();
-		piano = new Piano(100, 1000); //for now
+		piano = new Piano(0, 0); // for now
 		loadEnemyImages();
 		killCounter = new KillCounter();
-		
+
 		this.setBackground(Color.gray);
 		this.setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
 		this.setDoubleBuffered(true); // Improves rendering performance
@@ -76,61 +75,61 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// --- START METHOD ---
 	public void startGameThread() {
-        gameThread = new Thread(this);
-        gameThread.start();
-    }
+		gameThread = new Thread(this);
+		gameThread.start();
+	}
+
 	public void stopGameThread() {
-		if (gameThread!=null)
-        gameThread = null;
-    }
-	private JLabel setUpBackground() { 
+		if (gameThread != null)
+			gameThread = null;
+	}
+
+	private JLabel setUpBackground() {
 		JLabel background = new JLabel();
 		ImageIcon backgroundImgRaw = new ImageIcon(getClass().getResource("/img/background.png"));
-		Image backgroundImg= backgroundImgRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT, Image.SCALE_REPLICATE);
+		Image backgroundImg = backgroundImgRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT,
+				Image.SCALE_REPLICATE);
 		background.setIcon(new ImageIcon(backgroundImg));
-		background.setBounds(0,0,Main.WIDTH,Main.HEIGHT);
+		background.setBounds(0, 0, Main.WIDTH, Main.HEIGHT);
 		return background;
 	}
 
-	private void loadEnemyImages() { 
-		// Prints where "/" actually points to on your computer
-		System.out.println("Root Path: " + getClass().getResource("/"));
+	private void loadEnemyImages() {
+		try {
+			imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
+			imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
+			imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+			System.out.println("Error loading enemy images!");
+		}
+	}
 
-		// Prints where your current Java class is located
-		System.out.println("Class Path: " + getClass().getResource("."));
-        try { 
-        	imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
-            imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
-            imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading enemy images!");
-        }
-    }
-	
 	public void spawnEnemy() {
-		int laneIndex = (int)(Math.random() * Lanes.laneCount); //random lane
-		double startY = laneIndex * Lanes.laneHeight; //find starting y coordinate
+		int laneIndex = (int) (Math.random() * Lanes.laneCount); // random lane
+		double startY = laneIndex * Lanes.laneHeight; // find starting y coordinate
 		double startX = Main.WIDTH + 50; // make sure the spawn is beyond screen by + 50
-		
-		//Find Enemy Type
-		int type = (int)(Math.random() * 3);
-		
-		switch(type) {
-		case 0: new TypeA(startX, startY, 1.0, "Low", laneIndex, imgA); //Enemy obj creation here
+
+		// Find Enemy Type
+		int type = (int) (Math.random() * 3);
+
+		switch (type) {
+		case 0:
+			new TypeA(startX, startY, 1.0, "Low", laneIndex, imgA); // Enemy obj creation here
 			break;
-		case 1: new TypeB(startX, startY, 0.5, "Medium", laneIndex, imgB);
+		case 1:
+			new TypeB(startX, startY, 0.5, "Medium", laneIndex, imgB);
 			break;
-		case 2: new TypeC(startX, startY, 0.3, "High", laneIndex, imgC);
+		case 2:
+			new TypeC(startX, startY, 0.3, "High", laneIndex, imgC);
 			break;
 		}
-		
+
 	}
-	
+
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {
-		Thread thisThread = Thread.currentThread();
 		double drawInterval = 1000000000 / FPS;
 		delta = 0;
 		long lastTime = System.nanoTime();
@@ -145,8 +144,8 @@ public class GamePanel extends JPanel implements Runnable {
 			timer += (currentTime - lastTime);
 			lastTime = currentTime;
 			if (delta >= 1) {
-				drawCount++;	
-				if(!isPaused) 
+				drawCount++;
+				if (!isPaused)
 					update();
 				repaint();
 				delta--;
@@ -156,129 +155,140 @@ public class GamePanel extends JPanel implements Runnable {
 				timer = 0;
 				drawCount = 0;
 				if (!isPaused) {
-			        time++;
-			        oneSecondPassed = true;
-			    }
+					time++;
+					oneSecondPassed = true;
+				}
 			}
 		}
 	}
-		
+
 	// --- UPDATE (Logic) ---
 	public void update() {
 		hotbar.update();
 		energyBar.updateBars();
 		keyBinds();
-		if(oneSecondPassed) {
+		if (oneSecondPassed) {
 			EnergyBar.curEnergy++;
 			oneSecondPassed = false;
 		}
-	//UPDATE ENTITIES:
-		//Update piano
-			piano.update();
-		//Update Enemy
-			for (int i = 0; i < Enemy.enemyList.size(); i++) {
-		        Enemy e = Enemy.enemyList.get(i);
-		        if (e.isDead()) {
-		        	killCounter.addKill(e.getClass().getSimpleName());
-		        	killCounter.printAllStats();//debug purpose
-		        	if(Math.random()<0.3f)
-		        		hotbar.addItem((int)(Math.random()*3));
-		            Enemy.enemyList.remove(i);
-		            i--;
-		        }else {
-		        	e.update();
-		        }
-		        	
-	//COLLISON HANDLING:
-		//Piano hit by enemy
-			if (piano.checkCollision(e)) {
-	            System.out.println("Piano hit by enemy");
-	            piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
-	        }
-		//Enemy hit by bullet
+		// UPDATE ENTITIES:
+		// Update piano
+		piano.update();
+		// Update Enemy
+		for (int i = 0; i < Enemy.enemyList.size(); i++) {
+			Enemy e = Enemy.enemyList.get(i);
+			if (e.isDead()) {
+				killCounter.addKill(e.getClass().getSimpleName());
+				killCounter.printAllStats();// debug purpose
+				if (Math.random() < 0.3f)
+					hotbar.addItem((int) (Math.random() * 3));
+				Enemy.enemyList.remove(i);
+				i--;
+			} else {
+				e.update();
+			}
+
+			// COLLISON HANDLING:
+			// Piano hit by enemy
+			if (piano.checkCollision(e) && !piano.isDead()) {
+				Enemy.enemyList.remove(e);
+				System.out.println("Piano hit by enemy");
+				piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
+			}
+			// Enemy hit by bullet
 			for (int k = 0; k < Piano.shot.size(); k++) {
-	            Bullet b = Piano.shot.get(k);
-	            
-	            if (b.checkCollision(e)) {
-	                System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage+" damage");
-	                e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
-	                b.setBulletHp(b.getBulletHp() - 1);  //Bullet lost its only hp (destroyed)
-	            }
-	        }
+				Bullet b = Piano.shot.get(k);
+
+				if (b.checkCollision(e)) {
+					System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage + " damage");
+					e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
+					b.setBulletHp(b.getBulletHp() - 1); // Bullet lost its only hp (destroyed)
+				}
+			}
 		}
-	//ENEMY SPAWN:
-		spawnTick++; //continues until spawnTick is 120 (2s passed)
-        if (spawnTick >= spawnRate) { //spawns enemy after 2s
-            spawnEnemy();
-            spawnTick = 0; //resets so that it can respawn enemy
-        }
-	}//end of update()
+		// ENEMY SPAWN:
+		spawnTick++; // continues until spawnTick is 120 (2s passed)
+		if (spawnTick >= spawnRate) { // spawns enemy after 2s
+			spawnEnemy();
+			spawnTick = 0; // resets so that it can respawn enemy
+		}
+	}// end of update()
 
 	private void pauseKey() {
 		if (keyH.isPressedOnce(KeyEvent.VK_ESCAPE)) {
 			Main.openPauseMenu();
 		}
 	}
+
 	private void keyBinds() {
-		if (keyH.isPressedOnce(KeyEvent.VK_C)) {
-			hotbar.useItem(0);
-		}
-		if (keyH.isPressedOnce(KeyEvent.VK_V)) {
-			hotbar.useItem(1);
-		}
-		if (keyH.isPressedOnce(KeyEvent.VK_B)) {
-			hotbar.useItem(2);
-		}
-		if (keyH.isPressedOnce(KeyEvent.VK_N)) {
-			hotbar.useItem(3);
-		}
-		if (keyH.isPressedOnce(KeyEvent.VK_M)) {
-			hotbar.useItem(4);
+		if (!piano.isDead()) {
+			if (keyH.isPressedOnce(KeyEvent.VK_C))
+				hotbar.useItem(0);
+
+			if (keyH.isPressedOnce(KeyEvent.VK_V))
+				hotbar.useItem(1);
+
+			if (keyH.isPressedOnce(KeyEvent.VK_B))
+				hotbar.useItem(2);
+
+			if (keyH.isPressedOnce(KeyEvent.VK_N))
+				hotbar.useItem(3);
+
+			if (keyH.isPressedOnce(KeyEvent.VK_M))
+				hotbar.useItem(4);
 		}
 		if (keyH.isPressedOnce(KeyEvent.VK_SPACE)) {
-			hotbar.addItem((int)(Math.random()*3));
+			hotbar.addItem((int) (Math.random() * 3));
 		}
-		if (keyH.isPressedOnce(KeyEvent.VK_Q)) piano.fire(0);
-	    if (keyH.isPressedOnce(KeyEvent.VK_W)) piano.fire(1);
-	    if (keyH.isPressedOnce(KeyEvent.VK_E)) piano.fire(2);
-	    if (keyH.isPressedOnce(KeyEvent.VK_U)) piano.fire(3);
-	    if (keyH.isPressedOnce(KeyEvent.VK_I)) piano.fire(4);
-	    if (keyH.isPressedOnce(KeyEvent.VK_O)) piano.fire(5);
-	    if (keyH.isPressedOnce(KeyEvent.VK_P)) piano.fire(6);
+		if (keyH.isPressedOnce(KeyEvent.VK_Q))
+			piano.fire(0);
+		if (keyH.isPressedOnce(KeyEvent.VK_W))
+			piano.fire(1);
+		if (keyH.isPressedOnce(KeyEvent.VK_E))
+			piano.fire(2);
+		if (keyH.isPressedOnce(KeyEvent.VK_U))
+			piano.fire(3);
+		if (keyH.isPressedOnce(KeyEvent.VK_I))
+			piano.fire(4);
+		if (keyH.isPressedOnce(KeyEvent.VK_O))
+			piano.fire(5);
+		if (keyH.isPressedOnce(KeyEvent.VK_P))
+			piano.fire(6);
 
-		
 	}
+
 	// --- DRAW (Rendering) ---
 	@Override
 	public void paintComponent(Graphics g) {
-	    super.paintComponent(g); 
+		super.paintComponent(g);
 	}
-	
+
 	@Override
-	public void paintChildren(Graphics g) { //This draws AFTER the labels dont forget 
-	    super.paintChildren(g); 
-	    
-	    Graphics2D g2 = (Graphics2D) g;
-	    
-	    //DRAW ENEMIES:
-	    for(Enemy e: Enemy.enemyList) {
-	    	if(e != null) {
-	    		g2.drawImage(e.getCurrentFrame(), (int)e.getX(), (int)e.getY(), null);
-	    		//null is observer updates for loads we already have it here so no need, it is null
-	    	}
-	    }
-	 // DRAW BULLETS 
-	    g2.setColor(Color.RED);
-	    for (int i = 0; i < Piano.shot.size(); i++) {
-	        Bullet b = Piano.shot.get(i);
-	        if (b != null) {
-	            g2.fillRect((int)b.getX(), (int)b.getY(), 20, 20);
-	        }
-	    }
-	    
-	    g2.setColor(Color.yellow);
-	    g2.fillRect(Main.WIDTH-50-(time * 20), 0, 50, 50); 
+	public void paintChildren(Graphics g) { // This draws AFTER the labels dont forget
+		super.paintChildren(g);
+
+		Graphics2D g2 = (Graphics2D) g;
+
+		// DRAW ENEMIES:
+		for (Enemy e : Enemy.enemyList) {
+			if (e != null) {
+				g2.drawImage(e.getCurrentFrame(), (int) e.getX(), (int) e.getY(), null);
+				// null is observer updates for loads we already have it here so no need, it is
+				// null
+			}
+		}
+		// DRAW BULLETS
+		g2.setColor(Color.RED);
+		for (int i = 0; i < Piano.shot.size(); i++) {
+			Bullet b = Piano.shot.get(i);
+			if (b != null) {
+				g2.fillRect((int) b.getX(), (int) b.getY(), 20, 20);
+			}
+		}
 	}
-	
-	
+
+	private void resetLists() {
+		Enemy.enemyList.removeAll(Enemy.enemyList);
+		Piano.shot.removeAll(Piano.shot);
+	}
 }
