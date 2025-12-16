@@ -6,14 +6,17 @@ import ui_items.EnergyBar;
 
 public class Piano extends Character{
 
+	//Declarations
 	private static PianoKey[] keys;
 	public static ArrayList<Bullet> shot = new ArrayList<>();
 	
+	//Constructor
 	public Piano(double x, double y) {
         super(x, y, 100, 300); //for now
         this.hp = 100; //for now
 	}
 	
+	//Methods
 	public PianoKey getSpecificKey(int index) {
         if (index >= 0 && index < keys.length) { //verify range
             return keys[index];
@@ -22,7 +25,6 @@ public class Piano extends Character{
             return null;
         }
     }
-
 	@Override
 	public void update() {
 		for (int i = 0; i < shot.size(); i++) {
@@ -49,7 +51,6 @@ public class Piano extends Character{
 				EnergyBar.curEnergy--;
 		}
 	}
-
 	public int getPianoHp() {
 		return this.hp;
 	}

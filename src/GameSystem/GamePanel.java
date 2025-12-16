@@ -86,6 +86,42 @@ public class GamePanel extends JPanel implements Runnable {
 		background.setBounds(0,0,Main.WIDTH,Main.HEIGHT);
 		return background;
 	}
+
+	private void loadEnemyImages() { 
+		// Prints where "/" actually points to on your computer
+		System.out.println("Root Path: " + getClass().getResource("/"));
+
+		// Prints where your current Java class is located
+		System.out.println("Class Path: " + getClass().getResource("."));
+        try {
+            imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
+            imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
+            imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.out.println("Error loading enemy images!");
+        }
+    }
+	
+	public void spawnEnemy() {
+		int laneIndex = (int)(Math.random() * Lanes.laneCount); //random lane
+		double startY = laneIndex * Lanes.laneHeight; //find starting y coordinate
+		double startX = Main.WIDTH + 50; // make sure the spawn is beyond screen by + 50
+		
+		//Find Enemy Type
+		int type = (int)(Math.random() * 3);
+		
+		switch(type) {
+		case 0: new TypeA(startX, startY, 5.0, "Low", laneIndex, imgA); //Enemy obj creation here
+			break;
+		case 1: new TypeB(startX, startY, 2.5, "Medium", laneIndex, imgB);
+			break;
+		case 2: new TypeC(startX, startY, 1.0, "High", laneIndex, imgC);
+			break;
+		}
+		
+	}
+	
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {
@@ -121,21 +157,7 @@ public class GamePanel extends JPanel implements Runnable {
 			}
 		}
 	}
-	
-	private void loadEnemyImages() {
 		
-        try {
-            // Make sure these paths match your resource folder structure
-            imgA = ImageIO.read(getClass().getResourceAsStream("/enemies/typeA.png"));
-            imgB = ImageIO.read(getClass().getResourceAsStream("/enemies/typeB.png"));
-            imgC = ImageIO.read(getClass().getResourceAsStream("/enemies/typeC.png"));
-        } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Error loading enemy images!");
-        }
-    }
-	
-	
 	// --- UPDATE (Logic) ---
 	public void update() {
 		energyBar.updateBars();
@@ -180,28 +202,8 @@ public class GamePanel extends JPanel implements Runnable {
             spawnEnemy();
             spawnTick = 0; //resets so that it can respawn enemy
         }
-	}
+	}//end of update()
 
-	public void spawnEnemy() {
-		int laneIndex = (int)(Math.random() * Lanes.laneCount); //random lane
-		double startY = laneIndex * Lanes.laneHeight; //find starting y coordinate
-		double startX = Main.WIDTH + 50; // make sure the spawn is beyond screen by + 50
-		
-		//Find Enemy Type
-		int type = (int)(Math.random() * 3);
-		
-		switch(type) {
-		case 0: new TypeA(startX, startY, 5.0, "Low", laneIndex, imgA);
-			break;
-		case 1: new TypeB(startX, startY, 2.5, "Medium", laneIndex, imgB);
-			break;
-		case 2: new TypeC(startX, startY, 1.0, "High", laneIndex, imgC);
-			break;
-		}
-		
-	}
-
-	
 	private void pauseKey() {
 		if (keyH.isPressedOnce(KeyEvent.VK_ESCAPE)) {
 			Main.openPauseMenu();
@@ -236,13 +238,24 @@ public class GamePanel extends JPanel implements Runnable {
 	public void paintComponent(Graphics g) {
 	    super.paintComponent(g); 
 	}
+	
 	@Override
 	public void paintChildren(Graphics g) { //This draws AFTER the labels dont forget 
 	    super.paintChildren(g); 
 	    
 	    Graphics2D g2 = (Graphics2D) g;
 	    
+	    //DRAW ENEMIES:
+	    for(Enemy e: Enemy.enemyList) {
+	    	if(e != null) {
+	    		g2.drawImage(e.getCurrentFrame(), (int)e.getX(), (int)e.getY(), null);
+	    		//null is observer updates for loads we already have it here so no need, it is null
+	    	}
+	    }
+	    
 	    g2.setColor(Color.yellow);
 	    g2.fillRect(Main.WIDTH-50-(time * 20), 0, 50, 50); 
 	}
+	
+	
 }
