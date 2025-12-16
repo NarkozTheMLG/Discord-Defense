@@ -44,6 +44,8 @@ public class GamePanel extends JPanel implements Runnable {
 	//to have delay when  spawning enemies:
 	private int spawnTick = 0;
     private int spawnRate = 120;
+    private KillCounter killCounter;
+    
 	double delta = 0;
 
 		// --- CONSTRUCTOR ---
@@ -55,6 +57,8 @@ public class GamePanel extends JPanel implements Runnable {
 		background = setUpBackground();
 		piano = new Piano(100, 1000); //for now
 		loadEnemyImages();
+		killCounter = new KillCounter();
+		
 		this.setBackground(Color.gray);
 		this.setPreferredSize(new Dimension(Main.WIDTH, Main.HEIGHT));
 		this.setDoubleBuffered(true); // Improves rendering performance
@@ -175,6 +179,8 @@ public class GamePanel extends JPanel implements Runnable {
 			for (int i = 0; i < Enemy.enemyList.size(); i++) {
 		        Enemy e = Enemy.enemyList.get(i);
 		        if (e.isDead()) {
+		        	killCounter.addKill(e.getClass().getSimpleName());
+		        	killCounter.printAllStats();//debug purpose
 		        	if(Math.random()<0.3f)
 		        		hotbar.addItem((int)(Math.random()*3));
 		            Enemy.enemyList.remove(i);

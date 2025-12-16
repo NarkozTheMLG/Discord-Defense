@@ -12,7 +12,7 @@ public class KillCounter {
         counts.put("TypeB", 0);
         counts.put("TypeC", 0);
     }
-
+	//methods
     public void addKill(String enemyType) {
         //Get current count, default 0 just in case
         int current = counts.getOrDefault(enemyType, 0);
