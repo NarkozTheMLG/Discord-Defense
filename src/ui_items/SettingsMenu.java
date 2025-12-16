@@ -1,14 +1,11 @@
 package ui_items;
 
-import java.awt.Color;
-import java.awt.Graphics;
 import java.awt.Image;
-
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import GameSystem.Main;
-public class SettingsMenu extends JPanel{
+public class SettingsMenu extends JPanel implements ImageResizer{
 	private static final long serialVersionUID = 1L;
 	public static int width = (int)(Main.WIDTH * 0.8);
 	public int height = (int)(Main.HEIGHT * 0.8);
@@ -27,7 +24,7 @@ public class SettingsMenu extends JPanel{
 		this.setBounds((Main.WIDTH-width)/2,(Main.HEIGHT-height)/2,width,height);
 		this.setOpaque(false);
 		
-		// Resolution row start
+		// Resolution row start ->
 		ImageIcon resTextBar =  new ImageIcon(getClass().getResource("/img/settings/resoulutionText.png"));
 		String resOption1Path = "settings/1920";
 		String resOption2Path = "settings/1280";
@@ -35,9 +32,9 @@ public class SettingsMenu extends JPanel{
 		String resType2 = "1280";
 		int resOrder = 1;
 		this.resSettings = new SettingsRow(resTextBar,resOption1Path,resOption2Path,resType1,resType2,resOrder);
-		// Resolution row end
+		// Resolution row end <-
 		
-		// Display row start
+		// Display row start ->
 		ImageIcon displayTextBar =  new ImageIcon(getClass().getResource("/img/settings/displayText.png"));
 		String displayOption1Path = "settings/windowed";
 		String displayOption2Path = "settings/fullscreen";
@@ -45,18 +42,14 @@ public class SettingsMenu extends JPanel{
 		String displayType2 = "fullscreen";
 		int displayOrder = 2;
 		this.displaySettings = new SettingsRow(displayTextBar,displayOption1Path,displayOption2Path,displayType1,displayType2,displayOrder);
-		// Display row end
-		
+		// Display row end <-
 		
 		// this handles the backgorudn img
-		this.settingsUIImg = settingsUIRaw.getImage().getScaledInstance(width, height,Image.SCALE_SMOOTH);
-		this.settingsUILabel = new JLabel(new ImageIcon(settingsUIImg));
-		
+		this.settingsUILabel = new JLabel(ImageResizer.imageResize(settingsUIRaw, width, height));
 		this.settingsUILabel.setOpaque(false);
 		this.settingsUILabel.setBounds(0,0,width,height);
 		this.settingsUILabel.setVisible(true);
 		//
-		
 		this.add(settingsUILabel);
 		this.add(resSettings);
 		this.add(displaySettings);

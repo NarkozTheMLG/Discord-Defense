@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 
 import javax.swing.SwingConstants;
@@ -16,7 +15,7 @@ import javax.swing.SwingConstants;
 import GameSystem.Items;
 import GameSystem.Main;
 
-public class Hotbar extends JPanel {
+public class Hotbar extends JPanel implements ImageResizer{
 	private static final long serialVersionUID = 1L;
 	private float scaler = 1.33f;
 	public final int WIDTH = (int)Math.ceil(scaler * 480 * (Main.WIDTH / 1920.0));
@@ -34,11 +33,10 @@ public class Hotbar extends JPanel {
 					inventory[i] = new Items(id, i);
 					int itemW = inventory[i].getWidth();
 					int itemH = inventory[i].getHeight();
-					ImageIcon iceImg = inventory[i].getImage();
-					Image scaledImg = iceImg.getImage().getScaledInstance(itemW, itemH , Image.SCALE_SMOOTH);
-					JLabel itemLabel = new JLabel();
+					//
+					JLabel itemLabel = new JLabel(ImageResizer.imageResize(inventory[i].getImage(),itemW,itemH));
+					//
 					itemLabel.setBounds(((WIDTH/5 - itemW))/ 2, (HEIGHT-itemH)/2, itemW, itemH);
-					itemLabel.setIcon(new ImageIcon(scaledImg));
 					itemLabel.setOpaque(false);
 					itemLabel.setBackground(Color.GRAY);
 					itemLabel.setHorizontalAlignment(SwingConstants.CENTER);

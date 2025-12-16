@@ -1,15 +1,11 @@
 package ui_items;
-import java.awt.Dimension;
-import java.awt.Image;
-import java.awt.Toolkit;
-
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import GameSystem.Main;
 
-public class SettingsRow extends JPanel{
+public class SettingsRow extends JPanel implements ImageResizer{
 	private static final long serialVersionUID = 1L;
 	//
 	private int y;
@@ -30,7 +26,6 @@ public class SettingsRow extends JPanel{
 //
 	public SettingsRow(ImageIcon textBar,String option1,String option2,String type1,String type2,int order) {
 		this.spacing = (int) (10 * Main.scalerY);
-		
 		this.y = (int) (200 * Main.scalerY);
 		this.height = (int) (500 * Main.scalerY);
 		//
@@ -38,9 +33,7 @@ public class SettingsRow extends JPanel{
 		this.textBarH = (int) (132 * Main.scalerY);
 		this.textBarX = (int) (150 * Main.scalerX);
 		//
-		Image resImg = textBar.getImage().getScaledInstance(textBarW, textBarH, Image.SCALE_REPLICATE);
-		ImageIcon resImgIcon = new ImageIcon(resImg);
-		this.resolutionText = new JLabel(resImgIcon);
+		this.resolutionText = new JLabel(ImageResizer.imageResize(textBar, textBarW, textBarH));
 		//
 		this.optionWidth = (int) (300 * Main.scalerX);
 		this.optionHeight = (int) (100 * Main.scalerY);	
