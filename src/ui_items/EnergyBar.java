@@ -45,7 +45,7 @@ public class EnergyBar extends JPanel {
 		this.setOpaque(false);
 		this.setBounds(0, Main.HEIGHT - height, width, height); // 2175,365
 		//
-		ImageIcon energyBarRaw = new ImageIcon("img/energyBar.png");
+		ImageIcon energyBarRaw = new ImageIcon(getClass().getResource("/img/energyBar.png"));
 		Image energyBarScaled = energyBarRaw.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
 		JLabel energyBarLabel = new JLabel(new ImageIcon(energyBarScaled));
 		//

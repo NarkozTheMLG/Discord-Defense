@@ -20,7 +20,7 @@ public class TitlePanel extends JPanel {
 	private Timer timer;
 	private double time = 0;
 
-	ImageIcon titleRaw = new ImageIcon("img/title.png");
+	ImageIcon titleRaw = new ImageIcon(getClass().getResource("/img/title.png"));
 
 	public TitlePanel() {
 		titleWidth = (int) (1050 * Main.scalerX);

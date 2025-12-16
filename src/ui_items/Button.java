@@ -40,7 +40,7 @@ public class Button extends JButton {
 		this.scaledW = width + sizeScale;
 		this.scaledH = height + sizeScale;
 		//
-		ImageIcon mainImgRaw = new ImageIcon("img/"+img+".png");
+		ImageIcon mainImgRaw = new ImageIcon(getClass().getResource("/img/"+img+".png"));
 		Image mainImg = mainImgRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
 		ImageIcon mainImageIcon = new ImageIcon(mainImg);
 		//
@@ -55,7 +55,7 @@ public class Button extends JButton {
 		//
 		
 		if(settingsItem) {
-			 mainImgOnRaw = new ImageIcon("img/"+img+"on"+".png");
+			 mainImgOnRaw = new ImageIcon(getClass().getResource("/img/"+img+"on"+".png"));
 			 mainOnImg = mainImgOnRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
 			 mainOnImageIcon = new ImageIcon(mainOnImg);
 			if(Main.WIDTH == 1920 && type.equals("1920")) {
