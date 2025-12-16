@@ -16,17 +16,17 @@ public class Items {
 		case 0: {
 			this.width = (int)(70 * Main.scalerX);
 			this.height = (int)(70 * Main.scalerY);
-			img = new ImageIcon("img/items/ice.png");
+			img = new ImageIcon(getClass().getResource("/img/items/ice.png"));
 			break;
 		}
 		case 1:{
-			img = new ImageIcon("img/items/damage.png");
+			img = new ImageIcon(getClass().getResource("/img/items/damage.png"));
 			this.width = (int)(128 * Main.scalerX);
 			this.height = (int)(128 * Main.scalerY);
 			break;
 		}
 		case 2:{
-			img = new ImageIcon("img/items/energy.png");
+			img = new ImageIcon(getClass().getResource("/img/items/energy.png"));
 			this.width = (int)(113 *0.6* Main.scalerX);
 			this.height = (int)(174 *0.6* Main.scalerY);
 			break;

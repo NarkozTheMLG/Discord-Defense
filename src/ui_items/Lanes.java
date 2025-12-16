@@ -1,18 +1,13 @@
 package ui_items;
 
 import java.awt.GridLayout;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-
 import GameSystem.Main;
 
-public class Lanes extends JPanel{
+public class Lanes extends JPanel implements ImageResizer{
 	private static final long serialVersionUID = 1L;
 
 	public static int width = (int)(1536 * Main.scalerX);
@@ -22,22 +17,19 @@ public class Lanes extends JPanel{
 	public int x = (int)(400*Main.scalerX);
 	
 	public Lanes() {
-		
 		width = (int)(1536 * Main.scalerX);
 		height = (int)(896 * Main.scalerY);
 		laneHeight = (int)((height / laneCount)) ;
 		this.x = (int)(400*Main.scalerX);
-		
-		
+		//
 		setLayout(new GridLayout(7,1,0,0));
 		setOpaque(false);
 		setBounds(x,0,width,height);
+		//
 		Integer[] randLanes = {0,1,2,3,4,5,6};
 		Collections.shuffle(Arrays.asList(randLanes));
 		for(int i = 0 ; i < 7; i++) {
-			ImageIcon laneRaw = new ImageIcon(getClass().getResource("/img/lanes/laneNo"+randLanes[i]+".png"));
-			Image laneImg = laneRaw.getImage().getScaledInstance(width, laneHeight, Image.SCALE_SMOOTH);
-			JLabel laneLabel = new JLabel(new ImageIcon(laneImg));
+			JLabel laneLabel = new JLabel(ImageResizer.imageResize("/img/lanes/laneNo"+randLanes[i]+".png",width,laneHeight));
 			add(laneLabel);
 			}
 

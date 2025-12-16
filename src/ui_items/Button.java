@@ -1,7 +1,6 @@
 package ui_items;
 
 import java.awt.Cursor;
-import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -11,8 +10,8 @@ import javax.swing.JButton;
 
 import GameSystem.Main;
 
-public class Button extends JButton {
-	
+public class Button extends JButton implements ImageResizer {
+
 	private static final long serialVersionUID = 1L;
 	private int posScale;
 	private int sizeScale;
@@ -20,87 +19,72 @@ public class Button extends JButton {
 	private int height;// 140 for main menu
 	private int scaledW;
 	private int scaledH;
-	
+	//
 	private boolean on = false;
-	
+
 	ImageIcon hoverImg;
-	
-	ImageIcon mainImgOnRaw;
-	Image mainOnImg;
 	ImageIcon mainOnImageIcon;
-	
-	Button(int x, int y,int w,int h, String img, String type,boolean settingsItem) {
+
+	Button(int x, int y, int w, int h, String img, String type, boolean settingsItem) {
 		this.width = w;
 		this.height = h;
-			this.sizeScale = 4;			
-			this.posScale = 2;
+		this.sizeScale = 4;
+		this.posScale = 2;
 
 		int scaledX = x - posScale;
 		int scaledY = y - posScale;
 		this.scaledW = width + sizeScale;
 		this.scaledH = height + sizeScale;
 		//
-		ImageIcon mainImgRaw = new ImageIcon(getClass().getResource("/img/"+img+".png"));
-		Image mainImg = mainImgRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
-		ImageIcon mainImageIcon = new ImageIcon(mainImg);
+		ImageIcon mainImageIcon = ImageResizer.imageResize("/img/" + img + ".png", width, height);
 		//
-
 		//
 		this.setIcon(mainImageIcon);
 		this.setOpaque(false);
 		this.setContentAreaFilled(false);
 		this.setBounds(x, y, width, height);
 		this.setBorder(null); // this removes the border around button
-		
 		//
-		
-		if(settingsItem) {
-			 mainImgOnRaw = new ImageIcon(getClass().getResource("/img/"+img+"on"+".png"));
-			 mainOnImg = mainImgOnRaw.getImage().getScaledInstance(width, height, Image.SCALE_REPLICATE);
-			 mainOnImageIcon = new ImageIcon(mainOnImg);
-			if(Main.WIDTH == 1920 && type.equals("1920")) {
+		if (settingsItem) {
+			mainOnImageIcon = ImageResizer.imageResize("/img/" + img + "on" + ".png", width, height);
+			if (Main.WIDTH == 1920 && type.equals("1920")) {
 				setIcon(mainOnImageIcon);
-				on=true;
-				repaint();				
-			}
-			else if(Main.WIDTH == 1280 && type.equals("1280")) {
+				on = true;
+				repaint();
+			} else if (Main.WIDTH == 1280 && type.equals("1280")) {
 				setIcon(mainOnImageIcon);
-				on=true;
-				repaint();				
-			}
-			else if(Main.isFullScreen == false && type.equals("windowed")) {
+				on = true;
+				repaint();
+			} else if (Main.isFullScreen == false && type.equals("windowed")) {
 				setIcon(mainOnImageIcon);
-				on=true;
-				repaint();				
-			}
-			else if(Main.isFullScreen == true && type.equals("fullscreen")) {
+				on = true;
+				repaint();
+			} else if (Main.isFullScreen == true && type.equals("fullscreen")) {
 				setIcon(mainOnImageIcon);
-				on=true;
-				repaint();				
+				on = true;
+				repaint();
 			}
 		}
 		//
-		if(on) {
-			
-			Image scaledImg = mainOnImg.getScaledInstance(scaledW, scaledH, Image.SCALE_REPLICATE);
-			hoverImg = new ImageIcon(scaledImg);
-		}
-		else {
-			Image scaledImg = mainImg.getScaledInstance(scaledW, scaledH, Image.SCALE_REPLICATE);
-			hoverImg = new ImageIcon(scaledImg);
+		if (on) {
+			hoverImg = ImageResizer.imageResize("/img/" + img + "on" + ".png", scaledW, scaledH);
+
+		} else {
+			hoverImg = ImageResizer.imageResize("/img/" + img + ".png", scaledW, scaledH);
 		}
 		// event handlers //
 		this.addMouseListener(new MouseAdapter() {
 			public void mouseEntered(MouseEvent e) {
-				if(MainMenu.isSettingsMenuActive && !settingsItem) return; 
+				if (MainMenu.isSettingsMenuActive && !settingsItem)
+					return;
 				setIcon(hoverImg);
 				setBounds(scaledX, scaledY, scaledW, scaledH);
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
-
 			public void mouseExited(MouseEvent e) {
-				if(MainMenu.isSettingsMenuActive && !settingsItem) return; 
-				if(on)
+				if (MainMenu.isSettingsMenuActive && !settingsItem)
+					return;
+				if (on)
 					setIcon(mainOnImageIcon);
 				else
 					setIcon(mainImageIcon);
@@ -111,7 +95,8 @@ public class Button extends JButton {
 		});
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(MainMenu.isSettingsMenuActive && !settingsItem) return; 
+				if (MainMenu.isSettingsMenuActive && !settingsItem)
+					return;
 				if (type.equalsIgnoreCase("Start"))
 					Main.startGame();
 				else if (type.equalsIgnoreCase("Quit"))
@@ -135,5 +120,5 @@ public class Button extends JButton {
 			}
 		});
 	}
-		
+
 }

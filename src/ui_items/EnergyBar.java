@@ -1,15 +1,12 @@
 package ui_items;
 
 import java.awt.Color;
-import java.awt.Image;
-
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
 import GameSystem.Main;
 
-public class EnergyBar extends JPanel {
+public class EnergyBar extends JPanel implements ImageResizer{
 	private static final long serialVersionUID = 1L;
 	public static int maxEnergy = 22;
 	public static int curEnergy = -1;
@@ -44,10 +41,8 @@ public class EnergyBar extends JPanel {
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.setBounds(0, Main.HEIGHT - height, width, height); // 2175,365
-		//
-		ImageIcon energyBarRaw = new ImageIcon(getClass().getResource("/img/energyBar.png"));
-		Image energyBarScaled = energyBarRaw.getImage().getScaledInstance(width, height, Image.SCALE_SMOOTH);
-		JLabel energyBarLabel = new JLabel(new ImageIcon(energyBarScaled));
+		//		
+		JLabel energyBarLabel = new JLabel(ImageResizer.imageResize("/img/energyBar.png", width, height));
 		//
 		energyBarLabel.setBounds(0, 0, width, height);
 		for (int i = 0; i < maxEnergy; i++) {
