@@ -23,7 +23,7 @@ public class Main {
 	//
 	public static JFrame window = new JFrame();
 	public static MainMenu mainMenu = new MainMenu();
-	public static PauseMenu pauseMenu;
+	public static PauseMenu pauseMenu = new PauseMenu();
 	
 	
 	static GamePanel gamePanel;
