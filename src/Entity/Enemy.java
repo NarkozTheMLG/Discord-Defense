@@ -87,22 +87,22 @@ public abstract class Enemy extends Character {
 		if (up) {
 			if (curLane >= 0 && curLane < (Lanes.laneCount - 1)) {
 				this.y += Lanes.laneHeight; // go up
-				/* System.out.println("moving 1 lane up, new lane: " + ++curLane); */
+				 System.out.println("moving 1 lane up, new lane: " + ++curLane); 
 			} else if (curLane == (Lanes.laneCount - 1)) {
 				this.y -= Lanes.laneHeight; // go down
-				/*
-				 * System.out.println("moving 1 lane down due to top, new lane: " + --curLane);
-				 */
+				
+				 System.out.println("moving 1 lane down due to top, new lane: " + --curLane);
+				 
 			}
 		} else {
 			if (curLane <= (Lanes.laneCount - 1) && curLane != 0) {
 				this.y -= Lanes.laneHeight; // go down
-				/* System.out.println("moving 1 lane down, new lane: " + --curLane); */
+				 System.out.println("moving 1 lane down, new lane: " + --curLane); 
 			} else if (curLane == 0) {
 				this.y += Lanes.laneHeight; // go up
-				/*
-				 * System.out.println("moving 1 lane up due to bottom, new lane: " + ++curLane);
-				 */
+				
+				  System.out.println("moving 1 lane up due to bottom, new lane: " + ++curLane);
+				 
 			}
 		}
 	}
