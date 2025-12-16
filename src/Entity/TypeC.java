@@ -13,7 +13,7 @@ public class TypeC extends Enemy {
 
 	@Override
     public void update() {
-        this.x -= speed; //move left by each frame
+        this.x -= speed*enemySpeedMultiplayer; //move left by each frame
         cycleSubSheets(); //update aniTick (timer)
         changeLane(); //randomly change lanes
     }

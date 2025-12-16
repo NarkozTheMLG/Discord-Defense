@@ -112,11 +112,11 @@ public class GamePanel extends JPanel implements Runnable {
 		int type = (int)(Math.random() * 3);
 		
 		switch(type) {
-		case 0: new TypeA(startX, startY, 2.0, "Low", laneIndex, imgA); //Enemy obj creation here
+		case 0: new TypeA(startX, startY, 1.0, "Low", laneIndex, imgA); //Enemy obj creation here
 			break;
-		case 1: new TypeB(startX, startY, 1.0, "Medium", laneIndex, imgB);
+		case 1: new TypeB(startX, startY, 0.5, "Medium", laneIndex, imgB);
 			break;
-		case 2: new TypeC(startX, startY, 0.5, "High", laneIndex, imgC);
+		case 2: new TypeC(startX, startY, 0.3, "High", laneIndex, imgC);
 			break;
 		}
 		

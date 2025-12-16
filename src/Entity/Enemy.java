@@ -18,6 +18,7 @@ public abstract class Enemy extends Character{
     protected int aniTick;
     protected int aniIndex; //Frame index for each element in animation array.
     protected int aniSpeed = 15;
+    public static double enemySpeedMultiplayer = 1;
     
     //Constructor
     public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sheet, int frameCount) {
