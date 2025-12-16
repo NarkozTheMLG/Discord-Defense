@@ -17,10 +17,10 @@ public abstract class Character {
 		this.width = w;
 		this.height = h;
 	}
-	//abstract methods
+	//Abstract methods
 	public abstract void update();
 	
-	//methods
+	//Methods
 	public Rectangle getBound() {
 		return new Rectangle((int)x, (int)y, width, height); //Rectangle holds int 
 	}

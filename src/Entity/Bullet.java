@@ -11,4 +11,12 @@ public class Bullet extends Character{
 	public void update() {
 		this.x += 10;
 	}
+	
+	public int getBulletHp() {
+		return this.hp;
+	}
+	
+	public void setBulletHp(int value) {
+		this.hp = value;
+	}
 }

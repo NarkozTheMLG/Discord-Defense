@@ -1,31 +1,65 @@
 package Entity;
 
 import java.awt.image.BufferedImage;
+import java.awt.Graphics2D;
 import java.util.ArrayList;
-
 import ui_items.Lanes;
 
 public abstract class Enemy extends Character implements EnemyInterface{
 
-	
+	//Declarations
 	protected double speed;
     protected String laneChangeRate; // Low, Medium, High
     protected int curLane;
     protected int hp;
-    protected BufferedImage sprite;
-    protected static ArrayList<Enemy> enemyList = new ArrayList<>();
+    protected BufferedImage[] animation;
+    public static ArrayList<Enemy> enemyList = new ArrayList<>(); 
+    protected int aniTick;
+    protected int aniIndex; //Frame index for each element in animation array.
+    protected int aniSpeed = 15;
     
-    
-    public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
-		super(x, y, 50, 50);
+    //Constructor
+    public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sheet, int frameCount) {
+		super(x, y, 50, 50); //default 50x50 but it will be overwritten
 		this.speed = speed;
 		this.laneChangeRate = laneChangeRate;
 		this.curLane = curLane;
-		this.hp = 3; //all enemies have 3 hp
-		this.sprite = sprite;
+		this.hp = 3; //all enemies have 3 hp default
+		loadAnimation(sheet, frameCount);
+		
 		enemyList.add(this);
 	}
-       
+    //Methods
+    private void loadAnimation(BufferedImage sheet, int frameCount) {
+    	animation = new BufferedImage[frameCount];
+    	int frameWidth = sheet.getWidth() / frameCount;
+    	int frameHeight = sheet.getHeight();
+    	
+    	System.out.println("frameWidth: " + frameWidth);
+    	System.out.println("frameHeight: " + frameHeight);
+    	
+    	this.width = frameWidth;
+        this.height = frameHeight;
+        
+        for (int i = 0; i < frameCount; i++) { //ask !!!
+            animation[i] = sheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight); //crop the img using subimage
+            //i * frameWidth => starting point for each iteration (x-axis)
+            //0 => starting point for each iteration (y-axis)
+        }
+    }
+    
+    public void cycleSubSheets() {
+    	aniTick++;
+    	
+        if (aniTick >= aniSpeed) {
+            aniTick = 0;
+            aniIndex++;
+            
+            if (aniIndex >= animation.length)
+                aniIndex = 0;
+        }
+    }
+    
     public void changeLane() {
     	double chance = 0;
     	
@@ -41,7 +75,6 @@ public abstract class Enemy extends Character implements EnemyInterface{
     	if (Math.random() < chance) 
     		move();
     }
-    
     public void move() {
     	boolean up = false;
     	if(Math.random() > 0.5)
@@ -59,5 +92,15 @@ public abstract class Enemy extends Character implements EnemyInterface{
     			System.out.println("moving 1 lane down, new lane: " + --curLane);
     		}
     	}
+    }
+    //Getters & Setters
+    public BufferedImage getCurrentFrame() { //Getter to draw current frame
+        return animation[aniIndex];
+    }
+    public int getEnemyHp() {
+    	return this.hp;
+    }
+    public void setEnemyHp(int value) {
+    	this.hp = value;
     }
 }
