@@ -78,9 +78,9 @@ public class GamePanel extends JPanel implements Runnable {
 		if (gameThread!=null)
         gameThread = null;
     }
-	private JLabel setUpBackground() {
+	private JLabel setUpBackground() { //ImageIcon backgroundImgRaw = new ImageIcon(getClass().getResource("/img/background.png"));
 		JLabel background = new JLabel();
-		ImageIcon backgroundImgRaw = new ImageIcon("img/background.png");
+		ImageIcon backgroundImgRaw = new ImageIcon(getClass().getResource("/img/background.png"));
 		Image backgroundImg= backgroundImgRaw.getImage().getScaledInstance(Main.WIDTH, Main.HEIGHT, Image.SCALE_REPLICATE);
 		background.setIcon(new ImageIcon(backgroundImg));
 		background.setBounds(0,0,Main.WIDTH,Main.HEIGHT);
@@ -93,8 +93,8 @@ public class GamePanel extends JPanel implements Runnable {
 
 		// Prints where your current Java class is located
 		System.out.println("Class Path: " + getClass().getResource("."));
-        try {
-            imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
+        try { 
+        	imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
             imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
             imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
         } catch (IOException e) {
