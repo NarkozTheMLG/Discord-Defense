@@ -3,15 +3,16 @@ package Entity;
 import java.awt.image.BufferedImage;
 import java.awt.Graphics2D;
 import java.util.ArrayList;
+
+import GameSystem.GamePanel;
 import ui_items.Lanes;
 
-public abstract class Enemy extends Character implements EnemyInterface{
+public abstract class Enemy extends Character{
 
 	//Declarations
 	protected double speed;
     protected String laneChangeRate; // Low, Medium, High
     protected int curLane;
-    protected int hp;
     protected BufferedImage[] animation;
     public static ArrayList<Enemy> enemyList = new ArrayList<>(); 
     protected int aniTick;
@@ -64,16 +65,17 @@ public abstract class Enemy extends Character implements EnemyInterface{
     	double chance = 0;
     	
     	if(laneChangeRate.equalsIgnoreCase("low"))
-    		chance = 0.001;
+    		chance = 0.003;
     	else if(laneChangeRate.equalsIgnoreCase("medium"))
-    		chance = 0.004;
+    		chance = 0.005;
     	else if(laneChangeRate.equalsIgnoreCase("high"))
-    		chance = 0.006;
+    		chance = 0.007;
     	else 
     		System.out.println("invalid laneChangeRate.");
     	
-    	if (Math.random() < chance) 
+    	if (Math.random() < chance) { 
     		move();
+    	}
     }
     public void move() {
     	boolean up = false;
@@ -81,15 +83,23 @@ public abstract class Enemy extends Character implements EnemyInterface{
     		up = true;
     	
     	if(up) {
-    		if(curLane >= 0) { 
+    		if(curLane >= 0 && curLane < (Lanes.laneCount - 1)) { 
     			this.y += Lanes.laneHeight; //go up
     			System.out.println("moving 1 lane up, new lane: " + ++curLane);
     		}
+    		else if(curLane == (Lanes.laneCount - 1)){
+    			this.y -= Lanes.laneHeight; //go down
+    			System.out.println("moving 1 lane down due to top, new lane: " + --curLane);
+    		}
     	}
     	else {
-    		if(curLane <= (Lanes.laneCount - 1)) {
+    		if(curLane <= (Lanes.laneCount - 1) && curLane != 0) {
     			this.y -= Lanes.laneHeight; //go down
     			System.out.println("moving 1 lane down, new lane: " + --curLane);
+    		}
+    		else if(curLane == 0) {
+    			this.y += Lanes.laneHeight; //go up
+    			System.out.println("moving 1 lane up due to bottom, new lane: " + ++curLane);
     		}
     	}
     }

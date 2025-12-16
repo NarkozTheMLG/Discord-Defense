@@ -12,11 +12,6 @@ public class TypeA extends Enemy {
 	}	
 
 	@Override
-	public void attack() {
-		
-	}
-
-	@Override
     public void update() {
         this.x -= speed; //move left by each frame
         cycleSubSheets(); //update aniTick (timer)

@@ -14,8 +14,8 @@ import ui_items.PauseMenu;
 public class Main {
 	MainSys mainSys = new MainSys();
 	// 1. THIS IS THE SCREEN SIZE (What the user sees)
-	static public int WIDTH = 1920;
-	static public int HEIGHT = 1080;
+	static public int WIDTH = 1280;
+	static public int HEIGHT = 720;
 	// final static int WIDTH = 1280;
 	// final static int HEIGHT = 720;
 	static public float scalerX = WIDTH / 1920f;

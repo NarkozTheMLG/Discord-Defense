@@ -10,10 +10,6 @@ public class TypeB extends Enemy {
 	public TypeB(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
 		super(x, y, speed, laneChangeRate, curLane, sprite, 4);
 	}	
-	
-	@Override
-	public void attack() {
-	}
 
 	@Override
     public void update() {
