@@ -25,11 +25,9 @@ public class MainMenu extends JPanel implements ImageResizer {
 	private int buttonY;
 
 	public int transitionAlpha;
-	public boolean isTransitioning;
 
 	public MainMenu() {
 		transitionAlpha = 0;
-		isTransitioning = false;
 		//
 		buttonWidth = (int) (456 * Main.scalerX);
 		buttonHeight = (int) (140 * Main.scalerY);
@@ -85,7 +83,7 @@ public class MainMenu extends JPanel implements ImageResizer {
 	protected void paintChildren(Graphics g) {
 		super.paintChildren(g);
 		Graphics2D g2 = (Graphics2D) g;
-		if(isTransitioning) {
+		if(Main.isTransitioning) {
 			g2.setColor(new Color(0, 0, 0, transitionAlpha));
 			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
 			transitionAlpha = transitionAlpha +2;

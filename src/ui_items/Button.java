@@ -95,6 +95,7 @@ public class Button extends JButton implements ImageResizer {
 		});
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				if(Main.isTransitioning) return;
 				if (MainMenu.isSettingsMenuActive && !settingsItem)
 					return;
 				if (type.equalsIgnoreCase("Start"))

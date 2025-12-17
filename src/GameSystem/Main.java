@@ -25,7 +25,9 @@ public class Main {
 	public static JFrame window = new JFrame();
 	public static MainMenu mainMenu = new MainMenu();
 	public static PauseMenu pauseMenu = new PauseMenu();
-	
+	//
+	public static boolean isTransitioning;
+
 	
 	static GamePanel gamePanel;
 	public static MouseAdapter mouseListener;
@@ -44,40 +46,22 @@ public class Main {
 		window.setVisible(true);
 	}
 
-	public static void startGame() {
-		if(mainMenu.isTransitioning) return;
-		mainMenu.isTransitioning = true;
-		javax.swing.Timer timer = new javax.swing.Timer(16, null);
-		timer.addActionListener(new java.awt.event.ActionListener() {
-		    long startTime = -1;
-		    @Override
-		    public void actionPerformed(java.awt.event.ActionEvent e) {
-		        if (startTime == -1) startTime = System.currentTimeMillis();
-		        window.repaint(); 
-		        if (System.currentTimeMillis() - startTime >= 2000) {
-		            timer.stop(); // Stop the animation timer
-		            window.remove(mainMenu);
+	public static void startGameCode() {
+		window.repaint(); 
+            window.remove(mainMenu);
 		            gamePanel = null;
 		            gamePanel = new GamePanel();
 		            window.add(gamePanel);
-
 		            window.revalidate();
 		            window.repaint();
 		            gamePanel.requestFocusInWindow();
 		            gamePanel.startGameThread();
-
 		            pauseMenu = new PauseMenu();
 		            pauseMenu.setOpaque(false);
 		            window.setGlassPane(pauseMenu);
-		            mainMenu.transitionAlpha = 0;
-		            mainMenu.isTransitioning = false;
-		        }
-		    }
-		});
-		timer.start();
 	}
 	
-	public static void reStartGame() {
+	public static void reStartGameCode() {
         gamePanel.stopGameThread();
         window.remove(gamePanel); 
         gamePanel = null;
@@ -131,7 +115,7 @@ public class Main {
 		window.revalidate(); 
 	    window.repaint();
 	}
-	public static void goBackToMainMenu() {
+	public static void goBackToMainMenuCode() {
 		gamePanel.stopGameThread();
 		window.remove(gamePanel);
 		window.add(mainMenu);
@@ -186,6 +170,68 @@ public class Main {
 	    window.repaint();
 		window.setVisible(true);
 	}
+	
+	public static void startGame() {
+		if(isTransitioning) return;
+		isTransitioning = true;
+		javax.swing.Timer timer = new javax.swing.Timer(16, null);
+		timer.addActionListener(new java.awt.event.ActionListener() {
+		    long startTime = -1;
+		    @Override
+		    public void actionPerformed(java.awt.event.ActionEvent e) {
+		        if (startTime == -1) startTime = System.currentTimeMillis();
+		        window.repaint(); 
+		        if (System.currentTimeMillis() - startTime >= 2000) {
+		            timer.stop(); // Stop the animation timer
+		            startGameCode();
+		            mainMenu.transitionAlpha = 0;
+		            isTransitioning = false;
+		        }
+		    }
+		});
+		timer.start();
+	}
 
+	public static void reStartGame() {
+		if(isTransitioning) return;
+		isTransitioning = true;
+		javax.swing.Timer timer = new javax.swing.Timer(16, null);
+		timer.addActionListener(new java.awt.event.ActionListener() {
+		    long startTime = -1;
+		    @Override
+		    public void actionPerformed(java.awt.event.ActionEvent e) {
+		        if (startTime == -1) startTime = System.currentTimeMillis();
+		        window.repaint(); 
+		        if (System.currentTimeMillis() - startTime >= 1500) {
+		            timer.stop(); // Stop the animation timer
+		            reStartGameCode();
+		            pauseMenu.transitionAlpha = 0;
+		            isTransitioning = false;
+		        }
+		    }
+		});
+		timer.start();
+	}
+	
+	public static void goBackToMainMenu() {
+		if(isTransitioning) return;
+		isTransitioning = true;
+		javax.swing.Timer timer = new javax.swing.Timer(16, null);
+		timer.addActionListener(new java.awt.event.ActionListener() {
+		    long startTime = -1;
+		    @Override
+		    public void actionPerformed(java.awt.event.ActionEvent e) {
+		        if (startTime == -1) startTime = System.currentTimeMillis();
+		        window.repaint(); 
+		        if (System.currentTimeMillis() - startTime >= 1200) {
+		            timer.stop(); // Stop the animation timer
+		            goBackToMainMenuCode();
+		            pauseMenu.transitionAlpha = 0;
+		            isTransitioning = false;
+		        }
+		    }
+		});
+		timer.start();
+	}
 
 }
