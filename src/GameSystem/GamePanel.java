@@ -43,7 +43,6 @@ public class GamePanel extends JPanel implements Runnable {
 	private int spawnTick = 0;
 	private int spawnRate = 120;
 	private KillCounter killCounter;
-
 	double delta = 0;
 
 	// --- CONSTRUCTOR ---

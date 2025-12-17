@@ -19,10 +19,13 @@ public class TitlePanel extends JPanel {
 
 	private Timer timer;
 	private double time = 0;
+	
 
 	ImageIcon titleRaw = new ImageIcon(getClass().getResource("/img/title.png"));
 
 	public TitlePanel() {
+
+		//
 		titleWidth = (int) (1050 * Main.scalerX);
 		titleHeight = (int) (600 * Main.scalerY);
 		titleStartWidth = titleWidth;
@@ -75,6 +78,8 @@ public class TitlePanel extends JPanel {
 		if (titleRaw == null)
 			System.out.print("error");
 		g2.drawImage(titleRaw.getImage(), x, y, titleWidth, titleHeight, null);
+		
+			
 	}
 	@Override
     public void removeNotify() {
@@ -83,5 +88,7 @@ public class TitlePanel extends JPanel {
             timer.stop(); // Kills the "Zombie" timer
         }
     }
+	
+	
 
 }

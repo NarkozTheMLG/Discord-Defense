@@ -1,6 +1,11 @@
 package ui_items;
 
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.RenderingHints;
+
 import javax.swing.JPanel;
 import GameSystem.Main;
 import javax.swing.JLabel;
@@ -19,7 +24,13 @@ public class MainMenu extends JPanel implements ImageResizer {
 	private int buttonX;
 	private int buttonY;
 
+	public int transitionAlpha;
+	public boolean isTransitioning;
+
 	public MainMenu() {
+		transitionAlpha = 0;
+		isTransitioning = false;
+		//
 		buttonWidth = (int) (456 * Main.scalerX);
 		buttonHeight = (int) (140 * Main.scalerY);
 		difference = (int) (-150 * Main.scalerY);
@@ -68,5 +79,18 @@ public class MainMenu extends JPanel implements ImageResizer {
 		Main.window.revalidate();
 		Main.window.repaint();
 		Main.window.requestFocus();
+	}
+	
+	@Override
+	protected void paintChildren(Graphics g) {
+		super.paintChildren(g);
+		Graphics2D g2 = (Graphics2D) g;
+		if(isTransitioning) {
+			g2.setColor(new Color(0, 0, 0, transitionAlpha));
+			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+			transitionAlpha = transitionAlpha +2;
+			if(transitionAlpha>=255)
+				transitionAlpha = 255;
+	}
 	}
 }

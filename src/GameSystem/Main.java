@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 
 import ui_items.MainMenu;
 import ui_items.PauseMenu;
+import ui_items.TitlePanel;
 
 public class Main {
 	// 1. THIS IS THE SCREEN SIZE (What the user sees)
@@ -44,19 +45,36 @@ public class Main {
 	}
 
 	public static void startGame() {
-		window.remove(mainMenu);
-		gamePanel = null;
-		gamePanel = new GamePanel();
-		window.add(gamePanel);
+		if(mainMenu.isTransitioning) return;
+		mainMenu.isTransitioning = true;
+		javax.swing.Timer timer = new javax.swing.Timer(16, null);
+		timer.addActionListener(new java.awt.event.ActionListener() {
+		    long startTime = -1;
+		    @Override
+		    public void actionPerformed(java.awt.event.ActionEvent e) {
+		        if (startTime == -1) startTime = System.currentTimeMillis();
+		        window.repaint(); 
+		        if (System.currentTimeMillis() - startTime >= 2000) {
+		            timer.stop(); // Stop the animation timer
+		            window.remove(mainMenu);
+		            gamePanel = null;
+		            gamePanel = new GamePanel();
+		            window.add(gamePanel);
 
-		window.revalidate();
-		window.repaint();
-		gamePanel.requestFocusInWindow();
-		gamePanel.startGameThread();
-		
-		pauseMenu = new PauseMenu();
-		pauseMenu.setOpaque(false);
-		window.setGlassPane(pauseMenu);
+		            window.revalidate();
+		            window.repaint();
+		            gamePanel.requestFocusInWindow();
+		            gamePanel.startGameThread();
+
+		            pauseMenu = new PauseMenu();
+		            pauseMenu.setOpaque(false);
+		            window.setGlassPane(pauseMenu);
+		            mainMenu.transitionAlpha = 0;
+		            mainMenu.isTransitioning = false;
+		        }
+		    }
+		});
+		timer.start();
 	}
 	
 	public static void reStartGame() {
