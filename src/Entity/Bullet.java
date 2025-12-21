@@ -7,7 +7,7 @@ public class Bullet extends Character {
 	public static int bulletDamage = 1;
 
 	public Bullet(double x, double y) {
-		super(x, y, 20, 20);
+		super(x, y, 50, 50);
 		this.hp = 1; // dies if touches sth immediately
 	}
 
