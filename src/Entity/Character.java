@@ -2,9 +2,7 @@ package Entity;
 
 import java.awt.Rectangle;
 
-import GameSystem.Main;
-
-public abstract class Character implements CollisionChecker{
+public abstract class Character implements CollisionChecker {
 
 	// declarations
 	protected double x;
@@ -43,6 +41,7 @@ public abstract class Character implements CollisionChecker{
 	public double getY() {
 		return y;
 	}
+
 	public double getW() {
 		return width;
 	}
@@ -51,11 +50,10 @@ public abstract class Character implements CollisionChecker{
 		return height;
 	}
 
-
 	public boolean isDead() {
-		if (hp <= 0) 
+		if (hp <= 0)
 			return true;
-	
+
 		return false;
 	}
 }

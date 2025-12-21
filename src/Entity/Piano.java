@@ -15,7 +15,7 @@ public class Piano extends Character {
 	// Constructor
 	public Piano(double x, double y) {
 		super(x, y, Lanes.x, Main.HEIGHT); // for now
-		this.hp = 100; 
+		this.hp = 100;
 	}
 
 	// Methods

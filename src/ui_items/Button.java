@@ -81,6 +81,7 @@ public class Button extends JButton implements ImageResizer {
 				setBounds(scaledX, scaledY, scaledW, scaledH);
 				setCursor(new Cursor(Cursor.HAND_CURSOR));
 			}
+
 			public void mouseExited(MouseEvent e) {
 				if (MainMenu.isSettingsMenuActive && !settingsItem)
 					return;
@@ -95,7 +96,8 @@ public class Button extends JButton implements ImageResizer {
 		});
 		this.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(Main.isTransitioning) return;
+				if (Main.isTransitioning)
+					return;
 				if (MainMenu.isSettingsMenuActive && !settingsItem)
 					return;
 				if (type.equalsIgnoreCase("Start"))

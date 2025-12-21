@@ -1,6 +1,5 @@
 package Entity;
 
-import GameSystem.Main;
 import ui_items.Lanes;
 
 public class Bullet extends Character {
@@ -9,7 +8,7 @@ public class Bullet extends Character {
 	public static int bulletDamage = 1;
 
 	public Bullet(double x, double y) {
-		super(x, y,(int) 50, Lanes.laneHeight);
+		super(x, y, (int) 50, Lanes.laneHeight);
 		this.hp = 1; // dies if touches sth immediately
 	}
 
@@ -17,13 +16,13 @@ public class Bullet extends Character {
 	public void update() {
 		this.x += bulletspeed * bulletSpeedMultiplayer;
 		// Enemy hit by bullet
-					for (Enemy e : Enemy.enemyList) {
-						if (this.checkCollision(e)) {
-							System.out.println("Enemy hit by bullet! took " + Bullet.bulletDamage + " damage");
-							e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
-							this.hp -= 1; // Bullet lost its only hp (destroyed)
-						}
-					}
+		for (Enemy e : Enemy.enemyList) {
+			if (this.checkCollision(e)) {
+				System.out.println("Enemy hit by bullet! took " + Bullet.bulletDamage + " damage");
+				e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
+				this.hp -= 1; // Bullet lost its only hp (destroyed)
+			}
+		}
 	}
 
 }

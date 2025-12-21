@@ -50,14 +50,15 @@ public class GameOver extends JPanel implements ImageResizer {
 		valTypeC.setFont(retroFont);
 		valTypeC.setForeground(Color.WHITE);
 
-		scoreLabel.setBounds(Main.WIDTH / 2 + (int)(100*Main.scalerX), Main.HEIGHT / 3+ (int)(65*Main.scalerY), 400, 50);
-		int difference = (int)(105*Main.scalerY);
-		int tableX = Main.WIDTH / 2 + (int)(100*Main.scalerX);
-		int tableY = Main.HEIGHT / 2 +difference ;
+		scoreLabel.setBounds(Main.WIDTH / 2 + (int) (100 * Main.scalerX), Main.HEIGHT / 3 + (int) (65 * Main.scalerY),
+				400, 50);
+		int difference = (int) (105 * Main.scalerY);
+		int tableX = Main.WIDTH / 2 + (int) (100 * Main.scalerX);
+		int tableY = Main.HEIGHT / 2 + difference;
 
 		valTypeA.setBounds(tableX, tableY, 100, 50);
 		valTypeB.setBounds(tableX, tableY + difference, 100, 50);
-		valTypeC.setBounds(tableX, tableY + 2*difference, 100, 50);
+		valTypeC.setBounds(tableX, tableY + 2 * difference, 100, 50);
 
 		Button menuButton = new Button(0, buttonY, buttonWidth, buttonHeight, "buttons/MenuButton", "Menu", false);
 		Button restartButton = new Button(buttonX - buttonWidth, buttonY, buttonWidth, buttonHeight,
@@ -90,7 +91,6 @@ public class GameOver extends JPanel implements ImageResizer {
 		valTypeA.setText(KillCounter.getSpecificTypeKillCount("TypeA") + "");
 		valTypeB.setText(KillCounter.getSpecificTypeKillCount("TypeB") + "");
 		valTypeC.setText(KillCounter.getSpecificTypeKillCount("TypeC") + "");
-		
 
 		this.setVisible(true);
 	}

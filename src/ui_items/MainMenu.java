@@ -4,7 +4,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.RenderingHints;
 
 import javax.swing.JPanel;
 import GameSystem.Main;
@@ -50,10 +49,12 @@ public class MainMenu extends JPanel implements ImageResizer {
 		// Button creation
 		int bw = buttonWidth;
 		int bh = buttonHeight;
-		Button startButton = new Button(buttonX, buttonY + 3 * difference, bw, bh, "buttons/StartButton", "Start",false);
-		Button settingsButton = new Button(buttonX, buttonY + 2 * difference, bw, bh, "buttons/SettingsButton","Settings", false);
+		Button startButton = new Button(buttonX, buttonY + 3 * difference, bw, bh, "buttons/StartButton", "Start",
+				false);
+		Button settingsButton = new Button(buttonX, buttonY + 2 * difference, bw, bh, "buttons/SettingsButton",
+				"Settings", false);
 		Button quitButton = new Button(buttonX, buttonY + difference, bw, bh, "buttons/QuitButton", "Quit", false);
-		Button externalButton = new Button(0, 0, 25, 25, "buttons/StartButton", "External",false);
+		Button externalButton = new Button(0, 0, 25, 25, "buttons/StartButton", "External", false);
 
 		/////////////////////////////////////
 		setLayout(null);
@@ -80,17 +81,17 @@ public class MainMenu extends JPanel implements ImageResizer {
 		Main.window.repaint();
 		Main.window.requestFocus();
 	}
-	
+
 	@Override
 	protected void paintChildren(Graphics g) {
 		super.paintChildren(g);
 		Graphics2D g2 = (Graphics2D) g;
-		if(Main.isTransitioning) {
+		if (Main.isTransitioning) {
 			g2.setColor(new Color(0, 0, 0, transitionAlpha));
 			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-			transitionAlpha = transitionAlpha +3;
-			if(transitionAlpha>=255)
+			transitionAlpha = transitionAlpha + 3;
+			if (transitionAlpha >= 255)
 				transitionAlpha = 255;
-	}
+		}
 	}
 }
