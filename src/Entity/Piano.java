@@ -50,7 +50,7 @@ public class Piano extends Character {
 	public void fire(int laneIndex) {
 		if (EnergyBar.curEnergy >= 0 && !isDead()) {
 			double laneY = laneIndex * Lanes.laneHeight;
-			shot.add(new Bullet(this.width, (laneY + 50 * Main.scalerY) ));
+			shot.add(new Bullet(this.width, laneY));
 			// if it = 0 let 1s delay happen when user wants to shoot so I wrote <0 not <=0
 			if (!(EnergyBar.curEnergy < 0))
 				EnergyBar.curEnergy--;

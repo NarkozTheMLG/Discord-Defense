@@ -200,6 +200,52 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 	
 	}// end of update()
 
+
+
+	// --- DRAW (Rendering) ---
+	@Override
+	public void paintComponent(Graphics g) {
+		super.paintComponent(g);
+	}
+
+	@Override
+	public void paintChildren(Graphics g) { // This draws AFTER the labels dont forget
+		super.paintChildren(g);
+
+		Graphics2D g2 = (Graphics2D) g;
+
+		// DRAW ENEMIES:
+		for (Enemy e : Enemy.enemyList) {
+			if (e != null) {
+				g2.drawImage(e.getCurrentFrame(), (int) e.getX(), (int) e.getY(), null);
+				// null is observer updates for loads we already have it here so no need, it is
+				// null
+			}
+		}
+		// DRAW BULLETS
+		g2.setColor(Color.RED);
+		for (int i = 0; i < Piano.shot.size(); i++) {
+			Bullet b = Piano.shot.get(i);
+			if (b != null) {
+				g2.fillRect((int) b.getX(), (int) b.getY(), (int) b.getW(), (int) b.getH());
+			}
+		}
+			if(isTransitioning) {
+				g2.setColor(new Color(0, 0, 0, transitionAlpha));
+				g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+				transitionAlpha = transitionAlpha +2;
+				if(transitionAlpha>=255) {
+					transitionAlpha = 255;
+					isOver = true;
+				}
+		}
+	}
+
+	private void resetLists() {
+		Enemy.enemyList.removeAll(Enemy.enemyList);
+		Piano.shot.removeAll(Piano.shot);
+	}
+
 	private void pauseKey() {
 		if (keyH.isPressedOnce(KeyEvent.VK_ESCAPE)) {
 			Main.openPauseMenu();
@@ -242,48 +288,5 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 			piano.fire(6);
 
 	}
-
-	// --- DRAW (Rendering) ---
-	@Override
-	public void paintComponent(Graphics g) {
-		super.paintComponent(g);
-	}
-
-	@Override
-	public void paintChildren(Graphics g) { // This draws AFTER the labels dont forget
-		super.paintChildren(g);
-
-		Graphics2D g2 = (Graphics2D) g;
-
-		// DRAW ENEMIES:
-		for (Enemy e : Enemy.enemyList) {
-			if (e != null) {
-				g2.drawImage(e.getCurrentFrame(), (int) e.getX(), (int) e.getY(), null);
-				// null is observer updates for loads we already have it here so no need, it is
-				// null
-			}
-		}
-		// DRAW BULLETS
-		g2.setColor(Color.RED);
-		for (int i = 0; i < Piano.shot.size(); i++) {
-			Bullet b = Piano.shot.get(i);
-			if (b != null) {
-				g2.fillRect((int) b.getX(), (int) b.getY(), 20, 20);
-			}
-		}
-			if(isTransitioning) {
-				g2.setColor(new Color(0, 0, 0, transitionAlpha));
-				g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-				transitionAlpha = transitionAlpha +2;
-				if(transitionAlpha>=255) {
-					transitionAlpha = 255;
-					isOver = true;
-				}
-		}
-	}
-
-	private void resetLists() {
-		Enemy.enemyList.removeAll(Enemy.enemyList);
-		Piano.shot.removeAll(Piano.shot);
-	}
 }
+

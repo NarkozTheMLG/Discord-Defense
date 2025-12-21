@@ -20,7 +20,7 @@ public class Lanes extends JPanel implements ImageResizer{
 		width = (int)(1536 * Main.scalerX);
 		height = (int)(896 * Main.scalerY);
 		laneHeight = (int)((height / laneCount)) ;
-		this.x = (int)(400*Main.scalerX);
+		x = (int)(400*Main.scalerX);
 		//
 		setLayout(new GridLayout(7,1,0,0));
 		setOpaque(false);

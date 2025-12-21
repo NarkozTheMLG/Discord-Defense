@@ -43,6 +43,14 @@ public abstract class Character implements CollisionChecker{
 	public double getY() {
 		return y;
 	}
+	public double getW() {
+		return width;
+	}
+
+	public double getH() {
+		return height;
+	}
+
 
 	public boolean isDead() {
 		if (hp <= 0) 

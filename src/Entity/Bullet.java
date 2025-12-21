@@ -1,5 +1,6 @@
 package Entity;
 
+import ui_items.Lanes;
 
 public class Bullet extends Character {
 	private final int bulletspeed = 10;
@@ -7,7 +8,7 @@ public class Bullet extends Character {
 	public static int bulletDamage = 1;
 
 	public Bullet(double x, double y) {
-		super(x, y, 50, 50);
+		super(x, y, 20, Lanes.laneHeight);
 		this.hp = 1; // dies if touches sth immediately
 	}
 
@@ -17,7 +18,7 @@ public class Bullet extends Character {
 		// Enemy hit by bullet
 					for (Enemy e : Enemy.enemyList) {
 						if (this.checkCollision(e)) {
-							System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage + " damage");
+							System.out.println("Enemy hit by bullet! took " + Bullet.bulletDamage + " damage");
 							e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
 							this.hp -= 1; // Bullet lost its only hp (destroyed)
 						}
