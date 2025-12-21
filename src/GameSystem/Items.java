@@ -51,7 +51,7 @@ public class Items {
 		}
 		case 1:{
         	Bullet.bulletDamage = 3;
-	        Hotbar.damageTimer = 4.0f; 
+	        Hotbar.damageTimer = 8.0f; 
 			break;
 		}
 		case 2:{

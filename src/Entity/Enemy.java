@@ -30,8 +30,8 @@ public abstract class Enemy extends Character {
 		this.curLane = curLane;
 		this.hp = 3; // all enemies have 3 hp default
 		loadAnimation(sheet, frameCount);
-
 		enemyList.add(this);
+		
 	}
 
 	// Methods
