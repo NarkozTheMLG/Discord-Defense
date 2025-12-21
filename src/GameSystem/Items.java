@@ -15,6 +15,7 @@ public class Items {
 	ImageIcon img;
 
 	public Items(int id, int order) {
+		if(order == -9) return;
 		count++;
 		this.id = id;
 		switch (id) {
