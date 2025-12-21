@@ -45,7 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private int spawnRate = 120;
 	private KillCounter killCounter;
 	double delta = 0;
-
+	public static boolean isTransitioning = false;
+	int transitionAlpha = 0;
 	// --- CONSTRUCTOR ---
 	public GamePanel() {
 		resetLists();
@@ -164,6 +165,11 @@ public class GamePanel extends JPanel implements Runnable {
 
 	// --- UPDATE (Logic) ---
 	public void update() {
+		if(piano.isDead()) {
+			isOver = true;
+			Main.gameOver();
+		}
+		
 		hotbar.update();
 		energyBar.updateBars();
 		keyBinds();
@@ -284,6 +290,15 @@ public class GamePanel extends JPanel implements Runnable {
 			if (b != null) {
 				g2.fillRect((int) b.getX(), (int) b.getY(), 20, 20);
 			}
+		}
+			if(isTransitioning) {
+				g2.setColor(new Color(0, 0, 0, transitionAlpha));
+				g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+				transitionAlpha = transitionAlpha +2;
+				if(transitionAlpha>=255) {
+					transitionAlpha = 255;
+					isOver = true;
+				}
 		}
 	}
 

@@ -26,6 +26,7 @@ public class Main {
 	public static JFrame window = new JFrame();
 	public static MainMenu mainMenu = new MainMenu();
 	public static PauseMenu pauseMenu = new PauseMenu();
+	public static GameOver gameOver = new GameOver();
 	//
 	public static boolean isTransitioning;
 
@@ -54,12 +55,15 @@ public class Main {
 		            gamePanel = new GamePanel();
 		            window.add(gamePanel);
 		            window.revalidate();
+		            GamePanel.isOver = false;
 		            window.repaint();
 		            gamePanel.requestFocusInWindow();
 		            gamePanel.startGameThread();
 		            pauseMenu = new PauseMenu();
 		            pauseMenu.setOpaque(false);
 		            window.setGlassPane(pauseMenu);
+		            gameOver = new GameOver();
+		            gameOver.setOpaque(true);
 	}
 	
 	public static void reStartGameCode() {
@@ -77,16 +81,18 @@ public class Main {
 		pauseMenu = new PauseMenu();
 		pauseMenu.setOpaque(false);
 		window.setGlassPane(pauseMenu);
-		
+        gameOver = new GameOver();
+        gameOver.setOpaque(true);
+		if(GamePanel.isOver)
+			GamePanel.isPaused = true;
 		openPauseMenu();
 	}
 	
 	public static void gameOverCode() {
-		GameOver gameOver = new GameOver();
-		gameOver.setVisible(true);
-		window.add(gameOver);
-
-		
+		gamePanel.stopGameThread();
+		window.setGlassPane(gameOver);
+		window.getGlassPane().setVisible(GamePanel.isOver); 
+		gameOver.setVisible(GamePanel.isOver);
 		window.revalidate(); 
 	    window.repaint();
 	}
@@ -133,7 +139,12 @@ public class Main {
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
-		openPauseMenu();
+		if(!GamePanel.isOver)openPauseMenu();
+		else {
+			GamePanel.isOver = false;
+			 gameOverCode();
+			 
+		}
 	}
 
 	/*
@@ -217,6 +228,7 @@ public class Main {
 		            timer.stop(); // Stop the animation timer
 		            reStartGameCode();
 		            pauseMenu.transitionAlpha = 0;
+		            gameOver.transitionAlpha = 0;
 		            isTransitioning = false;
 		        }
 		    }
@@ -246,20 +258,20 @@ public class Main {
 	}
 	
 	public static void gameOver() {
-		if(isTransitioning) return;
-		isTransitioning = true;
+		if(GamePanel.isTransitioning) return;
+		GamePanel.isTransitioning = true;
 		javax.swing.Timer timer = new javax.swing.Timer(16, null);
 		timer.addActionListener(new java.awt.event.ActionListener() {
 		    long startTime = -1;
 		    @Override
 		    public void actionPerformed(java.awt.event.ActionEvent e) {
 		        if (startTime == -1) startTime = System.currentTimeMillis();
-		        gameOverCode();
 		        window.repaint(); 
-		        if (System.currentTimeMillis() - startTime >= 1500) {
+		        if (System.currentTimeMillis() - startTime >= 1200) {
 		            timer.stop(); // Stop the animation timer
-		            pauseMenu.transitionAlpha = 255;
-		            isTransitioning = false;
+		            gameOverCode();
+		            gameOver.transitionAlpha = 0;
+		            GamePanel.isTransitioning = false;
 		        }
 		    }
 		});
