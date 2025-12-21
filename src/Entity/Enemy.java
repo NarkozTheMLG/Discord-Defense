@@ -18,6 +18,8 @@ public abstract class Enemy extends Character {
 	protected int aniIndex; // Frame index for each element in animation array.
 	protected int aniSpeed = 15;
 	public static double enemySpeedMultiplayer = 1;
+	protected int laneChangeCooldown = 30;
+	protected int laneChangeTick = 0;
 	
 	public static BufferedImage imgA, imgB, imgC;
 
@@ -89,19 +91,22 @@ public abstract class Enemy extends Character {
 	public void changeLane() {
 		double chance = 0;
 		
-
-		if (laneChangeRate.equalsIgnoreCase("low"))
-			chance = 0.003;
-		else if (laneChangeRate.equalsIgnoreCase("medium"))
-			chance = 0.005;
-		else if (laneChangeRate.equalsIgnoreCase("high"))
-			chance = 0.007;
-		else
-			System.out.println("invalid laneChangeRate.");
-
-		if (Math.random() < chance) {
-			move();
-		}
+		laneChangeTick++;
+	    if (laneChangeTick == laneChangeCooldown) { //1s cooldown for each enemy type
+			if (laneChangeRate.equalsIgnoreCase("low"))
+				chance = 0.003;
+			else if (laneChangeRate.equalsIgnoreCase("medium"))
+				chance = 0.005;
+			else if (laneChangeRate.equalsIgnoreCase("high"))
+				chance = 0.007;
+			else
+				System.out.println("invalid laneChangeRate.");
+			
+			if (Math.random() < chance) {
+				move();
+			}
+			laneChangeTick = 0;
+	    }
 	}
 
 	public void move() {
