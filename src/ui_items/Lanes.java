@@ -14,7 +14,7 @@ public class Lanes extends JPanel implements ImageResizer{
 	public static int height = (int)(896 * Main.scalerY);
 	final public static int laneCount = 7; 
 	public static int laneHeight = (int)((height / laneCount)) ;
-	public int x = (int)(400*Main.scalerX);
+	public static int x = (int)(400*Main.scalerX);
 	
 	public Lanes() {
 		width = (int)(1536 * Main.scalerX);

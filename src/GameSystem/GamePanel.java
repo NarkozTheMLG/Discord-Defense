@@ -8,6 +8,7 @@ import javax.swing.JPanel;
 
 import ui_items.EnergyBar;
 import ui_items.Hotbar;
+import ui_items.ImageResizer;
 import ui_items.Lanes;
 
 import java.awt.*;
@@ -17,7 +18,7 @@ import java.io.IOException;
 
 import Entity.*;
 
-public class GamePanel extends JPanel implements Runnable {
+public class GamePanel extends JPanel implements Runnable, ImageResizer{
 
 	private static final long serialVersionUID = 1L;
 	// --- 1. SCREEN SETTINGS ---
@@ -41,7 +42,8 @@ public class GamePanel extends JPanel implements Runnable {
 	private Piano piano;
 	// to have delay when spawning enemies:
 	private static int spawnTick = 0;
-	private static int spawnRate = 120;
+	private static int spawnRate = 180;
+	
 	private KillCounter killCounter;
 	double delta = 0;
 	public static boolean isTransitioning = false;
@@ -54,7 +56,10 @@ public class GamePanel extends JPanel implements Runnable {
 		energyBar = new EnergyBar();
 		lanes = new Lanes();
 		background = setUpBackground();
-		piano = new Piano(0, 0); // for now
+		piano = new Piano(0, 0);
+		JLabel pianoImg = new JLabel(ImageResizer.imageResize("/img/piano.png", Lanes.x, Lanes.height));
+		pianoImg.setBounds(0, 0, Lanes.x, Lanes.height);
+		
 		loadEnemyImages();
 		killCounter = new KillCounter();
 
@@ -69,6 +74,7 @@ public class GamePanel extends JPanel implements Runnable {
 		add(hotbar);
 		add(energyBar);
 		add(lanes);
+		add(pianoImg);
 		add(background);
 		this.setVisible(true);
 	}
@@ -104,9 +110,6 @@ public class GamePanel extends JPanel implements Runnable {
 			System.out.println("Error loading enemy images!");
 		}
 	}
-
-	
-
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {
@@ -156,6 +159,7 @@ public class GamePanel extends JPanel implements Runnable {
 			EnergyBar.curEnergy++;
 			oneSecondPassed = false;
 		}
+
 		// UPDATE ENTITIES:
 		piano.update();
 		// Update Enemy
@@ -179,20 +183,11 @@ public class GamePanel extends JPanel implements Runnable {
 				System.out.println("Piano hit by enemy");
 				piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
 			}
-			// Enemy hit by bullet
-			for (int k = 0; k < Piano.shot.size(); k++) {
-				Bullet b = Piano.shot.get(k);
-
-				if (b.checkCollision(e)) {
-					System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage + " damage");
-					e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
-					b.setBulletHp(b.getBulletHp() - 1); // Bullet lost its only hp (destroyed)
-				}
-			}
+			
 		}
 		
 		// ENEMY SPAWN:
-		spawnTick++; // continues until spawnTick is 120 (2s passed)
+		spawnTick++; // continues until spawnTick is 180 (3s passed)
 		if (spawnTick >= spawnRate) { // spawns enemy after 2s
 			Enemy.spawnEnemy();
 			spawnTick = 0; // resets so that it can respawn enemy

@@ -14,13 +14,14 @@ public class Bullet extends Character {
 	@Override
 	public void update() {
 		this.x += bulletspeed * bulletSpeedMultiplayer;
+		// Enemy hit by bullet
+					for (Enemy e : Enemy.enemyList) {
+						if (this.checkCollision(e)) {
+							System.out.println("Enemy hit by bullet! took" + Bullet.bulletDamage + " damage");
+							e.setEnemyHp(e.getEnemyHp() - Bullet.bulletDamage); // Enemy takes damage (3 hits till death)
+							this.hp -= 1; // Bullet lost its only hp (destroyed)
+						}
+					}
 	}
 
-	public int getBulletHp() {
-		return this.hp;
-	}
-
-	public void setBulletHp(int value) {
-		this.hp = value;
-	}
 }

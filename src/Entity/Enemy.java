@@ -21,7 +21,6 @@ public abstract class Enemy extends Character {
 	
 	public static BufferedImage imgA, imgB, imgC;
 
-
 	// Constructor
 	public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sheet,
 			int frameCount) {
@@ -130,10 +129,6 @@ public abstract class Enemy extends Character {
 				 
 			}
 		}
-	}
-	
-	public void updateEnemy() {
-
 	}
 
 	// Getters & Setters
