@@ -30,7 +30,7 @@ public abstract class Enemy extends Character {
 		this.speed = speed;
 		this.laneChangeRate = laneChangeRate;
 		this.curLane = curLane;
-		this.hp = 3; // all enemies have 3 hp default some will change to balance
+		this.hp = 3; //enemies have 3 hp default some will change to balance
 		loadAnimation(sheet, frameCount);
 		enemyList.add(this);
 
