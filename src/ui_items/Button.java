@@ -118,6 +118,9 @@ public class Button extends JButton implements ImageResizer {
 					Main.goBackToMainMenu();
 				else if (type.equalsIgnoreCase("Restart"))
 					Main.reStartGame();
+				else if (type.equalsIgnoreCase("External"))
+					Main.externalFrame.setVisible(true);
+
 			}
 		});
 	}

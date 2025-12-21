@@ -53,9 +53,11 @@ public class MainMenu extends JPanel implements ImageResizer {
 		Button startButton = new Button(buttonX, buttonY + 3 * difference, bw, bh, "buttons/StartButton", "Start",false);
 		Button settingsButton = new Button(buttonX, buttonY + 2 * difference, bw, bh, "buttons/SettingsButton","Settings", false);
 		Button quitButton = new Button(buttonX, buttonY + difference, bw, bh, "buttons/QuitButton", "Quit", false);
+		Button externalButton = new Button(0, 0, 25, 25, "buttons/StartButton", "External",false);
 
 		/////////////////////////////////////
 		setLayout(null);
+		add(externalButton);
 		add(startButton);
 		add(settingsButton);
 		add(quitButton);

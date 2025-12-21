@@ -42,7 +42,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 	private Piano piano;
 	// to have delay when spawning enemies:
 	private static int spawnTick = 0;
-	private static int spawnRate = 180;
+	private static int spawnRate = 240;
 	
 	private KillCounter killCounter;
 	double delta = 0;
@@ -155,7 +155,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		}
 //		piano.setPianoHp(0);
 		if(time % 10 == 0) {
-			if (spawnRate >= 70)
+			if (spawnRate >= 110)
 				spawnRate -= 10;
 		}
 		
@@ -187,7 +187,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 			// Piano hit by enemy
 			if (piano.checkCollision(e) && !piano.isDead()) {
 				Enemy.enemyList.remove(e);
-				System.out.println("Piano hit by enemy");
+				System.out.println("Piano hit by enemy remaining HP: "+piano.getPianoHp() );
 				piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
 			}
 			

@@ -9,6 +9,7 @@ public class TypeA extends Enemy {
 	// Drum Enemy
 	public TypeA(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sheet) {
 		super(x, y, speed, laneChangeRate, curLane, sheet, 4);
+		this.hp = 1;
 	}
 
 	@Override

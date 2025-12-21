@@ -18,9 +18,9 @@ public abstract class Enemy extends Character {
 	protected int aniIndex; // Frame index for each element in animation array.
 	protected int aniSpeed = 15;
 	public static double enemySpeedMultiplayer = 1;
-	protected int laneChangeCooldown = 30;
+	protected int laneChangeCooldown = 240;
 	protected int laneChangeTick = 0;
-	
+
 	public static BufferedImage imgA, imgB, imgC;
 
 	// Constructor
@@ -30,10 +30,10 @@ public abstract class Enemy extends Character {
 		this.speed = speed;
 		this.laneChangeRate = laneChangeRate;
 		this.curLane = curLane;
-		this.hp = 3; // all enemies have 3 hp default
+		this.hp = 3; // all enemies have 3 hp default some will change to balance
 		loadAnimation(sheet, frameCount);
 		enemyList.add(this);
-		
+
 	}
 
 	// Methods
@@ -54,7 +54,7 @@ public abstract class Enemy extends Character {
 			// 0 => starting point for each iteration (y-axis)
 		}
 	}
-	
+
 	public static void spawnEnemy() {
 		int laneIndex = (int) (Math.random() * Lanes.laneCount); // random lane
 		double startY = laneIndex * Lanes.laneHeight; // find starting y coordinate
@@ -90,23 +90,21 @@ public abstract class Enemy extends Character {
 
 	public void changeLane() {
 		double chance = 0;
-		
+
+		if (laneChangeRate.equalsIgnoreCase("low"))
+			chance = 0.003;
+		else if (laneChangeRate.equalsIgnoreCase("medium"))
+			chance = 0.005;
+		else if (laneChangeRate.equalsIgnoreCase("high"))
+			chance = 0.007;
+		else
+			System.out.println("invalid laneChangeRate.");
 		laneChangeTick++;
-	    if (laneChangeTick == laneChangeCooldown) { //1s cooldown for each enemy type
-			if (laneChangeRate.equalsIgnoreCase("low"))
-				chance = 0.003;
-			else if (laneChangeRate.equalsIgnoreCase("medium"))
-				chance = 0.005;
-			else if (laneChangeRate.equalsIgnoreCase("high"))
-				chance = 0.007;
-			else
-				System.out.println("invalid laneChangeRate.");
-			
+		if (laneChangeTick > laneChangeCooldown) // 4s cooldown
 			if (Math.random() < chance) {
 				move();
+				laneChangeTick = 0;
 			}
-			laneChangeTick = 0;
-	    }
 	}
 
 	public void move() {
@@ -117,22 +115,24 @@ public abstract class Enemy extends Character {
 		if (up) {
 			if (curLane >= 0 && curLane < (Lanes.laneCount - 1)) {
 				this.y += Lanes.laneHeight; // go up
-				 System.out.println("moving 1 lane up, new lane: " + ++curLane); 
+				++curLane;
+//				System.out.println("moving 1 lane up, new lane: " + curLane);
 			} else if (curLane == (Lanes.laneCount - 1)) {
 				this.y -= Lanes.laneHeight; // go down
-				
-				 System.out.println("moving 1 lane down due to top, new lane: " + --curLane);
-				 
+				--curLane;
+//				System.out.println("moving 1 lane down due to top, new lane: "+curLane);
+
 			}
 		} else {
 			if (curLane <= (Lanes.laneCount - 1) && curLane != 0) {
 				this.y -= Lanes.laneHeight; // go down
-				 System.out.println("moving 1 lane down, new lane: " + --curLane); 
+				--curLane;
+//				System.out.println("moving 1 lane down, new lane: "+curLane );
 			} else if (curLane == 0) {
 				this.y += Lanes.laneHeight; // go up
-				
-				  System.out.println("moving 1 lane up due to bottom, new lane: " + ++curLane);
-				 
+				++curLane;
+//				System.out.println("moving 1 lane up due to bottom, new lane: " + curLane);
+
 			}
 		}
 	}

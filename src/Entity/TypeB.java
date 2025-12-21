@@ -8,6 +8,7 @@ public class TypeB extends Enemy {
 	//Metronome Enemy
 	public TypeB(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sprite) {
 		super(x, y, speed, laneChangeRate, curLane, sprite, 4);
+		this.hp = 2;
 	}	
 
 	@Override

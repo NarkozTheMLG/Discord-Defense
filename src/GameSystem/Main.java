@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
+import ExternalGUI.ExternalFrame;
 import ui_items.GameOver;
 import ui_items.MainMenu;
 import ui_items.PauseMenu;
@@ -34,6 +35,7 @@ public class Main {
 	static GamePanel gamePanel;
 	public static MouseAdapter mouseListener;
 
+	public static JFrame externalFrame;
 	public static void main(String[] args) {
 		//
 		window.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -46,6 +48,7 @@ public class Main {
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
+		externalFrame = new ExternalFrame();
 	}
 
 	public static void startGameCode() {

@@ -9,13 +9,14 @@ import ui_items.Hotbar;
 
 public class Items {
 	int id;
+	String name;
 	static public int count = 0;
 	private int width;
 	private int height;
 	ImageIcon img;
 
 	public Items(int id, int order) {
-		if(order == -9) return;
+		if(order == -9) count--;
 		count++;
 		this.id = id;
 		switch (id) {
@@ -42,7 +43,6 @@ public class Items {
 			break;
 		}
 	}
-
 	public void use() {
 		switch (id) {
 		case 0: {
