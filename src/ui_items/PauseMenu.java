@@ -21,6 +21,7 @@ public class PauseMenu extends JPanel implements ImageResizer {
 	private int buttonY;
 
 	public int transitionAlpha;
+
 	public PauseMenu() {
 		setLayout(null);
 		//
@@ -35,8 +36,10 @@ public class PauseMenu extends JPanel implements ImageResizer {
 		JLabel pauseScreen = new JLabel(ImageResizer.imageResize("/img/pauseScreen.png", Main.WIDTH, Main.HEIGHT));
 		pauseScreen.setBounds(0, 0, Main.WIDTH, Main.HEIGHT);
 		//
-		Button resumeButton = new Button(buttonX, buttonY + 3 * difference, bw, bh, "buttons/ResumeButton", "Resume",false);
-		Button restartButton = new Button(buttonX, buttonY + 2 * difference, bw, bh, "buttons/RestartButton", "Restart",false);
+		Button resumeButton = new Button(buttonX, buttonY + 3 * difference, bw, bh, "buttons/ResumeButton", "Resume",
+				false);
+		Button restartButton = new Button(buttonX, buttonY + 2 * difference, bw, bh, "buttons/RestartButton", "Restart",
+				false);
 		Button menuButton = new Button(buttonX, buttonY + difference, bw, bh, "buttons/MenuButton", "Menu", false);
 		//
 		add(resumeButton);
@@ -44,18 +47,18 @@ public class PauseMenu extends JPanel implements ImageResizer {
 		add(menuButton);
 		add(pauseScreen);
 	}
-	
+
 	@Override
 	protected void paintChildren(Graphics g) {
 		super.paintChildren(g);
 		Graphics2D g2 = (Graphics2D) g;
-		if(Main.isTransitioning) {
+		if (Main.isTransitioning) {
 			g2.setColor(new Color(0, 0, 0, transitionAlpha));
 			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-			transitionAlpha = transitionAlpha +2;
-			if(transitionAlpha>=255)
+			transitionAlpha = transitionAlpha + 2;
+			if (transitionAlpha >= 255)
 				transitionAlpha = 255;
+		}
 	}
-	}
-	
+
 }

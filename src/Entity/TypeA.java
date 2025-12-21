@@ -2,7 +2,6 @@ package Entity;
 
 import java.awt.image.BufferedImage;
 
-
 public class TypeA extends Enemy {
 
 	// TYPE A: high speed, low lane change

@@ -13,12 +13,11 @@ import ui_items.Lanes;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 import Entity.*;
 
-public class GamePanel extends JPanel implements Runnable, ImageResizer{
+public class GamePanel extends JPanel implements Runnable, ImageResizer {
 
 	private static final long serialVersionUID = 1L;
 	// --- 1. SCREEN SETTINGS ---
@@ -43,13 +42,14 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 	// to have delay when spawning enemies:
 	private static int spawnTick = 0;
 	private static int spawnRate = 240;
-	
+
 	private KillCounter killCounter;
 	double delta = 0;
 	public static boolean isTransitioning = false;
 	int transitionAlpha = 0;
-	
+
 	Image bulletImg;
+
 	// --- CONSTRUCTOR ---
 	public GamePanel() {
 		resetLists();
@@ -61,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		piano = new Piano(0, 0);
 		JLabel pianoImg = new JLabel(ImageResizer.imageResize("/img/piano.png", Lanes.x, Lanes.height));
 		pianoImg.setBounds(0, 0, Lanes.x, Lanes.height);
-		bulletImg = (ImageResizer.imageResize("/img/bullet.png", 96,96).getImage());
+		bulletImg = (ImageResizer.imageResize("/img/bullet.png", 96, 96).getImage());
 		loadEnemyImages();
 		killCounter = new KillCounter();
 
@@ -112,6 +112,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 			System.out.println("Error loading enemy images!");
 		}
 	}
+
 	// --- GAME LOOP (The "Heart") ---
 	@Override
 	public void run() {
@@ -149,16 +150,16 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 
 	// --- UPDATE (Logic) ---
 	public void update() {
-		if(piano.isDead()) {
+		if (piano.isDead()) {
 			isOver = true;
 			Main.gameOver();
 		}
 //		piano.setPianoHp(0);
-		if(time % 10 == 0) {
+		if (time % 10 == 0) {
 			if (spawnRate >= 110)
 				spawnRate -= 10;
 		}
-		
+
 		hotbar.update();
 		energyBar.updateBars();
 		keyBinds();
@@ -187,22 +188,20 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 			// Piano hit by enemy
 			if (piano.checkCollision(e) && !piano.isDead()) {
 				Enemy.enemyList.remove(e);
-				System.out.println("Piano hit by enemy remaining HP: "+piano.getPianoHp() );
+				System.out.println("Piano hit by enemy remaining HP: " + piano.getPianoHp());
 				piano.setPianoHp(piano.getPianoHp() - 10); // reduce piano hp by 10 (10 hits later death)
 			}
-			
+
 		}
-		
+
 		// ENEMY SPAWN:
 		spawnTick++; // continues until spawnTick is 180 (3s passed)
 		if (spawnTick >= spawnRate) { // spawns enemy after 2s
 			Enemy.spawnEnemy();
 			spawnTick = 0; // resets so that it can respawn enemy
 		}
-	
+
 	}// end of update()
-
-
 
 	// --- DRAW (Rendering) ---
 	@Override
@@ -229,18 +228,19 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		for (int i = 0; i < Piano.shot.size(); i++) {
 			Bullet b = Piano.shot.get(i);
 			if (b != null) {
-				g2.drawImage(bulletImg,(int) b.getX(), (int) b.getY()+(int)(96/6*Main.scalerY), (int)(96*Main.scalerX), (int)(96*Main.scalerY), null);
+				g2.drawImage(bulletImg, (int) b.getX(), (int) b.getY() + (int) (96 / 6 * Main.scalerY),
+						(int) (96 * Main.scalerX), (int) (96 * Main.scalerY), null);
 
 			}
 		}
-			if(isTransitioning) {
-				g2.setColor(new Color(0, 0, 0, transitionAlpha));
-				g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-				transitionAlpha = transitionAlpha +2;
-				if(transitionAlpha>=255) {
-					transitionAlpha = 255;
-					isOver = true;
-				}
+		if (isTransitioning) {
+			g2.setColor(new Color(0, 0, 0, transitionAlpha));
+			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
+			transitionAlpha = transitionAlpha + 2;
+			if (transitionAlpha >= 255) {
+				transitionAlpha = 255;
+				isOver = true;
+			}
 		}
 	}
 
@@ -292,4 +292,3 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 
 	}
 }
-

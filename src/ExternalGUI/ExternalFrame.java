@@ -1,8 +1,5 @@
 package ExternalGUI;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -19,9 +16,6 @@ import javax.swing.JLabel;
 
 public class ExternalFrame extends JFrame implements ImageResizer {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JTextField itemIDTF;
@@ -83,7 +77,7 @@ public class ExternalFrame extends JFrame implements ImageResizer {
 		JLabel statusL = new JLabel("StatusLabel");
 		statusL.setBounds(30, 136, 410, 14);
 		contentPane.add(statusL);
-		
+
 		JButton closeB = new JButton("Close");
 		closeB.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -98,15 +92,15 @@ public class ExternalFrame extends JFrame implements ImageResizer {
 				if (itemIDTF.getText().isEmpty())
 					statusL.setText("Enter an ID!!");
 				else {
-					if(Integer.parseInt(itemIDTF.getText()) <0 || Integer.parseInt(itemIDTF.getText())>2)
+					if (Integer.parseInt(itemIDTF.getText()) < 0 || Integer.parseInt(itemIDTF.getText()) > 2)
 						statusL.setText("Enter Between [0-2]");
 					else {
-						
-					if (SystemClass.add(Integer.parseInt(itemIDTF.getText()))) {
-						statusL.setText(
-								"Item " + Integer.parseInt(itemIDTF.getText()) + " has been successfully added!");
-					} else
-						statusL.setText("Item could not be added!");
+
+						if (SystemClass.add(Integer.parseInt(itemIDTF.getText()))) {
+							statusL.setText(
+									"Item " + Integer.parseInt(itemIDTF.getText()) + " has been successfully added!");
+						} else
+							statusL.setText("Item could not be added!");
 					}
 				}
 			}

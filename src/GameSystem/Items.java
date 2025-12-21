@@ -16,26 +16,27 @@ public class Items {
 	ImageIcon img;
 
 	public Items(int id, int order) {
-		if(order == -9) count--;
+		if (order == -9)
+			count--;
 		count++;
 		this.id = id;
 		switch (id) {
 		case 0: {
-			this.width = (int)(70 * Main.scalerX);
-			this.height = (int)(70 * Main.scalerY);
+			this.width = (int) (70 * Main.scalerX);
+			this.height = (int) (70 * Main.scalerY);
 			img = new ImageIcon(getClass().getResource("/img/items/ice.png"));
 			break;
 		}
-		case 1:{
+		case 1: {
 			img = new ImageIcon(getClass().getResource("/img/items/damage.png"));
-			this.width = (int)(128 * Main.scalerX);
-			this.height = (int)(128 * Main.scalerY);
+			this.width = (int) (128 * Main.scalerX);
+			this.height = (int) (128 * Main.scalerY);
 			break;
 		}
-		case 2:{
+		case 2: {
 			img = new ImageIcon(getClass().getResource("/img/items/energy.png"));
-			this.width = (int)(113 *0.6* Main.scalerX);
-			this.height = (int)(174 *0.6* Main.scalerY);
+			this.width = (int) (113 * 0.6 * Main.scalerX);
+			this.height = (int) (174 * 0.6 * Main.scalerY);
 			break;
 		}
 		default:
@@ -43,19 +44,20 @@ public class Items {
 			break;
 		}
 	}
+
 	public void use() {
 		switch (id) {
 		case 0: {
-				Enemy.enemySpeedMultiplayer = 0.1;
-		        Hotbar.slowTimer = 5.0f; 
+			Enemy.enemySpeedMultiplayer = 0.1;
+			Hotbar.slowTimer = 5.0f;
 			break;
 		}
-		case 1:{
-        	Bullet.bulletDamage = 3;
-	        Hotbar.damageTimer = 8.0f; 
+		case 1: {
+			Bullet.bulletDamage = 3;
+			Hotbar.damageTimer = 8.0f;
 			break;
 		}
-		case 2:{
+		case 2: {
 			EnergyBar.increaseEnergy(4);
 
 			break;

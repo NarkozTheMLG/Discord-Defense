@@ -6,7 +6,7 @@ import javax.swing.JPanel;
 
 import GameSystem.Main;
 
-public class EnergyBar extends JPanel implements ImageResizer{
+public class EnergyBar extends JPanel implements ImageResizer {
 	private static final long serialVersionUID = 1L;
 	public static int maxEnergy = 22;
 	public static int curEnergy = -1;
@@ -41,7 +41,7 @@ public class EnergyBar extends JPanel implements ImageResizer{
 		this.setLayout(null);
 		this.setOpaque(false);
 		this.setBounds(0, Main.HEIGHT - height, width, height); // 2175,365
-		//		
+		//
 		JLabel energyBarLabel = new JLabel(ImageResizer.imageResize("/img/energyBar.png", width, height));
 		//
 		energyBarLabel.setBounds(0, 0, width, height);
@@ -59,7 +59,7 @@ public class EnergyBar extends JPanel implements ImageResizer{
 	public void updateBars() {
 		if (curEnergy >= maxEnergy - 1)
 			curEnergy = maxEnergy - 1;
-		else if(curEnergy < -1)
+		else if (curEnergy < -1)
 			curEnergy = -1;
 		for (int i = 0; i <= curEnergy; i++) {
 			bars[i].setVisible(true);
@@ -68,9 +68,9 @@ public class EnergyBar extends JPanel implements ImageResizer{
 			bars[i].setVisible(false);
 		}
 	}
-	
+
 	public static void increaseEnergy(int num) {
-		curEnergy+= num;
+		curEnergy += num;
 	}
 
 	private Color getColor(int i) {
