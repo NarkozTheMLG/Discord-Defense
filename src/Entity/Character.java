@@ -4,7 +4,7 @@ import java.awt.Rectangle;
 
 import GameSystem.Main;
 
-public abstract class Character {
+public abstract class Character implements CollisionChecker{
 
 	// declarations
 	protected double x;

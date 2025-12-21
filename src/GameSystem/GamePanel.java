@@ -37,7 +37,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 	Thread gameThread = null;
 	public static boolean isPaused = false;
 	public static boolean isOver = false;
-	int time = 0;
+	public static int time = 0;
 	public static boolean oneSecondPassed = false;
 	private Piano piano;
 	// to have delay when spawning enemies:
@@ -150,6 +150,11 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		if(piano.isDead()) {
 			isOver = true;
 			Main.gameOver();
+		}
+//		piano.setPianoHp(0);
+		if(time % 10 == 0) {
+			if (spawnRate >= 70)
+				spawnRate -= 10;
 		}
 		
 		hotbar.update();

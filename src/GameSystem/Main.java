@@ -89,6 +89,7 @@ public class Main {
 	}
 	
 	public static void gameOverCode() {
+		gameOver.setupGameOver();
 		gamePanel.stopGameThread();
 		window.setGlassPane(gameOver);
 		window.getGlassPane().setVisible(GamePanel.isOver); 
@@ -135,7 +136,10 @@ public class Main {
 	public static void goBackToMainMenuCode() {
 		gamePanel.stopGameThread();
 		window.remove(gamePanel);
+		mainMenu = new MainMenu();
 		window.add(mainMenu);
+		window.revalidate(); 
+	    window.repaint();
 		window.pack();
 		window.setLocationRelativeTo(null);
 		window.setVisible(true);
