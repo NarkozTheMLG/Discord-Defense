@@ -88,6 +88,7 @@ public abstract class Enemy extends Character {
 
 	public void changeLane() {
 		double chance = 0;
+		
 
 		if (laneChangeRate.equalsIgnoreCase("low"))
 			chance = 0.003;
