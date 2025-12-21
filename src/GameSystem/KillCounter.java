@@ -4,7 +4,7 @@ import java.util.HashMap;
 public class KillCounter {
 
 	//Declare
-	private HashMap<String, Integer> counts;
+	public static HashMap<String, Integer> counts;
 	//Constructor
 	public KillCounter() {
         counts = new HashMap<>();
@@ -22,7 +22,7 @@ public class KillCounter {
         System.out.println("Kill for: " + enemyType + " | Total kill: " + (current + 1));
     }
 
-    public int getSpecificTypeKillCount(String enemyType) {
+    public static int getSpecificTypeKillCount(String enemyType) {
         return counts.getOrDefault(enemyType, 0);
     }
     

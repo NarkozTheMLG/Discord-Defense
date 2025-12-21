@@ -7,6 +7,7 @@ import java.awt.Graphics2D;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import GameSystem.GamePanel;
+import GameSystem.KillCounter;
 import GameSystem.Main;
 
 public class GameOver extends JPanel implements ImageResizer {
@@ -72,7 +73,6 @@ public class GameOver extends JPanel implements ImageResizer {
 	}
 
 	@Override
-
 	protected void paintChildren(Graphics g) {
 		super.paintChildren(g);
 		Graphics2D g2 = (Graphics2D) g;
@@ -87,6 +87,11 @@ public class GameOver extends JPanel implements ImageResizer {
 
 	public void setupGameOver() {
 		scoreLabel.setText("" + GamePanel.time);
+		valTypeA.setText(KillCounter.getSpecificTypeKillCount("TypeA") + "");
+		valTypeB.setText(KillCounter.getSpecificTypeKillCount("TypeB") + "");
+		valTypeC.setText(KillCounter.getSpecificTypeKillCount("TypeC") + "");
+		
+
 		this.setVisible(true);
 	}
 }
