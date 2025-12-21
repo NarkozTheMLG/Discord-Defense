@@ -40,7 +40,7 @@ public class SearchFrame extends JFrame {
 		getContentPane().add(itemPhotoLabel);
 
 		JLabel descLabel = new JLabel("Description:");
-		descLabel.setBounds(271, 86, 61, 13);
+		descLabel.setBounds(271, 86, 76, 13);
 		getContentPane().add(descLabel);
 
 		JTextArea descTF = new JTextArea();
