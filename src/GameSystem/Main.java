@@ -7,6 +7,7 @@ import java.awt.event.MouseEvent;
 
 import javax.swing.JFrame;
 
+import ui_items.GameOver;
 import ui_items.MainMenu;
 import ui_items.PauseMenu;
 import ui_items.TitlePanel;
@@ -78,6 +79,16 @@ public class Main {
 		window.setGlassPane(pauseMenu);
 		
 		openPauseMenu();
+	}
+	
+	public static void gameOverCode() {
+		GameOver gameOver = new GameOver();
+		gameOver.setVisible(true);
+		window.add(gameOver);
+
+		
+		window.revalidate(); 
+	    window.repaint();
 	}
 
 	public static void quitGame() {
@@ -233,5 +244,29 @@ public class Main {
 		});
 		timer.start();
 	}
+	
+	public static void gameOver() {
+		if(isTransitioning) return;
+		isTransitioning = true;
+		javax.swing.Timer timer = new javax.swing.Timer(16, null);
+		timer.addActionListener(new java.awt.event.ActionListener() {
+		    long startTime = -1;
+		    @Override
+		    public void actionPerformed(java.awt.event.ActionEvent e) {
+		        if (startTime == -1) startTime = System.currentTimeMillis();
+		        gameOverCode();
+		        window.repaint(); 
+		        if (System.currentTimeMillis() - startTime >= 1500) {
+		            timer.stop(); // Stop the animation timer
+		            pauseMenu.transitionAlpha = 255;
+		            isTransitioning = false;
+		        }
+		    }
+		});
+		timer.start();
+	}
+	
+	
+	
 
 }

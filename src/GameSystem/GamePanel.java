@@ -35,6 +35,7 @@ public class GamePanel extends JPanel implements Runnable {
 	JLabel background;
 	Thread gameThread = null;
 	public static boolean isPaused = false;
+	public static boolean isOver = false;
 	int time = 0;
 	public static boolean oneSecondPassed = false;
 	private Piano piano;
@@ -107,7 +108,7 @@ public class GamePanel extends JPanel implements Runnable {
 	public void spawnEnemy() {
 		int laneIndex = (int) (Math.random() * Lanes.laneCount); // random lane
 		double startY = laneIndex * Lanes.laneHeight; // find starting y coordinate
-		double startX = Main.WIDTH + 50; // make sure the spawn is beyond screen by + 50
+		double startX = Main.WIDTH + 50; // making sure the spawn is beyond screen by + 50
 
 		// Find Enemy Type
 		int type = (int) (Math.random() * 3);

@@ -2,6 +2,8 @@ package Entity;
 
 import java.awt.Rectangle;
 
+import GameSystem.Main;
+
 public abstract class Character {
 
 	// declarations
@@ -43,8 +45,10 @@ public abstract class Character {
 	}
 
 	public boolean isDead() {
-		if (hp <= 0)
+		if (hp <= 0) {
+			Main.gameOver();
 			return true;
+		}
 		return false;
 	}
 }

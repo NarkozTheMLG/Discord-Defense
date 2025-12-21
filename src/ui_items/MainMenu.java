@@ -86,7 +86,7 @@ public class MainMenu extends JPanel implements ImageResizer {
 		if(Main.isTransitioning) {
 			g2.setColor(new Color(0, 0, 0, transitionAlpha));
 			g2.fillRect(0, 0, Main.WIDTH, Main.HEIGHT);
-			transitionAlpha = transitionAlpha +2;
+			transitionAlpha = transitionAlpha +3;
 			if(transitionAlpha>=255)
 				transitionAlpha = 255;
 	}
