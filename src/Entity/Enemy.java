@@ -3,6 +3,7 @@ package Entity;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
+import GameSystem.Main;
 import ui_items.Lanes;
 
 public abstract class Enemy extends Character {
@@ -17,6 +18,9 @@ public abstract class Enemy extends Character {
 	protected int aniIndex; // Frame index for each element in animation array.
 	protected int aniSpeed = 15;
 	public static double enemySpeedMultiplayer = 1;
+	
+	public static BufferedImage imgA, imgB, imgC;
+
 
 	// Constructor
 	public Enemy(double x, double y, double speed, String laneChangeRate, int curLane, BufferedImage sheet,
@@ -47,6 +51,27 @@ public abstract class Enemy extends Character {
 			animation[i] = sheet.getSubimage(i * frameWidth, 0, frameWidth, frameHeight); // crop the img using subimage
 			// i * frameWidth => starting point for each iteration (x-axis)
 			// 0 => starting point for each iteration (y-axis)
+		}
+	}
+	
+	public static void spawnEnemy() {
+		int laneIndex = (int) (Math.random() * Lanes.laneCount); // random lane
+		double startY = laneIndex * Lanes.laneHeight; // find starting y coordinate
+		double startX = Main.WIDTH + 50; // making sure the spawn is beyond screen by + 50
+
+		// Find Enemy Type
+		int type = (int) (Math.random() * 3);
+
+		switch (type) {
+		case 0:
+			new TypeA(startX, startY, 1.0, "Low", laneIndex, imgA); // Enemy obj creation here
+			break;
+		case 1:
+			new TypeB(startX, startY, 0.5, "Medium", laneIndex, imgB);
+			break;
+		case 2:
+			new TypeC(startX, startY, 0.3, "High", laneIndex, imgC);
+			break;
 		}
 	}
 
@@ -105,6 +130,10 @@ public abstract class Enemy extends Character {
 				 
 			}
 		}
+	}
+	
+	public void updateEnemy() {
+
 	}
 
 	// Getters & Setters

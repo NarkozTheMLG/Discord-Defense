@@ -39,10 +39,9 @@ public class GamePanel extends JPanel implements Runnable {
 	int time = 0;
 	public static boolean oneSecondPassed = false;
 	private Piano piano;
-	private BufferedImage imgA, imgB, imgC;
 	// to have delay when spawning enemies:
-	private int spawnTick = 0;
-	private int spawnRate = 120;
+	private static int spawnTick = 0;
+	private static int spawnRate = 120;
 	private KillCounter killCounter;
 	double delta = 0;
 
@@ -96,36 +95,16 @@ public class GamePanel extends JPanel implements Runnable {
 
 	private void loadEnemyImages() {
 		try {
-			imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
-			imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
-			imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
+			Enemy.imgA = ImageIO.read(getClass().getResourceAsStream("/img/enemies/drum.png"));
+			Enemy.imgB = ImageIO.read(getClass().getResourceAsStream("/img/enemies/metronome.png"));
+			Enemy.imgC = ImageIO.read(getClass().getResourceAsStream("/img/enemies/greenSlime.png"));
 		} catch (IOException e) {
 			e.printStackTrace();
 			System.out.println("Error loading enemy images!");
 		}
 	}
 
-	public void spawnEnemy() {
-		int laneIndex = (int) (Math.random() * Lanes.laneCount); // random lane
-		double startY = laneIndex * Lanes.laneHeight; // find starting y coordinate
-		double startX = Main.WIDTH + 50; // making sure the spawn is beyond screen by + 50
-
-		// Find Enemy Type
-		int type = (int) (Math.random() * 3);
-
-		switch (type) {
-		case 0:
-			new TypeA(startX, startY, 1.0, "Low", laneIndex, imgA); // Enemy obj creation here
-			break;
-		case 1:
-			new TypeB(startX, startY, 0.5, "Medium", laneIndex, imgB);
-			break;
-		case 2:
-			new TypeC(startX, startY, 0.3, "High", laneIndex, imgC);
-			break;
-		}
-
-	}
+	
 
 	// --- GAME LOOP (The "Heart") ---
 	@Override
@@ -172,7 +151,6 @@ public class GamePanel extends JPanel implements Runnable {
 			oneSecondPassed = false;
 		}
 		// UPDATE ENTITIES:
-		// Update piano
 		piano.update();
 		// Update Enemy
 		for (int i = 0; i < Enemy.enemyList.size(); i++) {
@@ -206,12 +184,14 @@ public class GamePanel extends JPanel implements Runnable {
 				}
 			}
 		}
+		
 		// ENEMY SPAWN:
 		spawnTick++; // continues until spawnTick is 120 (2s passed)
 		if (spawnTick >= spawnRate) { // spawns enemy after 2s
-			spawnEnemy();
+			Enemy.spawnEnemy();
 			spawnTick = 0; // resets so that it can respawn enemy
 		}
+	
 	}// end of update()
 
 	private void pauseKey() {
