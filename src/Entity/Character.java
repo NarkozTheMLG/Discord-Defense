@@ -45,10 +45,9 @@ public abstract class Character {
 	}
 
 	public boolean isDead() {
-		if (hp <= 0) {
-			Main.gameOver();
+		if (hp <= 0) 
 			return true;
-		}
+	
 		return false;
 	}
 }
