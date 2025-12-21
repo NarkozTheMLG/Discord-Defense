@@ -48,6 +48,8 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 	double delta = 0;
 	public static boolean isTransitioning = false;
 	int transitionAlpha = 0;
+	
+	Image bulletImg;
 	// --- CONSTRUCTOR ---
 	public GamePanel() {
 		resetLists();
@@ -59,7 +61,7 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		piano = new Piano(0, 0);
 		JLabel pianoImg = new JLabel(ImageResizer.imageResize("/img/piano.png", Lanes.x, Lanes.height));
 		pianoImg.setBounds(0, 0, Lanes.x, Lanes.height);
-		
+		bulletImg = (ImageResizer.imageResize("/img/bullet.png", 96,96).getImage());
 		loadEnemyImages();
 		killCounter = new KillCounter();
 
@@ -227,7 +229,8 @@ public class GamePanel extends JPanel implements Runnable, ImageResizer{
 		for (int i = 0; i < Piano.shot.size(); i++) {
 			Bullet b = Piano.shot.get(i);
 			if (b != null) {
-				g2.fillRect((int) b.getX(), (int) b.getY(), (int) b.getW(), (int) b.getH());
+				g2.drawImage(bulletImg,(int) b.getX(), (int) b.getY()+(int)(96/6*Main.scalerY), (int)(96*Main.scalerX), (int)(96*Main.scalerY), null);
+
 			}
 		}
 			if(isTransitioning) {

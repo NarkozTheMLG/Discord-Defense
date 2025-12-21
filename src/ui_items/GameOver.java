@@ -87,7 +87,6 @@ public class GameOver extends JPanel implements ImageResizer {
 
 	public void setupGameOver() {
 		scoreLabel.setText("" + GamePanel.time);
-
 		this.setVisible(true);
 	}
 }

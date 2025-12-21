@@ -1,5 +1,6 @@
 package Entity;
 
+import GameSystem.Main;
 import ui_items.Lanes;
 
 public class Bullet extends Character {
@@ -8,7 +9,7 @@ public class Bullet extends Character {
 	public static int bulletDamage = 1;
 
 	public Bullet(double x, double y) {
-		super(x, y, 20, Lanes.laneHeight);
+		super(x, y,(int) 50, Lanes.laneHeight);
 		this.hp = 1; // dies if touches sth immediately
 	}
 
