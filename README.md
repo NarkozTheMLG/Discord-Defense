@@ -12,3 +12,7 @@ Item Usage: C, V, B, N, M
 Language: Java
 IDE: Eclipse
 Architecture: Custom Game Loop and OOP
+
+
+How to play?
+Run DiscordDefense.jar
